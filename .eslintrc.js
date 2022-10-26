@@ -50,6 +50,7 @@ module.exports = {
 
     'react/prop-types': 0,
     'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'arrow-body-style': 'off',
     'prefer-arrow-callback': 'off',
     'react/react-in-jsx-scope': 'off',
