@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'styles/index.scss';
 
-import NavBar from 'components/shared/NavBar';
+import NavBar from 'components/shared/Navbar';
 import Hero from 'components/shared/Hero';
 import Footer from 'components/shared/Footer';
 

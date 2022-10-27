@@ -1,0 +1,124 @@
+.wrapper {
+  width: 100vw;
+  margin: 0;
+  padding: 0 1rem;
+  background-color: #141618;
+}
+
+.wrapper nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 83rem;
+  padding: 1rem 0;
+}
+
+.rightNav {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.rightNav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+
+.rightNav li:not(.button) {
+  padding: 10px 16px;
+  margin-right: 3px;
+  color: #FFFFFF;
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+.rightNav li:hover:not(.button) {
+  opacity: 0.75;
+}
+
+.rightNav li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.button {
+  padding: 8px;
+  background-color: #28a745;
+  border-radius: 5px;
+  color: #FFFFFF;
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.burger {
+  display: none;
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.burger div {
+  width: 100%;
+  height: 0.2rem;
+  background-color: #FFFFFF;
+  opacity: 0.5;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding-left: 2rem;
+  }
+  .wrapper nav {
+    flex-flow: column nowrap;
+    align-items: start;
+  }
+
+  .rightNav {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .open {
+    display: flex;
+  }
+
+  .rightNav ul {
+    flex-flow: column wrap;
+    align-items: start;
+    width: 100%;
+  }
+
+  .rightNav li:not(.button) {
+    padding-left: 0;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .burger {
+    display: flex;
+  }
+}
