@@ -1,10 +1,10 @@
 const express = require('express');
 const next = require('next');
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+
+const { ApolloServer, gql } = require('apollo-server-express');
 
 // Resolvers
-const { portfolioResolvers } = require('./graphql/resolvers');
+const { portfolioQueries, portfolioMutations } = require('./graphql/resolvers');
 // Types
 const { portfolioTypes } = require('./graphql/types');
 
@@ -13,31 +13,39 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
+app.prepare().then(async () => {
   const server = express();
 
-  const schema = buildSchema(`
+  const typeDefs = gql`
     ${portfolioTypes}
 
     type Query {
-      hello: String
       portfolio(id: ID): Portfolio
       portfolios: [Portfolio]
     }
-  `);
 
-  const root = {
-    ...portfolioResolvers
+    type Mutation {
+      createPortfolio(input: PortfolioInput): Portfolio
+      updatePortfolio(id: ID, input: PortfolioInput): Portfolio
+      deletePortfolio(id: ID): ID
+    }
+  `;
+
+  const resolvers = {
+    Query: {
+      ...portfolioQueries
+    },
+    Mutation: {
+      ...portfolioMutations
+    }
   };
 
-  server.use(
-    '/graphql',
-    graphqlHTTP({
-      schema,
-      rootValue: root,
-      graphiql: true
-    })
-  );
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers
+  });
+  await apolloServer.start();
+  apolloServer.applyMiddleware({ app: server });
 
   server.all('*', (req, res) => {
     return handle(req, res);

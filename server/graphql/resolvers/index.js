@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 const data = {
   portfolios: [
     {
@@ -36,9 +38,35 @@ const data = {
   ]
 };
 
-exports.portfolioResolvers = {
-  portfolio: ({ id }) => {
+exports.portfolioQueries = {
+  portfolio: (root, { id }) => {
     return data.portfolios.find((portfolio) => portfolio.id === id);
   },
   portfolios: () => data.portfolios
+};
+
+exports.portfolioMutations = {
+  createPortfolio: async (root, { input }) => {
+    const id = crypto.randomBytes(10).toString('hex');
+    const newPortfolio = {
+      ...input,
+      id
+    };
+    data.portfolios.push(newPortfolio);
+    return newPortfolio;
+  },
+  updatePortfolio: (root, { id, input }) => {
+    const index = data.portfolios.findIndex((p) => p.id === id);
+    const updated = {
+      ...data.portfolios[index],
+      ...input
+    };
+    data.portfolios[index] = updated;
+    return updated;
+  },
+  deletePortfolio: (root, { id }) => {
+    const index = data.portfolios.findIndex((p) => p.id === id);
+    data.portfolios.splice(index, 1);
+    return id;
+  }
 };
