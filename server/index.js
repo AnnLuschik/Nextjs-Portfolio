@@ -3,65 +3,21 @@ const next = require('next');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
+// Resolvers
+const { portfolioResolvers } = require('./graphql/resolvers');
+// Types
+const { portfolioTypes } = require('./graphql/types');
+
 const port = parseInt(process.env.port, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const data = {
-  portfolios: [
-    {
-      id: 'sad87da79',
-      title: 'Job in Netcentric',
-      company: 'Netcentric',
-      companyWebsite: 'www.google.com',
-      location: 'Spain, Barcelona',
-      jobTitle: 'Engineer',
-      description: 'Doing something, programming....',
-      startDate: '01/01/2014',
-      endDate: '01/01/2016'
-    },
-    {
-      id: 'da789ad1',
-      title: 'Job in Siemens',
-      company: 'Siemens',
-      companyWebsite: 'www.google.com',
-      location: 'Slovakia, Kosice',
-      jobTitle: 'Software Engineer',
-      description: 'Responsible for parsing framework for JSON medical data.',
-      startDate: '01/01/2011',
-      endDate: '01/01/2013'
-    },
-    {
-      id: 'sadcxv9',
-      title: 'Work in USA',
-      company: 'WhoKnows',
-      companyWebsite: 'www.google.com',
-      location: 'USA, Montana',
-      jobTitle: 'Housekeeping',
-      description: 'So much responsibility....Overloaaaaaad',
-      startDate: '01/01/2010',
-      endDate: '01/01/2011'
-    }
-  ]
-};
-
 app.prepare().then(() => {
   const server = express();
 
   const schema = buildSchema(`
-
-    type Portfolio {
-      id: ID!
-      title: String
-      company: String
-      companyWebsite: String
-      location: String
-      jobTitle: String
-      description: String
-      startDate: String
-      endDate: String
-    }
+    ${portfolioTypes}
 
     type Query {
       hello: String
@@ -71,11 +27,7 @@ app.prepare().then(() => {
   `);
 
   const root = {
-    hello: () => 'Hello world',
-    portfolio: ({ id }) => {
-      return data.portfolios.find((portfolio) => portfolio.id === id);
-    },
-    portfolios: () => data.portfolios
+    ...portfolioResolvers
   };
 
   server.use(
