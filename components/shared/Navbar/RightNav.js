@@ -6,21 +6,31 @@ const RightNav = ({ open }) => {
     <div className={`${styles.rightNav} ${open ? styles.open : ''}`}>
       <ul>
         <li>
-          <Link href="/portfolios">Portfolios</Link>
+          <Link href="/portfolios">
+            <a>Portfolios</a>
+          </Link>
         </li>
         <li>
-          <Link href="/forum/categories">Forum</Link>
+          <Link href="/forum/categories">
+            <a>Forum</a>
+          </Link>
         </li>
         <li>
-          <Link href="/cv">Cv</Link>
+          <Link href="/cv">
+            <a>Cv</a>
+          </Link>
         </li>
       </ul>
       <ul>
         <li>
-          <Link href="/login">Sign In</Link>
+          <Link href="/login">
+            <a>Sign In</a>
+          </Link>
         </li>
         <li className={styles.button}>
-          <Link href="/register">Sign Up</Link>
+          <Link href="/register">
+            <a>Sign Up</a>
+          </Link>
         </li>
       </ul>
     </div>

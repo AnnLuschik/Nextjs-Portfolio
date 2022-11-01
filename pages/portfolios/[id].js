@@ -1,31 +1,14 @@
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { getDataFromTree } from '@apollo/react-ssr';
 
-import { fetchPortfolios } from './index';
+import { GET_PORTFOLIO } from 'apollo/queries';
+import withApollo from 'hoc/withApollo';
 
-const fetchPortfolioById = async (id) => {
-  const query = `query Portfolio ($id: ID) {
-    portfolio (id: $id) {
-      title
-      companyWebsite
-      location
-      jobTitle
-      description
-      startDate
-      endDate
-    }
-  }`;
+const PortfolioDetail = ({ query }) => {
+  const { data } = useQuery(GET_PORTFOLIO, { variables: { id: query.id } });
+  const portfolio = (data && data.portfolio) || {};
 
-  const variables = {
-    id
-  };
-
-  return axios
-    .post('http://localhost:3000/graphql', { query, variables })
-    .then(({ data: graph }) => graph.data)
-    .then((data) => data.portfolio);
-};
-
-const PortfolioDetail = ({ portfolio }) => {
   return (
     <div className="portfolio-detail">
       <div className="container">
@@ -71,22 +54,8 @@ const PortfolioDetail = ({ portfolio }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const portfolios = await fetchPortfolios();
-  const ids = portfolios.map((item) => ({ params: { id: item.id } }));
+PortfolioDetail.getInitialProps = async ({ query }) => {
+  return { query };
+};
 
-  return {
-    paths: [...ids],
-    fallback: false
-  };
-}
-
-export async function getStaticProps({ params }) {
-  const portfolio = await fetchPortfolioById(params.id);
-
-  return {
-    props: { portfolio }
-  };
-}
-
-export default PortfolioDetail;
+export default withApollo(PortfolioDetail, { getDataFromTree });
