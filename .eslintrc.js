@@ -31,6 +31,8 @@ module.exports = {
       }
     ],
 
+    'class-methods-use-this': 0,
+
     'jsx-a11y/label-has-associated-control': [
       'error',
       {

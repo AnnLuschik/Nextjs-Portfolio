@@ -3,10 +3,11 @@ const next = require('next');
 
 const { ApolloServer, gql } = require('apollo-server-express');
 
-// Resolvers
 const { portfolioQueries, portfolioMutations } = require('./graphql/resolvers');
-// Types
 const { portfolioTypes } = require('./graphql/types');
+
+// Connect to database
+require('./db').connect();
 
 const port = parseInt(process.env.port, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
