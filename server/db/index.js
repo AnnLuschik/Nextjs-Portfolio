@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const config = require('../config/dev');
 
 require('./models/portfolio');
+require('./models/user');
 
 exports.connect = () => {
   mongoose
