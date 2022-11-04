@@ -1,10 +1,12 @@
-const { portfolios } = require('./data');
+const { portfolios, users } = require('./data');
 
 const Portfolio = require('../db/models/portfolio');
+const User = require('../db/models/user');
 
 class FakeDb {
   async clean() {
     try {
+      await User.deleteMany({});
       await Portfolio.deleteMany({});
     } catch (error) {
       console.log(error);
@@ -13,6 +15,7 @@ class FakeDb {
 
   async addData() {
     try {
+      await User.create(users);
       await Portfolio.create(portfolios);
     } catch (error) {
       console.log(error);
