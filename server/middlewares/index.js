@@ -1,7 +1,11 @@
+/* eslint-disable global-require */
 const session = require('express-session');
-const config = require('./config/dev');
+const passport = require('passport');
+const config = require('../config/dev');
 
 exports.init = (server, db) => {
+  require('./passport').init(passport);
+
   const sess = {
     name: 'portfolio-session',
     secret: config.SESSION_SECRET,
