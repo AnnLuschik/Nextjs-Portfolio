@@ -28,7 +28,8 @@
     "passport": "^0.4.1",
     "passport-strategy": "^1.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.39.1"
   },
   "scripts": {
     "dev": "nodemon --watch server server/index.js",
