@@ -31,6 +31,9 @@ module.exports = {
       }
     ],
     'no-debugger': 0,
+    'no-useless-escape': 0,
+    'func-names': 0,
+    'consistent-return': 0,
 
     'class-methods-use-this': 0,
 

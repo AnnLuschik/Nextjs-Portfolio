@@ -1,10 +1,13 @@
+/* eslint-disable global-require */
+/* eslint-disable no-console */
 const express = require('express');
 const next = require('next');
-
 const { createApolloServer } = require('./graphql');
 
+const db = require('./db');
+
 // Connect to database
-require('./db').connect();
+db.connect();
 
 const port = parseInt(process.env.port, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -13,6 +16,8 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(async () => {
   const server = express();
+
+  require('./middlewares').init(server, db);
 
   const apolloServer = createApolloServer();
 
