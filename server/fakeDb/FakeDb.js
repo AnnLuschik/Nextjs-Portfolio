@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { portfolios, users } = require('./data');
 
 const Portfolio = require('../db/models/portfolio');

@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const { ApolloServer, gql } = require('apollo-server-express');
+const {
+  ApolloServerPluginLandingPageGraphQLPlayground
+} = require('apollo-server-core');
 
 const {
   portfolioQueries,
@@ -29,7 +32,7 @@ exports.createApolloServer = () => {
 
       signUp(input: SignUpInput): String
       signIn(input: SignInInput): User
-      signOut: String
+      signOut: Boolean
     }
   `;
 
@@ -46,8 +49,9 @@ exports.createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => ({
-      ...buildAuthContext(),
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+    context: ({ req }) => ({
+      ...buildAuthContext(req),
       models: {
         Portfolio: new Portfolio(mongoose.model('Portfolio')),
         User: new User(mongoose.model('User'))

@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-const authenticateUser = (options) => {
+const authenticateUser = (req, options) => {
   return new Promise((resolve, reject) => {
     const done = (error, user) => {
       if (error) {
@@ -8,7 +8,12 @@ const authenticateUser = (options) => {
       }
 
       if (user) {
-        return resolve(user);
+        req.login(user, (error) => {
+          if (error) {
+            return reject(new Error(error));
+          }
+          return resolve(user);
+        });
       }
       return reject(new Error('Invalid passport or email'));
     };
@@ -18,11 +23,14 @@ const authenticateUser = (options) => {
   });
 };
 
-exports.buildAuthContext = () => {
+exports.buildAuthContext = (req) => {
   const auth = {
     authenticate: (options) => {
-      return authenticateUser(options);
-    }
+      return authenticateUser(req, options);
+    },
+    logout: () => req.logout(),
+    isAuthenticated: () => req.isAuthenticated(),
+    getUser: () => req.user
   };
 
   return auth;
