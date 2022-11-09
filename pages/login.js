@@ -1,33 +1,37 @@
-const Login = () => (
-  <>
-    <section className="section-title">
-      <div className="px-2">
-        <div className="pt-5 pb-4">
-          <h1>Login Page</h1>
-        </div>
-      </div>
-    </section>
-    <div className="bwm-form">
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import LoginForm from 'components/forms/LoginForm';
+import withApollo from 'hoc/withApollo';
+import { useSignIn } from 'apollo/hooks';
+import { getErrorMessage } from 'helpers';
+
+const Login = () => {
+  const router = useRouter();
+  const [signIn, { data, error, loading }] = useSignIn();
+
+  useEffect(() => {
+    if (data && data.signIn) {
+      router.push('/');
+    }
+  }, [data]);
+
+  return (
+    <div className="bwm-form mt-5">
       <div className="row">
         <div className="col-md-5 mx-auto">
           <h1 className="page-title">Login</h1>
-          <form>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" className="form-control" id="email" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" />
-            </div>
-            <button type="submit" className="btn btn-main bg-blue py-2 ttu">
-              Submit
-            </button>
-          </form>
+          <LoginForm
+            onSubmit={(signInData) => signIn({ variables: signInData })}
+            isLoading={loading}
+          />
+          {error && (
+            <div className="alert alert-danger">{getErrorMessage(error)}</div>
+          )}
         </div>
       </div>
     </div>
-  </>
-);
+  );
+};
 
-export default Login;
+export default withApollo(Login);

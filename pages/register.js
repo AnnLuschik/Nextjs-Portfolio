@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import RegisterForm from 'components/forms/RegisterForm';
 import { SIGN_UP } from 'apollo/mutations/index';
 import withApollo from 'hoc/withApollo';
+import { getErrorMessage } from 'helpers';
 
 const Register = () => {
   const router = useRouter();
@@ -20,13 +21,6 @@ const Register = () => {
     }
   }, [data]);
 
-  const errorMessage = (err) => {
-    return (
-      (err.graphQLErrors && err.graphQLErrors[0].message) ||
-      'Something went wrong'
-    );
-  };
-
   return (
     <div className="bwm-form mt-5">
       <div className="row">
@@ -34,7 +28,7 @@ const Register = () => {
           <h1 className="page-title">Register</h1>
           <RegisterForm onSubmit={register} isLoading={loading} />
           {error && (
-            <div className="alert alert-danger">{errorMessage(error)}</div>
+            <div className="alert alert-danger">{getErrorMessage(error)}</div>
           )}
         </div>
       </div>
