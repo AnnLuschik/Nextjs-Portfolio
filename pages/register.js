@@ -1,8 +1,30 @@
+import { useEffect } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { useRouter } from 'next/router';
+
 import RegisterForm from 'components/forms/RegisterForm';
+import { SIGN_UP } from 'apollo/mutations/index';
+import withApollo from 'hoc/withApollo';
 
 const Register = () => {
-  const register = (data) => {
-    alert(JSON.stringify(data));
+  const router = useRouter();
+  const [signUpUser, { data, error, loading }] = useMutation(SIGN_UP);
+
+  const register = (registerData) => {
+    signUpUser({ variables: registerData });
+  };
+
+  useEffect(() => {
+    if (data && data.signUp) {
+      router.push('/login');
+    }
+  }, [data]);
+
+  const errorMessage = (err) => {
+    return (
+      (err.graphQLErrors && err.graphQLErrors[0].message) ||
+      'Something went wrong'
+    );
   };
 
   return (
@@ -10,11 +32,14 @@ const Register = () => {
       <div className="row">
         <div className="col-md-5 mx-auto">
           <h1 className="page-title">Register</h1>
-          <RegisterForm onSubmit={register} />
+          <RegisterForm onSubmit={register} isLoading={loading} />
+          {error && (
+            <div className="alert alert-danger">{errorMessage(error)}</div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default withApollo(Register);

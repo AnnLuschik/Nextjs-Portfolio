@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import LoadingButton from '@mui/lab/LoadingButton';
 
-const RegisterForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit, isLoading }) => {
   const { register, handleSubmit } = useForm();
 
   return (
@@ -52,9 +52,9 @@ const RegisterForm = ({ onSubmit }) => {
           {...register('passwordConfirmation')}
         />
       </div>
-      <button type="submit" className="btn btn-main bg-blue py-2 ttu mt-2">
+      <LoadingButton loading={isLoading} variant="contained" type="submit">
         Submit
-      </button>
+      </LoadingButton>
     </form>
   );
 };
