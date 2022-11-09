@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.rightNav li:hover:not(.button) {
+.rightNav li:hover:not(.button, span) {
   opacity: 0.75;
 }
 
@@ -58,6 +58,10 @@
 
 .button:hover {
   opacity: 1;
+}
+
+.alert {
+  background-color: #dc3545;
 }
 
 .burger {
