@@ -34,11 +34,11 @@
   padding: 10px 16px;
   margin-right: 3px;
   color: #FFFFFF;
-  opacity: 0.55;
+  opacity: 0.75;
   cursor: pointer;
 }
 
-.rightNav li:hover:not(.button, span) {
+.rightNav li:hover:not(.button) a {
   opacity: 0.75;
 }
 

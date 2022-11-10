@@ -51,10 +51,10 @@ const RightNav = ({ open }) => {
           {isAuth ? (
             <>
               <li>
-                <span className="nav-link mr-4 ">Welcome {user.username}</span>
+                <span className="nav-link mr-4">Welcome {user.username}</span>
               </li>
               <li className={`${styles.button} ${styles.alert}`}>
-                <Link href="/login">
+                <Link href="/logout">
                   <a>Sign Out</a>
                 </Link>
               </li>
