@@ -11,8 +11,8 @@ const NavBar = () => {
   return (
     <div className={styles.wrapper}>
       <nav className="navbar navbar-expand-lg navbar-dark fj-mw9">
-        <Link href="/">
-          <a className="navbar-brand mr-3 font-weight-bold">FilipJerga</a>
+        <Link href="/" className="navbar-brand mr-3 font-weight-bold">
+          FilipJerga
         </Link>
 
         <RightNav open={open} />

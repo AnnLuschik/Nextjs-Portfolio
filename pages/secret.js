@@ -1,10 +1,7 @@
 import withApollo from 'hoc/withApollo';
-import { useUser } from 'hooks/useUser';
-import withRole from 'hoc/withRole';
+import withAuth from 'hoc/withAuth';
 
 const Secret = () => {
-  useUser({ redirectTo: '/login', role: 'admin' });
-
   return (
     <div className="bwm-form mt-5">
       <div className="row">
@@ -17,4 +14,4 @@ const Secret = () => {
   );
 };
 
-export default withApollo(withRole(Secret, 'admin'));
+export default withApollo(withAuth(Secret, 'admin'));

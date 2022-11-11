@@ -1,4 +1,4 @@
-import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
 import { GET_PORTFOLIOS, GET_USER } from 'apollo/queries';
 import {
   CREATE_PORTFOLIO,
