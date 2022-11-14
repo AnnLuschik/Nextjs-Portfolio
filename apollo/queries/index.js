@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 export const GET_PORTFOLIO = gql`
   query Portfolio($id: ID) {
@@ -23,6 +23,16 @@ export const GET_PORTFOLIOS = gql`
       description
       startDate
       endDate
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query User {
+    user {
+      _id
+      username
+      role
     }
   }
 `;

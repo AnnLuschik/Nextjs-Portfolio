@@ -7,6 +7,7 @@ const {
 const {
   portfolioQueries,
   portfolioMutations,
+  userQueries,
   userMutations
 } = require('./resolvers');
 const { portfolioTypes, userTypes } = require('./types');
@@ -23,6 +24,8 @@ exports.createApolloServer = () => {
     type Query {
       portfolio(id: ID): Portfolio
       portfolios: [Portfolio]
+
+      user: User
     }
 
     type Mutation {
@@ -38,7 +41,8 @@ exports.createApolloServer = () => {
 
   const resolvers = {
     Query: {
-      ...portfolioQueries
+      ...portfolioQueries,
+      ...userQueries
     },
     Mutation: {
       ...portfolioMutations,

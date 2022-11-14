@@ -1,17 +1,15 @@
 import Link from 'next/link';
-import { getDataFromTree } from '@apollo/react-ssr';
 
 import PortfolioCard from 'components/portfolios/PortfolioCard';
 import {
-  useGetPortfolios,
   useUpdatePortfolio,
   useDeletePortfolio,
   useCreatePortfolio
 } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
+import { GET_PORTFOLIOS } from 'apollo/queries';
 
-const Portfolios = () => {
-  const { data } = useGetPortfolios();
+const Portfolios = ({ data }) => {
   const [createPortfolio] = useCreatePortfolio();
   const [updatePortfolio] = useUpdatePortfolio();
   const [deletePortfolio] = useDeletePortfolio();
@@ -38,10 +36,11 @@ const Portfolios = () => {
         <div className="row">
           {portfolios.map((portfolio) => (
             <div key={portfolio.id} className="col-md-4">
-              <Link href={`/portfolios/${encodeURIComponent(portfolio.id)}`}>
-                <a className="card-link">
-                  <PortfolioCard data={portfolio} />
-                </a>
+              <Link
+                href={`/portfolios/${encodeURIComponent(portfolio.id)}`}
+                className="card-link"
+              >
+                <PortfolioCard data={portfolio} />
               </Link>
 
               <button
@@ -70,4 +69,11 @@ const Portfolios = () => {
   );
 };
 
-export default withApollo(Portfolios, { getDataFromTree });
+Portfolios.getInitialProps = async ({ apolloClient }) => {
+  const { data } = await apolloClient.query({ query: GET_PORTFOLIOS });
+  return {
+    data
+  };
+};
+
+export default withApollo(Portfolios);
