@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { GET_USER } from 'apollo/queries';
 
-export default function withAuth(WrappedComponent, role) {
+export default function withAuth(WrappedComponent, roles) {
   const WithAuth = (props) => {
     const {
       data: { user } = {},
@@ -15,13 +15,13 @@ export default function withAuth(WrappedComponent, role) {
     const router = useRouter();
 
     if (!loading && (!user || error) && typeof window !== 'undefined') {
-      router.replace('/');
+      router.push('/');
       return null;
     }
 
     if (user) {
-      if (role && user.role !== role) {
-        router.replace('/');
+      if (roles.length && !roles.includes(user.role)) {
+        router.push('/');
         return null;
       }
       const componentName =

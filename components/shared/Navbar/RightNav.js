@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from 'styles/Navbar.module.css';
 import withApollo from 'hoc/withApollo';
 import { useUser } from 'hooks';
+import Actions from './Actions';
 
 const RightNav = ({ open }) => {
   const user = useUser();
@@ -26,6 +27,9 @@ const RightNav = ({ open }) => {
           <>
             <li>
               <span className="nav-link mr-4">Welcome {user.username}</span>
+            </li>
+            <li>
+              <Actions user={user} />
             </li>
             <li className={`${styles.button} ${styles.alert}`}>
               <Link href="/logout">Sign Out</Link>

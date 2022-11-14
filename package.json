@@ -6,6 +6,7 @@
     "@apollo/client": "^3.7.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.107",
     "@mui/material": "^5.10.13",
     "apollo-server-core": "^3.11.1",
@@ -30,6 +31,7 @@
     "passport": "^0.4.1",
     "passport-strategy": "^1.0.0",
     "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.1"
   },
