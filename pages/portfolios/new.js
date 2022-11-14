@@ -1,14 +1,30 @@
+import { useRouter } from 'next/router';
+
 import CreatePortfolioForm from 'components/forms/CreatePortfolioForm';
 import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 
+import { useCreatePortfolio } from 'apollo/hooks';
+import { getErrorMessage } from 'helpers';
+
 const PortfolioCreate = () => {
+  const router = useRouter();
+  const [createPortfolio, { error }] = useCreatePortfolio();
+
+  const handleCreatePortfolio = async (data) => {
+    await createPortfolio({ variables: data });
+    if (!error) router.push('/portfolios');
+  };
+
   return (
     <div className="bwm-form mt-5">
       <div className="row">
         <div className="col-md-5 mx-auto">
           <h1 className="page-title">Create New Portfolio</h1>
-          <CreatePortfolioForm onSubmit={(data) => JSON.stringify(data)} />
+          <CreatePortfolioForm onSubmit={handleCreatePortfolio} />
+          {error && (
+            <div className="alert alert-danger">{getErrorMessage(error)}</div>
+          )}
         </div>
       </div>
     </div>

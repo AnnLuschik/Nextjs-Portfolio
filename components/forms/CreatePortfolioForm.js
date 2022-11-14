@@ -34,7 +34,7 @@ const CreatePortfolioForm = ({ onSubmit }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="city">Company</label>
+        <label htmlFor="company">Company</label>
         <input
           {...register('company')}
           name="company"
@@ -45,7 +45,18 @@ const CreatePortfolioForm = ({ onSubmit }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="street">Location</label>
+        <label htmlFor="companyWebsite">Company Website</label>
+        <input
+          {...register('companyWebsite')}
+          name="companyWebsite"
+          type="text"
+          className="form-control"
+          id="companyWebsite"
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="location">Location</label>
         <input
           {...register('location')}
           name="location"
@@ -56,7 +67,7 @@ const CreatePortfolioForm = ({ onSubmit }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="street">Job Title</label>
+        <label htmlFor="jobTitle">Job Title</label>
         <input
           {...register('jobTitle')}
           name="jobTitle"
@@ -79,21 +90,23 @@ const CreatePortfolioForm = ({ onSubmit }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="street">Start Date</label>
+        <label htmlFor="startDate">Start Date</label>
         <DatePicker
           showYearDropdown
           selected={startDate}
           onChange={handleDateChange('startDate', setStartDate)}
+          id="startDate"
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="street">End Date</label>
+        <label htmlFor="endDate">End Date</label>
         <DatePicker
           showYearDropdown
           selected={endDate}
           disabled={!endDate}
           onChange={handleDateChange('endDate', setEndDate)}
+          id="endDate"
         />
       </div>
 

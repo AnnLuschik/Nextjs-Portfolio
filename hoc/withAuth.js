@@ -15,13 +15,13 @@ export default function withAuth(WrappedComponent, roles) {
     const router = useRouter();
 
     if (!loading && (!user || error) && typeof window !== 'undefined') {
-      router.replace('/');
+      router.push('/');
       return null;
     }
 
     if (user) {
       if (roles.length && !roles.includes(user.role)) {
-        router.replace('/');
+        router.push('/');
         return null;
       }
       const componentName =
