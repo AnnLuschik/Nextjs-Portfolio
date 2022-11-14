@@ -1,7 +1,24 @@
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
 
 const CreatePortfolioForm = ({ onSubmit }) => {
-  const { handleSubmit, register } = useForm();
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const { handleSubmit, register, setValue } = useForm();
+
+  useEffect(() => {
+    register('startDate');
+    register('endDate');
+  }, [register]);
+
+  const handleDateChange = (dateType, setDate) => (date) => {
+    setValue(
+      dateType,
+      date ? new Date(date.setHours(0, 0, 0)).toISOString() : date
+    );
+    setDate(date);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,24 +80,41 @@ const CreatePortfolioForm = ({ onSubmit }) => {
 
       <div className="form-group">
         <label htmlFor="street">Start Date</label>
-        <input
-          {...register('startDate')}
-          name="startDate"
-          type="text"
-          className="form-control"
-          id="startDate"
+        <DatePicker
+          showYearDropdown
+          selected={startDate}
+          onChange={handleDateChange('startDate', setStartDate)}
         />
       </div>
 
       <div className="form-group">
         <label htmlFor="street">End Date</label>
-        <input
-          {...register('endDate')}
-          name="endDate"
-          type="text"
-          className="form-control"
-          id="endDate"
+        <DatePicker
+          showYearDropdown
+          selected={endDate}
+          disabled={!endDate}
+          onChange={handleDateChange('endDate', setEndDate)}
         />
+      </div>
+
+      <div className="form-group">
+        {endDate ? (
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => handleDateChange('endDate', setEndDate)(null)}
+          >
+            No End Date
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => handleDateChange('endDate', setEndDate)(new Date())}
+          >
+            Set End Date
+          </button>
+        )}
       </div>
 
       <button type="submit" className="btn btn-primary">
