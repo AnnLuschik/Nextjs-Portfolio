@@ -29,7 +29,7 @@ const userSchema = new Schema({
     required: true
   },
   role: {
-    enum: ['guest', 'admin'],
+    enum: ['guest', 'admin', 'instructor'],
     type: String,
     required: true,
     default: 'guest'

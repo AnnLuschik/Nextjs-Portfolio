@@ -16,6 +16,8 @@ const ActionsMenu = ({ user }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const { _id: userId, role } = user;
+  const hasPermissions = role === 'admin' || role === 'instructor';
 
   return (
     <div>
@@ -39,13 +41,20 @@ const ActionsMenu = ({ user }) => {
           'aria-labelledby': 'basic-button'
         }}
       >
-        {user.role === 'admin' && (
-          <Link href="/portfolios/new">
+        {hasPermissions && [
+          <Link href="/portfolios/new" key="newPortfolio">
             <MenuItem onClick={handleClose}>Create Portfolio</MenuItem>
+          </Link>,
+          <Link
+            href={{
+              pathname: '/instructor/[id]/dashboard',
+              query: { id: userId }
+            }}
+            key="dashboard"
+          >
+            <MenuItem onClick={handleClose}>Dashboard</MenuItem>
           </Link>
-        )}
-        <MenuItem onClick={handleClose}>Another action</MenuItem>
-        <MenuItem onClick={handleClose}>Something</MenuItem>
+        ]}
       </Menu>
     </div>
   );

@@ -8,11 +8,25 @@ import {
 
 export default withApollo(
   ({ initialState }) => {
+    const cache = new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            userPortfolios: {
+              merge(existing, incoming) {
+                return incoming;
+              }
+            }
+          }
+        }
+      }
+    });
+
     return new ApolloClient({
       link: createHttpLink({
         uri: 'http://localhost:3000/graphql'
       }),
-      cache: new InMemoryCache().restore(initialState || {})
+      cache: cache.restore(initialState || {})
     });
   },
   {

@@ -6,6 +6,10 @@ exports.portfolioQueries = {
   portfolios: async (root, args, ctx) => {
     const data = await ctx.models.Portfolio.getAll();
     return data;
+  },
+  userPortfolios: async (root, args, ctx) => {
+    const data = await ctx.models.Portfolio.getAllByUser();
+    return data;
   }
 };
 

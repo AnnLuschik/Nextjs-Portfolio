@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import CreatePortfolioForm from 'components/forms/CreatePortfolioForm';
+import PortfolioForm from 'components/forms/PortfolioForm';
 import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 
@@ -21,7 +21,7 @@ const PortfolioCreate = () => {
       <div className="row">
         <div className="col-md-5 mx-auto">
           <h1 className="page-title">Create New Portfolio</h1>
-          <CreatePortfolioForm onSubmit={handleCreatePortfolio} />
+          <PortfolioForm onSubmit={handleCreatePortfolio} />
           {error && (
             <div className="alert alert-danger">{getErrorMessage(error)}</div>
           )}

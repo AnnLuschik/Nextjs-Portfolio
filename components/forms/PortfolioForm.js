@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 
-const CreatePortfolioForm = ({ onSubmit }) => {
+const PortfolioForm = ({ onSubmit }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const { handleSubmit, register, setValue } = useForm();
@@ -137,4 +137,4 @@ const CreatePortfolioForm = ({ onSubmit }) => {
   );
 };
 
-export default CreatePortfolioForm;
+export default PortfolioForm;
