@@ -5,14 +5,38 @@ import {
   createHttpLink,
   ApolloProvider
 } from '@apollo/client';
+import * as dayjs from 'dayjs';
 
 export default withApollo(
   ({ initialState }) => {
+    const cache = new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            userPortfolios: {
+              merge(existing, incoming) {
+                return incoming;
+              }
+            }
+          }
+        }
+      }
+    });
+
     return new ApolloClient({
       link: createHttpLink({
         uri: 'http://localhost:3000/graphql'
       }),
-      cache: new InMemoryCache().restore(initialState || {})
+      cache: cache.restore(initialState || {}),
+      resolvers: {
+        Portfolio: {
+          daysOfExperience({ startDate, endDate }) {
+            let now = dayjs().valueOf();
+            if (endDate) now = dayjs(+endDate);
+            return dayjs(now).diff(dayjs(+startDate), 'day');
+          }
+        }
+      }
     });
   },
   {

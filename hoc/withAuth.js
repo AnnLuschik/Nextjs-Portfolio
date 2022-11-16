@@ -32,7 +32,7 @@ export default function withAuth(WrappedComponent, roles) {
       return <WrappedComponent {...props} />;
     }
 
-    return <p>Authenticating...</p>;
+    return null;
   };
 
   return WithAuth;

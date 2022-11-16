@@ -13,6 +13,10 @@ class Portfolio {
     return this.Model.findById(id);
   }
 
+  getAllByUser() {
+    return this.Model.find({ user: this.user.id }).sort({ startDate: 'desc' });
+  }
+
   create(data) {
     if (!this.user || !this.writeRights.includes(this.user.role)) {
       throw new Error('Not Authorized!');
@@ -21,7 +25,10 @@ class Portfolio {
   }
 
   findAndUpdate(id, data) {
-    return this.Model.findByIdAndUpdate(id, data, { new: true });
+    return this.Model.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true
+    });
   }
 
   findAndDelete(id) {

@@ -1,5 +1,10 @@
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
-import { GET_PORTFOLIOS, GET_USER } from 'apollo/queries';
+import {
+  GET_PORTFOLIOS,
+  GET_PORTFOLIO,
+  GET_USER,
+  GET_USER_PORTFOLIOS
+} from 'apollo/queries';
 import {
   CREATE_PORTFOLIO,
   UPDATE_PORTFOLIO,
@@ -8,19 +13,26 @@ import {
   SIGN_OUT
 } from 'apollo/mutations';
 
+export const useGetPortfolio = (options) => useQuery(GET_PORTFOLIO, options);
+
 export const useGetPortfolios = () => useQuery(GET_PORTFOLIOS);
+
+export const useGetUserPortfolios = () => useQuery(GET_USER_PORTFOLIOS);
 
 export const useCreatePortfolio = () =>
   useMutation(CREATE_PORTFOLIO, {
-    update(cache, { data: { createPortfolio: res } }) {
-      const { portfolios: cached } = cache.readQuery({ query: GET_PORTFOLIOS });
-      cache.writeQuery({
-        query: GET_PORTFOLIOS,
-        data: {
-          portfolios: [...cached, res]
-        }
-      });
-    }
+    refetchQueries: [{ query: GET_PORTFOLIOS }]
+    // update(cache, { data: { createPortfolio: res } }) {
+    //   const { portfolios: cached = [] } = cache.readQuery({
+    //     query: GET_PORTFOLIOS
+    //   });
+    //   cache.writeQuery({
+    //     query: GET_PORTFOLIOS,
+    //     data: {
+    //       portfolios: [...cached, res]
+    //     }
+    //   });
+    // }
   });
 
 export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
@@ -28,15 +40,17 @@ export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
 export const useDeletePortfolio = () =>
   useMutation(DELETE_PORTFOLIO, {
     update(cache, { data: { deletePortfolio: id } }) {
-      const { portfolios: cached } = cache.readQuery({ query: GET_PORTFOLIOS });
-      const newPortfolios = cached.filter((p) => p.id !== id);
+      const { userPortfolios } = cache.readQuery({
+        query: GET_USER_PORTFOLIOS
+      });
       cache.writeQuery({
-        query: GET_PORTFOLIOS,
+        query: GET_USER_PORTFOLIOS,
         data: {
-          portfolios: newPortfolios
+          userPortfolios: userPortfolios.filter((p) => p.id !== id)
         }
       });
-    }
+    },
+    refetchQueries: [{ query: GET_PORTFOLIOS }]
   });
 
 // AUTH ACTIONS

@@ -22,7 +22,13 @@ app.prepare().then(async () => {
   const apolloServer = createApolloServer();
 
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app: server });
+  apolloServer.applyMiddleware({
+    app: server
+    // cors: {
+    // credentials: true
+    // origin: 'https://studio.apollographql.com'
+    // }
+  });
 
   server.all('*', (req, res) => {
     return handle(req, res);

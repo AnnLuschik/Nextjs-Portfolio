@@ -1,6 +1,6 @@
 export const getErrorMessage = (error) => {
-  return (
-    (error.graphQLErrors && error.graphQLErrors[0].message) ||
-    'Something went wrong'
-  );
+  if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+    return error.graphQLErrors[0].message;
+  }
+  return 'Something went wrong';
 };

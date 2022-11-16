@@ -2,15 +2,32 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 
-const CreatePortfolioForm = ({ onSubmit }) => {
+const PortfolioForm = ({
+  onSubmit,
+  initialData = {},
+  buttonText = 'Create'
+}) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const { handleSubmit, register, setValue } = useForm();
+  const { handleSubmit, register, setValue } = useForm({
+    defaultValues: initialData
+  });
 
   useEffect(() => {
     register('startDate');
     register('endDate');
   }, [register]);
+
+  useEffect(() => {
+    const { startDate, endDate } = initialData;
+    if (startDate) {
+      setStartDate(+startDate);
+    }
+
+    if (endDate) {
+      setEndDate(+endDate);
+    }
+  }, [initialData]);
 
   const handleDateChange = (dateType, setDate) => (date) => {
     setValue(
@@ -131,10 +148,10 @@ const CreatePortfolioForm = ({ onSubmit }) => {
       </div>
 
       <button type="submit" className="btn btn-primary">
-        Create
+        {buttonText}
       </button>
     </form>
   );
 };
 
-export default CreatePortfolioForm;
+export default PortfolioForm;
