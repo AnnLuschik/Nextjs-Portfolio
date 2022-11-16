@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
   Card,
@@ -13,10 +12,10 @@ import {
 import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 import { useGetUserPortfolios, useDeletePortfolio } from 'apollo/hooks';
+import { formatDate } from 'helpers';
 import styles from 'styles/Dashboard.module.css';
 
 const InstructorDashboard = () => {
-  const router = useRouter();
   const [portfolios, setPortfolios] = useState(null);
 
   const [deletePortfolio] = useDeletePortfolio();
@@ -42,7 +41,7 @@ const InstructorDashboard = () => {
                 <CardContent>
                   <Typography variant="h4">{p.title}</Typography>
                   <Typography>
-                    {p.startDate} - {p.endDate}
+                    {formatDate(+p.startDate)} — {formatDate(+p.endDate)}
                   </Typography>
                 </CardContent>
                 <CardActions>

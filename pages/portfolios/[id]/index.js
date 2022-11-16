@@ -1,5 +1,6 @@
 import { GET_PORTFOLIO } from 'apollo/queries';
 import withApollo from 'hoc/withApollo';
+import { formatDate } from 'helpers';
 
 const PortfolioDetail = ({ data }) => {
   const portfolio = (data && data.portfolio) || {};
@@ -27,16 +28,15 @@ const PortfolioDetail = ({ data }) => {
             <p className="text">{portfolio.location}</p>
 
             <h4 className="title">Start Date</h4>
-            <p className="text">{portfolio.startDate}</p>
+            <p className="text">{formatDate(+portfolio.startDate)}</p>
           </div>
 
           <div className="col-lg-6">
-            {/* TODO: days later... */}
             <h4 className="title">Days</h4>
             <p className="text">44</p>
 
             <h4 className="title">End Date</h4>
-            <p className="text">{portfolio.endDate}</p>
+            <p className="text">{formatDate(+portfolio.endDate)}</p>
           </div>
           <div className="col-md-12">
             <hr />

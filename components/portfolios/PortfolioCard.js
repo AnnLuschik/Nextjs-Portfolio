@@ -1,3 +1,5 @@
+import { formatDate } from 'helpers';
+
 const PortfolioCard = ({ data }) => {
   return (
     <div className="card subtle-shadow no-border">
@@ -8,7 +10,7 @@ const PortfolioCard = ({ data }) => {
       </div>
       <div className="card-footer no-border">
         <small className="text-muted">
-          {data.startDate} — {data.endDate}
+          {`${formatDate(+data.startDate)} — ${formatDate(+data.endDate)}`}
         </small>
       </div>
     </div>
