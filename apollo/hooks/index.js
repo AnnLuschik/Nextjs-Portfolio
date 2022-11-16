@@ -14,15 +14,18 @@ export const useGetUserPortfolios = () => useQuery(GET_USER_PORTFOLIOS);
 
 export const useCreatePortfolio = () =>
   useMutation(CREATE_PORTFOLIO, {
-    update(cache, { data: { createPortfolio: res } }) {
-      const { portfolios: cached } = cache.readQuery({ query: GET_PORTFOLIOS });
-      cache.writeQuery({
-        query: GET_PORTFOLIOS,
-        data: {
-          portfolios: [...cached, res]
-        }
-      });
-    }
+    refetchQueries: [{ query: GET_PORTFOLIOS }]
+    // update(cache, { data: { createPortfolio: res } }) {
+    //   const { portfolios: cached = [] } = cache.readQuery({
+    //     query: GET_PORTFOLIOS
+    //   });
+    //   cache.writeQuery({
+    //     query: GET_PORTFOLIOS,
+    //     data: {
+    //       portfolios: [...cached, res]
+    //     }
+    //   });
+    // }
   });
 
 export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);

@@ -10,10 +10,13 @@ import { getErrorMessage } from 'helpers';
 const PortfolioCreate = () => {
   const router = useRouter();
   const [createPortfolio, { error }] = useCreatePortfolio();
-
   const handleCreatePortfolio = async (data) => {
-    await createPortfolio({ variables: data });
-    if (!error) router.push('/portfolios');
+    await createPortfolio({
+      variables: data,
+      update: (_, res) => {
+        if (res.data) router.push('/portfolios');
+      }
+    });
   };
 
   return (
