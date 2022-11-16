@@ -6,6 +6,7 @@ import withAuth from 'hoc/withAuth';
 import PortfolioForm from 'components/forms/PortfolioForm';
 import { useGetPortfolio, useUpdatePortfolio } from 'apollo/hooks';
 import { getErrorMessage } from 'helpers';
+import { GET_PORTFOLIO } from 'apollo/queries';
 
 const PortfolioEdit = () => {
   const router = useRouter();
@@ -23,7 +24,8 @@ const PortfolioEdit = () => {
       update: (_, res) => {
         if (res)
           toast.success('Portfolio has been updated', { autoClose: 2000 });
-      }
+      },
+      refetchQueries: [GET_PORTFOLIO]
     });
   };
 

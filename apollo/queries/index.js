@@ -11,6 +11,7 @@ export const GET_PORTFOLIO = gql`
       description
       startDate
       endDate
+      daysOfExperience @client
     }
   }
 `;
