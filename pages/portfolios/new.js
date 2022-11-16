@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import PortfolioForm from 'components/forms/PortfolioForm';
 import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
-
 import { useCreatePortfolio } from 'apollo/hooks';
 import { getErrorMessage } from 'helpers';
 
 const PortfolioCreate = () => {
   const router = useRouter();
   const [createPortfolio, { error }] = useCreatePortfolio();
+
   const handleCreatePortfolio = async (data) => {
     await createPortfolio({
       variables: data,

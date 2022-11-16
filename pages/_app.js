@@ -1,6 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-toastify/dist/ReactToastify.css';
 import 'styles/index.scss';
+
+import { ToastContainer } from 'react-toastify';
 
 import NavBar from 'components/shared/Navbar';
 import Hero from 'components/shared/Hero';
@@ -15,6 +18,12 @@ const App = ({ Component, pageProps }) => {
         <Component {...pageProps} />
       </div>
       {Component.name === 'Home' && <Footer />}
+      <ToastContainer
+        position="bottom-right"
+        theme="colored"
+        closeOnClick
+        pauseOnFocusLoss
+      />
     </div>
   );
 };
