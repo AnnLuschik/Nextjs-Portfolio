@@ -47,3 +47,19 @@ exports.userMutations = {
     return ctx.models.User.signOut(ctx);
   }
 };
+
+exports.forumQueries = {
+  forumCategories: async (root, args, ctx) => {
+    const categories = await ctx.models.ForumCategory.getAll();
+    return categories;
+  },
+  topicsByCategory: async (root, { category }, ctx) => {
+    const forumCategory = await ctx.models.ForumCategory.getBySlug(category);
+    if (!forumCategory) {
+      return null;
+    }
+
+    const topics = await ctx.models.Topic.getAllByCategory(forumCategory.id);
+    return topics;
+  }
+};
