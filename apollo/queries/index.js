@@ -50,3 +50,14 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_FORUM_CATEGORIES = gql`
+  query ForumCategories {
+    forumCategories {
+      _id
+      title
+      subtitle
+      slug
+    }
+  }
+`;
