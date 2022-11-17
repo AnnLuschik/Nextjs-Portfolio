@@ -9,11 +9,18 @@ import {
   Typography
 } from '@mui/material';
 
+// Components
 import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
+
+// Hooks
 import { useGetUserPortfolios, useDeletePortfolio } from 'apollo/hooks';
-import { formatDate } from 'helpers';
+
+// Styles
 import styles from 'styles/Dashboard.module.css';
+
+// Misc
+import { formatDate } from 'helpers';
 
 const InstructorDashboard = () => {
   const [portfolios, setPortfolios] = useState(null);
@@ -70,6 +77,10 @@ const InstructorDashboard = () => {
   );
 };
 
+InstructorDashboard.getInitialProps = (ctx) => {
+  return {};
+};
+
 export default withApollo(
-  withAuth(InstructorDashboard, ['admin', 'instructor'])
+  withAuth(InstructorDashboard, ['admin', 'instructor'], { ssr: true })
 );

@@ -1,0 +1,14 @@
+export const messages = {
+  NOT_AUTHENTICATED: {
+    value: 'Yoy need to log in to get an access',
+    status: 'danger'
+  },
+  NOT_AUTHORIZED: {
+    value: 'You are not authorized to access this page',
+    status: 'danger'
+  },
+  LOGGED_IN: {
+    value: 'You have been successfully registered, you can log in now',
+    status: 'success'
+  }
+};
