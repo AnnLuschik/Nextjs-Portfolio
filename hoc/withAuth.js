@@ -1,8 +1,17 @@
 import { useQuery } from '@apollo/client';
-import { useRouter } from 'next/router';
+
+// Components
+import Redirect from 'components/shared/Redirect';
+import SpinnerLoader from 'components/shared/Loader';
+
+// Misc
 import { GET_USER } from 'apollo/queries';
 
-export default function withAuth(WrappedComponent, roles) {
+export default function withAuth(
+  WrappedComponent,
+  roles,
+  options = { ssr: false }
+) {
   const WithAuth = (props) => {
     const {
       data: { user } = {},
@@ -12,17 +21,13 @@ export default function withAuth(WrappedComponent, roles) {
       fetchPolicy: 'network-only'
     });
 
-    const router = useRouter();
-
     if (!loading && (!user || error) && typeof window !== 'undefined') {
-      router.push('/');
-      return null;
+      return <Redirect to="/login" query={{ message: 'NOT_AUTHENTICATED' }} />;
     }
 
     if (user) {
       if (roles.length && !roles.includes(user.role)) {
-        router.push('/');
-        return null;
+        return <Redirect to="/login" query={{ message: 'NOT_AUTHORIZED' }} />;
       }
       const componentName =
         WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -32,7 +37,36 @@ export default function withAuth(WrappedComponent, roles) {
       return <WrappedComponent {...props} />;
     }
 
-    return null;
+    if (options.ssr) {
+      const serverRedirect = (res, to) => {
+        res.redirect(to);
+        res.end();
+        return {};
+      };
+
+      WithAuth.getInitialProps = async (context) => {
+        const { req, res } = context;
+        if (req) {
+          const { user } = req;
+
+          if (!user) {
+            serverRedirect(res, '/login?message=NOT_AUTHENTICATED');
+          }
+
+          if (roles.length && !roles.includes(user.role)) {
+            serverRedirect(res, '/login?message=NOT_AUTHORIZED');
+          }
+        }
+
+        const pageProps =
+          WrappedComponent.getInitialProps &&
+          (await WrappedComponent.getInitialProps(context));
+
+        return { ...pageProps };
+      };
+    }
+
+    return <SpinnerLoader />;
   };
 
   return WithAuth;
