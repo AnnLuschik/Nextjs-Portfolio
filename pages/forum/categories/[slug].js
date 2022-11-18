@@ -1,20 +1,59 @@
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { useQuery, useMutation } from '@apollo/client';
 
 import withApollo from 'hoc/withApollo';
 import Replier from 'components/shared/Replier';
 import Button from 'components/shared/Button';
 import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
+import { CREATE_TOPIC } from 'apollo/mutations';
 
-const Topics = ({ topics }) => {
+const useTopics = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const { data: dataT } = useQuery(GET_TOPICS_BY_CATEGORY, {
+    variables: { category: slug }
+  });
+  const { data: dataU } = useQuery(GET_USER);
+
+  const user = (dataU && dataU.user) || null;
+  const topics = (dataT && dataT.topicsByCategory) || [];
+
+  return { topics, user, slug };
+};
+
+const Topics = () => {
+  const { topics, user, slug } = useTopics();
   const [isReplierOpen, setReplierOpen] = useState(false);
-  const { data } = useQuery(GET_USER);
 
-  const user = (data && data.user) || null;
+  const [createTopic, { error }] = useMutation(CREATE_TOPIC, {
+    update(cache, { data: { createTopic: response } }) {
+      try {
+        const cached = cache.readQuery({
+          query: GET_TOPICS_BY_CATEGORY,
+          variables: { category: response.forumCategory.slug }
+        });
+        const topics = cached ? cached.topicsByCategory : [];
+        cache.writeQuery({
+          query: GET_TOPICS_BY_CATEGORY,
+          data: { topicsByCategory: [...topics, response] },
+          variables: { category: response.forumCategory.slug }
+        });
+      } catch (e) {
+        return null;
+      }
+    }
+  });
 
-  const createTopic = (data, done) => {
-    alert(JSON.stringify(data));
-    done();
+  const handleCreateTopic = async (data, done) => {
+    await createTopic({
+      variables: { input: { ...data, forumCategory: slug } }
+    });
+    if (!error) {
+      setReplierOpen(false);
+      done();
+    }
   };
 
   return (
@@ -55,22 +94,11 @@ const Topics = ({ topics }) => {
         <Replier
           isOpen={isReplierOpen}
           onClose={() => setReplierOpen(false)}
-          onSubmit={createTopic}
+          onSubmit={handleCreateTopic}
         />
       </section>
     </>
   );
-};
-
-Topics.getInitialProps = async ({ apolloClient, query }) => {
-  const response = await apolloClient.query({
-    query: GET_TOPICS_BY_CATEGORY,
-    variables: { category: query.slug }
-  });
-
-  return {
-    topics: response.data.topicsByCategory
-  };
 };
 
 export default withApollo(Topics);
