@@ -35,7 +35,9 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.1",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.1",
+    "slugify": "^1.6.5",
+    "unique-slug": "^4.0.0"
   },
   "scripts": {
     "dev": "nodemon --watch server server/index.js",

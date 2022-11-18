@@ -67,4 +67,10 @@ exports.forumTypes = `
     slug: String
     createdAt: String
   }
+
+  input TopicInput {
+    title: String
+    content: String
+    forumCategory: String
+  }
 `;
