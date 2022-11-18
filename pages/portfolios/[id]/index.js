@@ -1,8 +1,9 @@
-import { GET_PORTFOLIO } from 'apollo/queries';
+import { useGetPortfolio } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
 import { formatDate } from 'helpers';
 
-const PortfolioDetail = ({ data }) => {
+const PortfolioDetail = ({ query }) => {
+  const { data } = useGetPortfolio({ variables: { id: query.id } });
   const portfolio = (data && data.portfolio) || {};
 
   return (
@@ -49,12 +50,8 @@ const PortfolioDetail = ({ data }) => {
   );
 };
 
-PortfolioDetail.getInitialProps = async ({ query, apolloClient }) => {
-  const { data } = await apolloClient.query({
-    query: GET_PORTFOLIO,
-    variables: { id: query.id }
-  });
-  return { data };
+PortfolioDetail.getInitialProps = async ({ query }) => {
+  return { query };
 };
 
 export default withApollo(PortfolioDetail);

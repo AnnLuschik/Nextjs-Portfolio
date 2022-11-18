@@ -12,11 +12,9 @@ const PortfolioCreate = () => {
 
   const handleCreatePortfolio = async (data) => {
     await createPortfolio({
-      variables: data,
-      update: (_, res) => {
-        if (res.data) router.push('/portfolios');
-      }
+      variables: data
     });
+    router.push('/portfolios');
   };
 
   return (

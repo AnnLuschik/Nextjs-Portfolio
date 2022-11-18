@@ -6,7 +6,7 @@ import withApollo from 'hoc/withApollo';
 import Replier from 'components/shared/Replier';
 import Button from 'components/shared/Button';
 import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
-import { CREATE_TOPIC } from 'apollo/mutations';
+import { useCreateTopic } from 'apollo/hooks';
 
 const useTopics = () => {
   const router = useRouter();
@@ -27,24 +27,7 @@ const Topics = () => {
   const { topics, user, slug } = useTopics();
   const [isReplierOpen, setReplierOpen] = useState(false);
 
-  const [createTopic, { error }] = useMutation(CREATE_TOPIC, {
-    update(cache, { data: { createTopic: response } }) {
-      try {
-        const cached = cache.readQuery({
-          query: GET_TOPICS_BY_CATEGORY,
-          variables: { category: response.forumCategory.slug }
-        });
-        const topics = cached ? cached.topicsByCategory : [];
-        cache.writeQuery({
-          query: GET_TOPICS_BY_CATEGORY,
-          data: { topicsByCategory: [...topics, response] },
-          variables: { category: response.forumCategory.slug }
-        });
-      } catch (e) {
-        return null;
-      }
-    }
-  });
+  const [createTopic, { error }] = useCreateTopic();
 
   const handleCreateTopic = async (data, done) => {
     await createTopic({

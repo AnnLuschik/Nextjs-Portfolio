@@ -1,9 +1,12 @@
 import Link from 'next/link';
 
-import { GET_FORUM_CATEGORIES } from 'apollo/queries';
+import { useGetForumCategories } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
 
-const ForumCategories = ({ categories }) => {
+const ForumCategories = () => {
+  const { data } = useGetForumCategories();
+  const categories = (data && data.forumCategories) || [];
+
   return (
     <>
       <section className="section-title">
@@ -45,13 +48,6 @@ const ForumCategories = ({ categories }) => {
       </section>
     </>
   );
-};
-
-ForumCategories.getInitialProps = async ({ apolloClient }) => {
-  const response = await apolloClient.query({ query: GET_FORUM_CATEGORIES });
-  return {
-    categories: response.data.forumCategories
-  };
 };
 
 export default withApollo(ForumCategories);

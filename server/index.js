@@ -24,10 +24,6 @@ app.prepare().then(async () => {
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app: server
-    // cors: {
-    // credentials: true
-    // origin: 'https://studio.apollographql.com'
-    // }
   });
 
   server.all('*', (req, res) => {

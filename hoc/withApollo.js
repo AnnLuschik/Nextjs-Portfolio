@@ -1,43 +1,11 @@
 import withApollo from 'next-with-apollo';
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-  ApolloProvider
-} from '@apollo/client';
-import * as dayjs from 'dayjs';
+import { ApolloProvider } from '@apollo/client';
+import { getApolloClient } from 'apollo/client';
 
 export default withApollo(
-  ({ initialState }) => {
-    const cache = new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            userPortfolios: {
-              merge(existing, incoming) {
-                return incoming;
-              }
-            }
-          }
-        }
-      }
-    });
-
-    return new ApolloClient({
-      link: createHttpLink({
-        uri: 'http://localhost:3000/graphql'
-      }),
-      cache: cache.restore(initialState || {}),
-      resolvers: {
-        Portfolio: {
-          daysOfExperience({ startDate, endDate }) {
-            let now = dayjs().valueOf();
-            if (endDate) now = dayjs(+endDate);
-            return dayjs(now).diff(dayjs(+startDate), 'day');
-          }
-        }
-      }
-    });
+  ({ initialState = {} }) => {
+    const client = getApolloClient(initialState);
+    return client;
   },
   {
     render: ({ Page, props }) => {

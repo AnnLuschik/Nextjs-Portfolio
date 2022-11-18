@@ -77,10 +77,6 @@ const InstructorDashboard = () => {
   );
 };
 
-InstructorDashboard.getInitialProps = (ctx) => {
-  return {};
-};
-
 export default withApollo(
   withAuth(InstructorDashboard, ['admin', 'instructor'], { ssr: true })
 );
