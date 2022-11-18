@@ -1,13 +1,34 @@
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
+
 import withApollo from 'hoc/withApollo';
-import { GET_TOPICS_BY_CATEGORY } from 'apollo/queries';
+import Replier from 'components/shared/Replier';
+import Button from 'components/shared/Button';
+import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
 
 const Topics = ({ topics }) => {
+  const [isReplierOpen, setReplierOpen] = useState(false);
+  const { data } = useQuery(GET_USER);
+
+  const user = (data && data.user) || null;
+
+  const createTopic = (data, done) => {
+    alert(JSON.stringify(data));
+    done();
+  };
+
   return (
     <>
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
             <h1>Select a Topic</h1>
+            <Button
+              text="Create Topic"
+              onClick={() => setReplierOpen(true)}
+              disabled={!user}
+              tooltip={!user ? 'Log in to create a topic' : ''}
+            />
           </div>
         </div>
       </section>
@@ -31,6 +52,11 @@ const Topics = ({ topics }) => {
               ))}
           </tbody>
         </table>
+        <Replier
+          isOpen={isReplierOpen}
+          onClose={() => setReplierOpen(false)}
+          onSubmit={createTopic}
+        />
       </section>
     </>
   );

@@ -53,6 +53,11 @@ a, a:hover {
   color: inherit;
 }
 
+[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
 // Modifiers START
 .white {
   color: $white;
