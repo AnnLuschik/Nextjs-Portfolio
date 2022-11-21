@@ -62,22 +62,34 @@ export const GET_FORUM_CATEGORIES = gql`
   }
 `;
 
+const topicResponse = `
+  _id
+  title
+  content
+  slug
+  forumCategory {
+    _id
+    title
+    slug
+  }
+  user {
+    username
+    avatar
+  }
+`;
+
 export const GET_TOPICS_BY_CATEGORY = gql`
   query TopicsByCategory($category: String) {
     topicsByCategory(category: $category) {
-      _id
-      title
-      content
-      slug
-      forumCategory {
-        _id
-        title
-        slug
-      }
-      user {
-        username
-        avatar
-      }
+     ${topicResponse}
+    }
+  }
+`;
+
+export const GET_TOPIC_BY_SLUG = gql`
+  query GetTopicBySlug($slug: String) {
+    topicBySlug(slug: $slug) {
+      ${topicResponse}
     }
   }
 `;

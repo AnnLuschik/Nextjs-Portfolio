@@ -61,6 +61,10 @@ exports.forumQueries = {
 
     const topics = await ctx.models.Topic.getAllByCategory(forumCategory.id);
     return topics;
+  },
+  topicBySlug: async (root, { slug }, ctx) => {
+    const topic = await ctx.models.Topic.getBySlug(slug);
+    return topic;
   }
 };
 

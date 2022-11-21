@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import withApollo from 'hoc/withApollo';
 import Replier from 'components/shared/Replier';
@@ -20,11 +20,11 @@ const useTopics = () => {
   const user = (dataU && dataU.user) || null;
   const topics = (dataT && dataT.topicsByCategory) || [];
 
-  return { topics, user, slug };
+  return { topics, user, slug, router };
 };
 
 const Topics = () => {
-  const { topics, user, slug } = useTopics();
+  const { topics, user, slug, router } = useTopics();
   const [isReplierOpen, setReplierOpen] = useState(false);
 
   const [createTopic, { error }] = useCreateTopic();
@@ -37,6 +37,10 @@ const Topics = () => {
       setReplierOpen(false);
       done();
     }
+  };
+
+  const goToTopic = (slug) => {
+    router.push('/forum/topics/[slug]', `/forum/topics/${slug}`);
   };
 
   return (
@@ -66,7 +70,7 @@ const Topics = () => {
           <tbody>
             {topics.length > 0 &&
               topics.map((topic) => (
-                <tr key={topic.slug}>
+                <tr key={topic.slug} onClick={() => goToTopic(topic.slug)}>
                   <th>{topic.title}</th>
                   <td className="category">{topic.forumCategory.title}</td>
                   <td>{topic.user.username}</td>
