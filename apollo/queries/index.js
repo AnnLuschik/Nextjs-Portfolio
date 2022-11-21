@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { CORE_POST_FIELDS } from '../fragments';
 
 export const GET_PORTFOLIO = gql`
   query Portfolio($id: ID) {
@@ -90,6 +91,31 @@ export const GET_TOPIC_BY_SLUG = gql`
   query GetTopicBySlug($slug: String) {
     topicBySlug(slug: $slug) {
       ${topicResponse}
+    }
+  }
+`;
+
+export const GET_POSTS_BY_TOPIC = gql`
+  ${CORE_POST_FIELDS}
+  query GetPostsByTopic($slug: String) {
+    postsByTopic(slug: $slug) {
+      ...CorePostFields
+      topic {
+        title
+      }
+      user {
+        username
+        avatar
+      }
+      parent {
+        _id
+        content
+        slug
+        user {
+          username
+          avatar
+        }
+      }
     }
   }
 `;

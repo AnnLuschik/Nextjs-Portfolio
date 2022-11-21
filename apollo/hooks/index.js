@@ -6,7 +6,8 @@ import {
   GET_USER_PORTFOLIOS,
   GET_FORUM_CATEGORIES,
   GET_TOPICS_BY_CATEGORY,
-  GET_TOPIC_BY_SLUG
+  GET_TOPIC_BY_SLUG,
+  GET_POSTS_BY_TOPIC
 } from 'apollo/queries';
 import {
   CREATE_PORTFOLIO,
@@ -89,3 +90,6 @@ export const useCreateTopic = () =>
 
 export const useGetTopicBySlug = (options) =>
   useQuery(GET_TOPIC_BY_SLUG, options);
+
+export const useGetPostsByTopic = (options) =>
+  useQuery(GET_POSTS_BY_TOPIC, options);

@@ -1,14 +1,21 @@
 import { useRouter } from 'next/router';
-import { useGetTopicBySlug } from 'apollo/hooks';
+import { useGetPostsByTopic, useGetTopicBySlug } from 'apollo/hooks';
 import WithApollo from 'hoc/withApollo';
 
 const useInitialData = () => {
   const router = useRouter();
   const { slug } = router.query;
-  const { data, loading, error } = useGetTopicBySlug({ variables: { slug } });
-  const topic = (data && data.topicBySlug) || null;
+  const {
+    data: dataT,
+    loading,
+    error
+  } = useGetTopicBySlug({ variables: { slug } });
+  const topic = (dataT && dataT.topicBySlug) || null;
 
-  return { topic, loading, error };
+  const { data: dataP } = useGetPostsByTopic({ variables: { slug } });
+  const posts = (dataP && dataP.postsByTopic) || [];
+
+  return { topic, loading, error, posts };
 };
 
 const Posts = () => {
