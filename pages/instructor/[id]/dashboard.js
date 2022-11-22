@@ -48,7 +48,7 @@ const InstructorDashboard = () => {
                 <CardContent>
                   <Typography variant="h4">{p.title}</Typography>
                   <Typography>
-                    {formatDate(+p.startDate)} — {formatDate(+p.endDate)}
+                    {formatDate(p.startDate)} — {formatDate(p.endDate)}
                   </Typography>
                 </CardContent>
                 <CardActions>

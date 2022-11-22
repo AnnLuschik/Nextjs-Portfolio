@@ -5,10 +5,11 @@ class Post {
   }
 
   getAllByTopic(topic) {
-    return this.Model.find({ topic: topic.id })
+    return this.Model.find({ topic })
+      .sort('createdAt')
       .populate('user')
       .populate('topic')
-      .populate({ path: 'parent', populate: 'user' });
+      .populate({ path: 'parent', populate: { path: 'user' } });
   }
 }
 

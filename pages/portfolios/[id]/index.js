@@ -29,7 +29,7 @@ const PortfolioDetail = ({ query }) => {
             <p className="text">{portfolio.location}</p>
 
             <h4 className="title">Start Date</h4>
-            <p className="text">{formatDate(+portfolio.startDate)}</p>
+            <p className="text">{formatDate(portfolio.startDate)}</p>
           </div>
 
           <div className="col-lg-6">
@@ -37,7 +37,7 @@ const PortfolioDetail = ({ query }) => {
             <p className="text">{portfolio.daysOfExperience}</p>
 
             <h4 className="title">End Date</h4>
-            <p className="text">{formatDate(+portfolio.endDate)}</p>
+            <p className="text">{formatDate(portfolio.endDate)}</p>
           </div>
           <div className="col-md-12">
             <hr />

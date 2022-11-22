@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router';
+
+import PostItem from 'components/forum/PostItem';
 import { useGetPostsByTopic, useGetTopicBySlug } from 'apollo/hooks';
 import WithApollo from 'hoc/withApollo';
 
@@ -19,7 +21,7 @@ const useInitialData = () => {
 };
 
 const Posts = () => {
-  const { topic, loading, error } = useInitialData();
+  const { topic, loading, error, posts } = useInitialData();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
@@ -36,158 +38,15 @@ const Posts = () => {
         </section>
         <section>
           <div className="fj-post-list">
-            <div className="row">
-              <div className="col-md-9">
-                <div className="topic-post">
-                  <article>
-                    <div className="row">
-                      <div className="topic-avatar">
-                        <div className="main-avatar">
-                          <img
-                            style={{ objectFit: 'cover' }}
-                            className="avatar subtle-shadow"
-                            src={topic.user.avatar}
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div className="topic-body">
-                        <div className="topic-header">
-                          <div className="topic-meta">
-                            <div className="name-container">
-                              <span className="name">
-                                {topic.user.username}
-                              </span>
-                            </div>
-                            <div className="date-container">
-                              <span className="date">21h</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="topic-content">
-                          <div className="cooked">
-                            <p>{topic.content}</p>
-                          </div>
-                          <section className="post-menu-area">
-                            <nav className="post-controls">
-                              <div className="actions">
-                                <button type="button" className="btn">
-                                  reply
-                                </button>
-                              </div>
-                            </nav>
-                          </section>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
+            <PostItem post={topic} className="topic-post-lead" />
+            {posts.length > 0 &&
+              posts.map((post) => (
+                <div className="row" key={post.slug}>
+                  <div className="col-md-9">
+                    <PostItem post={post} />
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-9">
-                <div className="topic-post">
-                  <article>
-                    <div className="row">
-                      <div className="topic-avatar">
-                        <div className="main-avatar">
-                          <img
-                            className="avatar subtle-shadow"
-                            src="https://i.imgur.com/cVDadwb.png"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div className="topic-body">
-                        <div className="topic-header">
-                          <div className="topic-meta">
-                            <div className="name-container">
-                              <span className="name">Filip Jerga</span>
-                            </div>
-                            <div className="date-container">
-                              <span className="date">21h</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="topic-content">
-                          <div className="cooked">
-                            <p>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry&#39;s standard dummy text ever since the
-                              1500s, when an unknown printer took a galley of
-                              type and scrambled it to make a type specimen
-                              book.
-                            </p>
-                          </div>
-                          <section className="post-menu-area">
-                            <nav className="post-controls">
-                              <div className="actions">
-                                <button type="button" className="btn">
-                                  reply
-                                </button>
-                              </div>
-                            </nav>
-                          </section>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-9">
-                <div className="topic-post">
-                  <article>
-                    <div className="row">
-                      <div className="topic-avatar">
-                        <div className="main-avatar">
-                          <img
-                            className="avatar subtle-shadow"
-                            src="https://i.imgur.com/cVDadwb.png"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div className="topic-body">
-                        <div className="topic-header">
-                          <div className="topic-meta">
-                            <div className="name-container">
-                              <span className="name">Filip Jerga</span>
-                            </div>
-                            <div className="date-container">
-                              <span className="date">21h</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="topic-content">
-                          <div className="cooked">
-                            <p>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry&#39;s standard dummy text ever since the
-                              1500s, when an unknown printer took a galley of
-                              type and scrambled it to make a type specimen
-                              book.
-                            </p>
-                          </div>
-                          <section className="post-menu-area">
-                            <nav className="post-controls">
-                              <div className="actions">
-                                <button type="button" className="btn">
-                                  reply
-                                </button>
-                              </div>
-                            </nav>
-                          </section>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
         </section>
       </>
