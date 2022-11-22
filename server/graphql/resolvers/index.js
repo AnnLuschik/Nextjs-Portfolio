@@ -84,5 +84,9 @@ exports.forumMutations = {
       forumCategory: category.id
     });
     return topic;
+  },
+  createPost: async (root, { input }, ctx) => {
+    const post = await ctx.models.Post.create(input);
+    return post;
   }
 };

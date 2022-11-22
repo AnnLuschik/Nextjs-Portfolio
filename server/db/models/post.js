@@ -9,7 +9,7 @@ const postSchema = new Schema({
   topic: { type: Schema.Types.ObjectId, ref: 'Topic' },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   parent: { type: Schema.Types.ObjectId, ref: 'Post' },
-  createdAt: { type: Date, default: Date.now() }
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Post', postSchema);
