@@ -1,4 +1,12 @@
+import Link from 'next/link';
+
+import { useGetForumCategories } from 'apollo/hooks';
+import withApollo from 'hoc/withApollo';
+
 const ForumCategories = () => {
+  const { data } = useGetForumCategories();
+  const categories = (data && data.forumCategories) || [];
+
   return (
     <>
       <section className="section-title">
@@ -10,55 +18,36 @@ const ForumCategories = () => {
       </section>
       <section className="fj-category-list">
         <div className="row">
-          <div className="col-md-4">
-            <div className="fj-category-container">
-              <a className="fj-category subtle-shadow no-border" href="#">
-                {
-                  // <div className="category-icon">
-                  //   <img src="images/pen.png" />
-                  // </div>
-                }
-                <div className="category-information">
-                  <div className="heading gray-90">General Discussion</div>
-                  <div className="description">Just general question</div>
+          {categories.length > 0 &&
+            categories.map((category) => (
+              <div className="col-md-4" key={category.slug}>
+                <div className="fj-category-container">
+                  <Link
+                    href={{
+                      pathname: '/forum/categories/[slug]',
+                      query: { slug: category.slug }
+                    }}
+                    legacyBehavior
+                  >
+                    <a className="fj-category subtle-shadow no-border">
+                      {
+                        // <div className="category-icon">
+                        //   <img src="images/pen.png" />
+                        // </div>
+                      }
+                      <div className="category-information">
+                        <div className="heading gray-90">{category.title}</div>
+                        <div className="description">{category.subtitle}</div>
+                      </div>
+                    </a>
+                  </Link>
                 </div>
-              </a>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="fj-category-container">
-              <a className="fj-category subtle-shadow no-border" href="#">
-                {
-                  // <div className="category-icon">
-                  //   <img src="images/pen.png" />
-                  // </div>
-                }
-                <div className="category-information">
-                  <div className="heading gray-90">Other Discussion</div>
-                  <div className="description">Just general question</div>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="fj-category-container">
-              <a className="fj-category subtle-shadow no-border" href="#">
-                {
-                  // <div className="category-icon">
-                  //   <img src="images/pen.png" />
-                  // </div>
-                }
-                <div className="category-information">
-                  <div className="heading gray-90">Some Discussion</div>
-                  <div className="description">Just general question</div>
-                </div>
-              </a>
-            </div>
-          </div>
+              </div>
+            ))}
         </div>
       </section>
     </>
   );
 };
 
-export default ForumCategories;
+export default withApollo(ForumCategories);

@@ -2,9 +2,10 @@ import Link from 'next/link';
 
 import PortfolioCard from 'components/portfolios/PortfolioCard';
 import withApollo from 'hoc/withApollo';
-import { GET_PORTFOLIOS } from 'apollo/queries';
+import { useGetPortfolios } from 'apollo/hooks';
 
-const Portfolios = ({ data }) => {
+const Portfolios = () => {
+  const { data } = useGetPortfolios();
   const portfolios = (data && data.portfolios) || [];
 
   return (
@@ -32,13 +33,6 @@ const Portfolios = ({ data }) => {
       </section>
     </>
   );
-};
-
-Portfolios.getInitialProps = async ({ apolloClient }) => {
-  const { data } = await apolloClient.query({ query: GET_PORTFOLIOS });
-  return {
-    data
-  };
 };
 
 export default withApollo(Portfolios);

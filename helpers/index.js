@@ -1,2 +1,2 @@
 export { getErrorMessage } from './getErrorMessage';
-export { formatDate } from './formatDate';
+export { formatDate, fromNow } from './date';

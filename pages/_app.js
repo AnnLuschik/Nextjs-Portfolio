@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }) => {
       </div>
       {Component.name === 'Home' && <Footer />}
       <ToastContainer
-        position="bottom-right"
+        position="top-right"
         theme="colored"
         closeOnClick
         pauseOnFocusLoss

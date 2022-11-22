@@ -1,8 +1,9 @@
-import { GET_PORTFOLIO } from 'apollo/queries';
+import { useGetPortfolio } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
 import { formatDate } from 'helpers';
 
-const PortfolioDetail = ({ data }) => {
+const PortfolioDetail = ({ query }) => {
+  const { data } = useGetPortfolio({ variables: { id: query.id } });
   const portfolio = (data && data.portfolio) || {};
 
   return (
@@ -28,7 +29,7 @@ const PortfolioDetail = ({ data }) => {
             <p className="text">{portfolio.location}</p>
 
             <h4 className="title">Start Date</h4>
-            <p className="text">{formatDate(+portfolio.startDate)}</p>
+            <p className="text">{formatDate(portfolio.startDate)}</p>
           </div>
 
           <div className="col-lg-6">
@@ -36,7 +37,7 @@ const PortfolioDetail = ({ data }) => {
             <p className="text">{portfolio.daysOfExperience}</p>
 
             <h4 className="title">End Date</h4>
-            <p className="text">{formatDate(+portfolio.endDate)}</p>
+            <p className="text">{formatDate(portfolio.endDate)}</p>
           </div>
           <div className="col-md-12">
             <hr />
@@ -49,12 +50,8 @@ const PortfolioDetail = ({ data }) => {
   );
 };
 
-PortfolioDetail.getInitialProps = async ({ query, apolloClient }) => {
-  const { data } = await apolloClient.query({
-    query: GET_PORTFOLIO,
-    variables: { id: query.id }
-  });
-  return { data };
+PortfolioDetail.getInitialProps = async ({ query }) => {
+  return { query };
 };
 
 export default withApollo(PortfolioDetail);

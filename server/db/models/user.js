@@ -35,7 +35,7 @@ const userSchema = new Schema({
     default: 'guest'
   },
   info: String,
-  createdAt: { type: Date, default: Date.now() }
+  createdAt: { type: Date, default: Date.now }
 });
 
 userSchema.pre('save', function (next) {

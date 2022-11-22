@@ -80,7 +80,7 @@ export const DELETE_PORTFOLIO = gql`
   }
 `;
 
-// AUTH QUERIES START ----------------------------
+// AUTH MUTATIONS START ----------------------------
 
 export const SIGN_UP = gql`
   mutation SignUp(
@@ -119,4 +119,57 @@ export const SIGN_OUT = gql`
   }
 `;
 
-// AUTH QUERIES END ----------------------------
+// AUTH MUTATIONS END ----------------------------
+
+// FORUM MUTATIONS START ----------------------------
+
+export const CREATE_TOPIC = gql`
+  mutation CreateTopic($input: TopicInput) {
+    createTopic(input: $input) {
+      _id
+      title
+      content
+      slug
+      createdAt
+      forumCategory {
+        _id
+        title
+        slug
+      }
+      user {
+        username
+        avatar
+      }
+    }
+  }
+`;
+
+export const CREATE_POST = gql`
+  mutation CreatePost($input: PostInput) {
+    createPost(input: $input) {
+      _id
+      content
+      slug
+      createdAt
+      topic {
+        title
+        slug
+      }
+      user {
+        username
+        avatar
+      }
+      parent {
+        _id
+        content
+        slug
+        user {
+          username
+          avatar
+        }
+      }
+    }
+  }
+`;
+
+// FORUM MUTATIONS END ----------------------------

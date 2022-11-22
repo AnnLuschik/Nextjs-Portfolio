@@ -50,3 +50,75 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_FORUM_CATEGORIES = gql`
+  query ForumCategories {
+    forumCategories {
+      _id
+      title
+      subtitle
+      slug
+    }
+  }
+`;
+
+const topicResponse = `
+  _id
+  title
+  content
+  slug
+  createdAt
+  forumCategory {
+    _id
+    title
+    slug
+  }
+  user {
+    username
+    avatar
+  }
+`;
+
+export const GET_TOPICS_BY_CATEGORY = gql`
+  query TopicsByCategory($category: String) {
+    topicsByCategory(category: $category) {
+     ${topicResponse}
+    }
+  }
+`;
+
+export const GET_TOPIC_BY_SLUG = gql`
+  query GetTopicBySlug($slug: String) {
+    topicBySlug(slug: $slug) {
+      ${topicResponse}
+    }
+  }
+`;
+
+export const GET_POSTS_BY_TOPIC = gql`
+  query GetPostsByTopic($slug: String) {
+    postsByTopic(slug: $slug) {
+      _id
+      content
+      slug
+      createdAt
+      topic {
+        title
+        slug
+      }
+      user {
+        username
+        avatar
+      }
+      parent {
+        _id
+        content
+        slug
+        user {
+          username
+          avatar
+        }
+      }
+    }
+  }
+`;

@@ -10,7 +10,7 @@ const PortfolioCard = ({ data }) => {
       </div>
       <div className="card-footer no-border">
         <small className="text-muted">
-          {`${formatDate(+data.startDate)} — ${formatDate(+data.endDate)}`}
+          {`${formatDate(data.startDate)} — ${formatDate(data.endDate)}`}
         </small>
       </div>
     </div>

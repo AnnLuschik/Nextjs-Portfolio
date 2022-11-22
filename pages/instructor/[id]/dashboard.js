@@ -48,7 +48,7 @@ const InstructorDashboard = () => {
                 <CardContent>
                   <Typography variant="h4">{p.title}</Typography>
                   <Typography>
-                    {formatDate(+p.startDate)} — {formatDate(+p.endDate)}
+                    {formatDate(p.startDate)} — {formatDate(p.endDate)}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -75,10 +75,6 @@ const InstructorDashboard = () => {
       </div>
     </div>
   );
-};
-
-InstructorDashboard.getInitialProps = (ctx) => {
-  return {};
 };
 
 export default withApollo(
