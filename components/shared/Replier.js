@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import styles from 'styles/Replier.module.css';
 
-const Replier = ({ isOpen, onClose, onSubmit, replyTo }) => {
+const Replier = ({ isOpen, hasTitle = true, onClose, onSubmit, replyTo }) => {
   const [reply, setReply] = useState({ title: '', content: '' });
 
   const handleChange = (event) => {
@@ -23,18 +23,21 @@ const Replier = ({ isOpen, onClose, onSubmit, replyTo }) => {
       <div className="reply-area">
         {replyTo && (
           <div className="reply-to">
-            Reply To: <span className="text ml-2">User1</span>
+            Reply To:<span className="text ms-2">{replyTo}</span>
           </div>
         )}
-        <div className="fj-editor-input">
-          <input
-            name="title"
-            placeholder="Topic title"
-            value={reply.title}
-            type="text"
-            onChange={handleChange}
-          />
-        </div>
+        {hasTitle && (
+          <div className="fj-editor-input">
+            <input
+              name="title"
+              placeholder="Topic title"
+              value={reply.title}
+              type="text"
+              onChange={handleChange}
+            />
+          </div>
+        )}
+
         <div className="fj-editor">
           <div className="fj-editor-textarea-wrapper">
             <textarea

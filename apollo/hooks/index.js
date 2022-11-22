@@ -64,6 +64,8 @@ export const useSignOut = () => useMutation(SIGN_OUT);
 
 export const useLazyGetUser = () => useLazyQuery(GET_USER);
 
+export const useGetUser = () => useQuery(GET_USER);
+
 // FORUM ACTIONS
 
 export const useGetForumCategories = () => useQuery(GET_FORUM_CATEGORIES);

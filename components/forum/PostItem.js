@@ -1,7 +1,9 @@
 import { fromNow } from 'helpers';
 
-const PostItem = ({ post, className = '' }) => {
+const PostItem = ({ post, onReply, className = '', canCreate = false }) => {
   const { parent } = post;
+
+  const hasReply = onReply && canCreate;
 
   return (
     <div className={`topic-post ${className}`}>
@@ -56,9 +58,15 @@ const PostItem = ({ post, className = '' }) => {
               <section className="post-menu-area">
                 <nav className="post-controls">
                   <div className="actions">
-                    <button type="button" className="btn">
-                      reply
-                    </button>
+                    {hasReply ? (
+                      <button
+                        type="button"
+                        className="btn"
+                        onClick={() => onReply({ ...post })}
+                      >
+                        reply
+                      </button>
+                    ) : null}
                   </div>
                 </nav>
               </section>
