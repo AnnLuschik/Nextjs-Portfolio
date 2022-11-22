@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 
 import PostItem from 'components/forum/PostItem';
@@ -6,7 +6,8 @@ import Replier from 'components/shared/Replier';
 import {
   useGetPostsByTopic,
   useGetTopicBySlug,
-  useGetUser
+  useGetUser,
+  useCreatePost
 } from 'apollo/hooks';
 import WithApollo from 'hoc/withApollo';
 
@@ -52,8 +53,11 @@ const PostsPage = () => {
 };
 
 const Posts = ({ topic, posts, user }) => {
+  const pageEnd = useRef(null);
   const [isReplierOpen, setReplierOpen] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
+
+  const [createPost, { error }] = useCreatePost();
 
   const handleCreate = () => {
     setReplyTo(null);
@@ -61,8 +65,29 @@ const Posts = ({ topic, posts, user }) => {
   };
 
   const handleReply = (reply) => {
-    setReplyTo(reply.user.username);
+    setReplyTo(reply);
     setReplierOpen(true);
+  };
+
+  const scrollToBottom = () =>
+    pageEnd.current.scrollIntoView({ behavior: 'smooth' });
+
+  const handleSubmit = async (data, resetReplier) => {
+    if (!data.content) return null;
+
+    const reply = {
+      content: data.content,
+      topic: topic._id
+    };
+
+    if (replyTo) {
+      reply.parent = replyTo._id;
+    }
+
+    await createPost({ variables: { input: reply } });
+    resetReplier();
+    setReplierOpen(false);
+    scrollToBottom();
   };
 
   return (
@@ -99,12 +124,13 @@ const Posts = ({ topic, posts, user }) => {
           </div>
         </div>
       </div>
+      <div ref={pageEnd} />
       <Replier
         hasTitle={false}
         isOpen={isReplierOpen}
-        replyTo={replyTo || topic.title}
+        replyTo={(replyTo && replyTo.user.username) || topic.title}
         onClose={() => setReplierOpen(false)}
-        onSubmit={() => {}}
+        onSubmit={handleSubmit}
       />
     </section>
   );

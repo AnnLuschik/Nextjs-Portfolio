@@ -104,6 +104,7 @@ export const GET_POSTS_BY_TOPIC = gql`
       createdAt
       topic {
         title
+        slug
       }
       user {
         username

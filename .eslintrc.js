@@ -30,10 +30,7 @@ module.exports = {
         trailingComma: 'none'
       }
     ],
-    'no-underscore-dangle': [
-      'error',
-      { enforceInClassFields: true, allowAfterThis: true }
-    ],
+    'no-underscore-dangle': 0,
     'no-debugger': 0,
     'no-useless-escape': 0,
     'func-names': 0,

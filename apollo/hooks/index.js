@@ -1,4 +1,5 @@
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
+import { toast } from 'react-toastify';
 import {
   GET_PORTFOLIOS,
   GET_PORTFOLIO,
@@ -15,7 +16,8 @@ import {
   DELETE_PORTFOLIO,
   CREATE_TOPIC,
   SIGN_IN,
-  SIGN_OUT
+  SIGN_OUT,
+  CREATE_POST
 } from 'apollo/mutations';
 
 export const useGetPortfolio = (options) => useQuery(GET_PORTFOLIO, options);
@@ -95,3 +97,24 @@ export const useGetTopicBySlug = (options) =>
 
 export const useGetPostsByTopic = (options) =>
   useQuery(GET_POSTS_BY_TOPIC, options);
+
+export const useCreatePost = () =>
+  useMutation(CREATE_POST, {
+    update(cache, { data: { createPost: response } }) {
+      try {
+        toast.success('Post has been created', { autoClose: 2000 });
+        const cached = cache.readQuery({
+          query: GET_POSTS_BY_TOPIC,
+          variables: { slug: response.topic.slug }
+        });
+        const posts = cached ? cached.postsByTopic : [];
+        cache.writeQuery({
+          query: GET_POSTS_BY_TOPIC,
+          data: { postsByTopic: [...posts, response] },
+          variables: { slug: response.topic.slug }
+        });
+      } catch (e) {
+        return null;
+      }
+    }
+  });

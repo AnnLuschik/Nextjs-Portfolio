@@ -130,6 +130,7 @@ export const CREATE_TOPIC = gql`
       title
       content
       slug
+      createdAt
       forumCategory {
         _id
         title
@@ -138,6 +139,34 @@ export const CREATE_TOPIC = gql`
       user {
         username
         avatar
+      }
+    }
+  }
+`;
+
+export const CREATE_POST = gql`
+  mutation CreatePost($input: PostInput) {
+    createPost(input: $input) {
+      _id
+      content
+      slug
+      createdAt
+      topic {
+        title
+        slug
+      }
+      user {
+        username
+        avatar
+      }
+      parent {
+        _id
+        content
+        slug
+        user {
+          username
+          avatar
+        }
       }
     }
   }
