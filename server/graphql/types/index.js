@@ -85,6 +85,11 @@ exports.forumTypes = `
     createdAt: String
   }
 
+  type PaginatedPosts {
+    content: [Post]
+    totalElements: Int
+  }
+
   input PostInput {
     content: String
     topic: String

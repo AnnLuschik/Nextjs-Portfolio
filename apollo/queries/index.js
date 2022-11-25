@@ -96,29 +96,32 @@ export const GET_TOPIC_BY_SLUG = gql`
 `;
 
 export const GET_POSTS_BY_TOPIC = gql`
-  query GetPostsByTopic($slug: String) {
-    postsByTopic(slug: $slug) {
-      _id
-      content
-      slug
-      createdAt
-      topic {
-        title
-        slug
-      }
-      user {
-        username
-        avatar
-      }
-      parent {
+  query GetPostsByTopic($slug: String, $offset: Int, $limit: Int) {
+    postsByTopic(slug: $slug, offset: $offset, limit: $limit) {
+      content {
         _id
         content
         slug
+        createdAt
+        topic {
+          title
+          slug
+        }
         user {
           username
           avatar
         }
+        parent {
+          _id
+          content
+          slug
+          user {
+            username
+            avatar
+          }
+        }
       }
+      totalElements
     }
   }
 `;

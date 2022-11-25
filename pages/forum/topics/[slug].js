@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import PostItem from 'components/forum/PostItem';
 import Replier from 'components/shared/Replier';
+import Pagination from 'components/shared/Pagination';
 import {
   useGetPostsByTopic,
   useGetTopicBySlug,
@@ -11,30 +12,29 @@ import {
 } from 'apollo/hooks';
 import WithApollo from 'hoc/withApollo';
 
-const useInitialData = () => {
+const useInitialData = (pagination) => {
   const router = useRouter();
   const { slug } = router.query;
-  const {
-    data: dataT,
-    loading,
-    error
-  } = useGetTopicBySlug({ variables: { slug } });
+
+  const { data: dataT } = useGetTopicBySlug({
+    variables: { slug }
+  });
   const topic = (dataT && dataT.topicBySlug) || null;
 
-  const { data: dataP } = useGetPostsByTopic({ variables: { slug } });
-  const posts = (dataP && dataP.postsByTopic) || [];
+  const { data: dataP } = useGetPostsByTopic({
+    variables: { slug, ...pagination }
+  });
+  const postsData = (dataP && dataP.postsByTopic) || { content: [] };
 
   const { data: dataU } = useGetUser();
   const user = (dataU && dataU.user) || null;
 
-  return { topic, loading, error, posts, user };
+  return { topic, ...postsData, user };
 };
 
 const PostsPage = () => {
-  const { topic, loading, error, posts, user } = useInitialData();
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  const [pagination, setPagination] = useState({ offset: 0, limit: 5 });
+  const { topic, content, ...rest } = useInitialData(pagination);
 
   return (
     topic && (
@@ -46,13 +46,13 @@ const PostsPage = () => {
             </div>
           </div>
         </section>
-        <Posts topic={topic} posts={posts} user={user} />
+        <Posts topic={topic} posts={content} {...pagination} {...rest} />
       </>
     )
   );
 };
 
-const Posts = ({ topic, posts, user }) => {
+const Posts = ({ topic, posts, user, totalElements, offset, limit }) => {
   const pageEnd = useRef(null);
   const [isReplierOpen, setReplierOpen] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
@@ -109,7 +109,7 @@ const Posts = ({ topic, posts, user }) => {
       </div>
       <div className="row mt-2 mx-0">
         <div className="col-md-9">
-          <div className="posts-bottom">
+          <div>
             {user ? (
               <div className="pt-2 pb-2">
                 <button
@@ -122,6 +122,7 @@ const Posts = ({ topic, posts, user }) => {
               </div>
             ) : null}
           </div>
+          <Pagination totalElements={totalElements} itemsPerPage={5} />
         </div>
       </div>
       <div ref={pageEnd} />
