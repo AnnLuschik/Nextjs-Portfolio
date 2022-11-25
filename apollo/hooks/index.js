@@ -100,21 +100,8 @@ export const useGetPostsByTopic = (options) =>
 
 export const useCreatePost = () =>
   useMutation(CREATE_POST, {
-    update(cache, { data: { createPost: response } }) {
-      try {
-        toast.success('Post has been created', { autoClose: 2000 });
-        const cached = cache.readQuery({
-          query: GET_POSTS_BY_TOPIC,
-          variables: { slug: response.topic.slug }
-        });
-        const posts = cached ? cached.postsByTopic : [];
-        cache.writeQuery({
-          query: GET_POSTS_BY_TOPIC,
-          data: { postsByTopic: [...posts, response] },
-          variables: { slug: response.topic.slug }
-        });
-      } catch (e) {
-        return null;
-      }
-    }
+    onCompleted() {
+      toast.success('Post has been created', { autoClose: 2000 });
+    },
+    refetchQueries: ['GetPostsByTopic']
   });

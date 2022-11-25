@@ -7,12 +7,20 @@ class Post {
     this.user = user;
   }
 
-  getAllByTopic(topic) {
-    return this.Model.find({ topic })
+  async getAllByTopic({ topic, pageNum, pageSize }) {
+    const totalElements = await this.Model.countDocuments({ topic });
+
+    const offset = pageSize * (pageNum - 1);
+
+    const posts = await this.Model.find({ topic })
       .sort('createdAt')
+      .skip(offset)
+      .limit(pageSize)
       .populate('user')
       .populate('topic')
       .populate({ path: 'parent', populate: { path: 'user' } });
+
+    return { content: posts, totalElements };
   }
 
   async create(data) {
