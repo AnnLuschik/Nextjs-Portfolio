@@ -21,7 +21,8 @@ const useInitialData = (slug, pagination) => {
   const topic = (dataT && dataT.topicBySlug) || null;
 
   const { data: dataP, fetchMore } = useGetPostsByTopic({
-    variables: { slug, ...pagination }
+    variables: { slug, ...pagination },
+    pollInterval: 1000
   });
   const postsData = (dataP && dataP.postsByTopic) || { content: [] };
 
