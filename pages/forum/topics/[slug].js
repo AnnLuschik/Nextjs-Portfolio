@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 // Components
@@ -14,10 +14,7 @@ import {
 // Misc
 import withApollo from 'hoc/withApollo';
 
-const useInitialData = (pagination) => {
-  const router = useRouter();
-  const { slug } = router.query;
-
+const useInitialData = (slug, pagination) => {
   const { data: dataT } = useGetTopicBySlug({
     variables: { slug }
   });
@@ -35,15 +32,48 @@ const useInitialData = (pagination) => {
 };
 
 const PostsPage = () => {
-  const [pagination, setPagination] = useState({ pageNum: 1, pageSize: 5 });
-  const { topic, content, fetchMore, ...rest } = useInitialData(pagination);
+  const router = useRouter();
+  const { slug, pageNum, pageSize } = router.query;
 
-  const handlePageChange = (pageNum, pageSize) => {
-    setPagination({ pageNum, pageSize });
+  const [pagination, setPagination] = useState({
+    pageNum: +pageNum || 1,
+    pageSize: +pageSize || 5
+  });
+
+  useEffect(() => {
+    if (pageNum && pageSize) {
+      setPagination({
+        pageNum: +pageNum,
+        pageSize: +pageSize
+      });
+    }
+  }, [pageNum, pageSize]);
+
+  const { topic, content, fetchMore, ...rest } = useInitialData(
+    slug,
+    pagination
+  );
+
+  const handlePageChange = (num, size) => {
+    const currentPath = router.pathname;
+    const currentQuery = router.query;
+
+    router.push(
+      {
+        pathname: currentPath,
+        query: {
+          ...currentQuery,
+          pageNum: num,
+          pageSize: size
+        }
+      },
+      '',
+      { shallow: true }
+    );
     fetchMore({
       variables: {
-        pageNum,
-        pageSize
+        pageNum: num,
+        pageSize: size
       }
     });
   };

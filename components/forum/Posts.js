@@ -52,7 +52,10 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
   return (
     <section className="pb-5">
       <div className="fj-post-list">
-        <PostItem post={topic} className="topic-post-lead" />
+        {pagination.pageNum === 1 && (
+          <PostItem post={topic} className="topic-post-lead" />
+        )}
+
         {posts.length > 0 &&
           posts.map((post) => (
             <div className="row" key={post.slug}>
@@ -68,7 +71,7 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
       </div>
       <div className="row mt-2 mx-0">
         <div className="col-md-9">
-          <div>
+          <div className="posts-bottom">
             {user ? (
               <div className="pt-2 pb-2">
                 <button
@@ -80,8 +83,10 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
                 </button>
               </div>
             ) : null}
+            <div className="pagination-container ms-auto">
+              <Pagination {...pagination} />
+            </div>
           </div>
-          <Pagination {...pagination} />
         </div>
       </div>
       <div ref={pageEnd} />

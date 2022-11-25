@@ -1,21 +1,21 @@
-import ReactPaginate from 'react-paginate';
+import ReactPagination from 'react-js-pagination';
 
-import styles from 'styles/Pagination.module.css';
-
-const Pagination = ({ totalElements = 0, pageSize = 5, onPageChange }) => {
+const Pagination = ({
+  totalElements = 0,
+  pageSize = 5,
+  pageNum,
+  onPageChange
+}) => {
   return (
-    <div className={styles.pagination}>
-      <ReactPaginate
-        breakLabel="..."
-        onPageChange={({ selected }) => onPageChange(selected + 1, pageSize)}
-        pageRangeDisplayed={5}
-        pageCount={Math.ceil(totalElements / pageSize)}
-        nextLabel="&rarr;"
-        previousLabel="&larr;"
-        renderOnZeroPageCount={null}
-        marginPagesDisplayed={2}
-      />
-    </div>
+    <ReactPagination
+      itemClass="page-item"
+      linkClass="page-link"
+      activePage={pageNum}
+      itemsCountPerPage={pageSize}
+      totalItemsCount={totalElements}
+      pageRangeDisplayed={5}
+      onChange={(page) => onPageChange(page, pageSize)}
+    />
   );
 };
 
