@@ -30,6 +30,7 @@ module.exports = {
         trailingComma: 'none'
       }
     ],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-underscore-dangle': 0,
     'no-debugger': 0,
     'no-useless-escape': 0,

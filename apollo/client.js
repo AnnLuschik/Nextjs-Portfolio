@@ -16,6 +16,27 @@ export function getApolloClient(initialState) {
             merge(existing, incoming) {
               return incoming;
             }
+          },
+          postsByTopic: {
+            keyArgs: ['slug'],
+            read(existing, { args: { pageNum, pageSize } }) {
+              const offset = (pageNum - 1) * pageSize;
+
+              return (
+                existing && {
+                  ...existing,
+                  content: existing.content.slice(offset, offset + pageSize)
+                }
+              );
+            },
+            merge(existing, incoming, { args: { pageNum = 0, pageSize = 5 } }) {
+              const merged = existing ? existing.content.slice(0) : [];
+              const offset = (pageNum - 1) * pageSize;
+              for (let i = 0; i < incoming.content.length; i++) {
+                merged[offset + i] = incoming.content[i];
+              }
+              return { ...incoming, content: merged };
+            }
           }
         }
       }
