@@ -18,16 +18,16 @@ const useInitialData = (slug, pagination) => {
   const { data: dataT } = useGetTopicBySlug({
     variables: { slug }
   });
-  const topic = (dataT && dataT.topicBySlug) || null;
+  const topic = dataT?.topicBySlug || null;
 
   const { data: dataP, fetchMore } = useGetPostsByTopic({
     variables: { slug, ...pagination },
     pollInterval: 1000
   });
-  const postsData = (dataP && dataP.postsByTopic) || { content: [] };
+  const postsData = dataP?.postsByTopic || { content: [] };
 
   const { data: dataU } = useGetUser();
-  const user = (dataU && dataU.user) || null;
+  const user = dataU?.user || null;
 
   return { topic, ...postsData, user, fetchMore };
 };

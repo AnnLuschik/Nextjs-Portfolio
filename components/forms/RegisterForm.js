@@ -1,13 +1,31 @@
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import LoadingButton from '@mui/lab/LoadingButton';
 
+const schema = yup
+  .object({
+    avatar: yup.string(),
+    username: yup.string().required(),
+    email: yup.string().required(),
+    password: yup.string().required(),
+    passwordConfirmation: yup.string().required()
+  })
+  .required();
+
 const RegisterForm = ({ onSubmit, isLoading }) => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
-        <label htmlFor="avater">Avatar</label>
+        <label htmlFor="avatar">Avatar</label>
         <input
           type="text"
           className="form-control"
@@ -23,6 +41,9 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           id="username"
           {...register('username')}
         />
+        {errors.username?.message && (
+          <p className="errorMessage"> {errors.username.message}</p>
+        )}
       </div>
       <div className="form-group">
         <label htmlFor="email">Email</label>
@@ -32,6 +53,9 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           id="email"
           {...register('email')}
         />
+        {errors.email?.message && (
+          <p className="errorMessage"> {errors.email.message}</p>
+        )}
       </div>
       <div className="form-group">
         <label htmlFor="password">Password</label>
@@ -42,6 +66,9 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           autoComplete="new-password"
           {...register('password')}
         />
+        {errors.password?.message && (
+          <p className="errorMessage"> {errors.password.message}</p>
+        )}
       </div>
       <div className="form-group">
         <label htmlFor="passwordConfirmation">Password Confirmation</label>
@@ -51,6 +78,9 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           id="passwordConfirmation"
           {...register('passwordConfirmation')}
         />
+        {errors.passwordConfirmation?.message && (
+          <p className="errorMessage"> {errors.passwordConfirmation.message}</p>
+        )}
       </div>
       <LoadingButton loading={isLoading} variant="contained" type="submit">
         Submit
