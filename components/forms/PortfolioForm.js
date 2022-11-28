@@ -1,6 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import DatePicker from 'react-datepicker';
+
+const schema = yup
+  .object({
+    title: yup.string().required(),
+    company: yup.string().required(),
+    companyWebsite: yup.string().required(),
+    location: yup.string().required(),
+    jobTitle: yup.string().required(),
+    description: yup.string().required(),
+    startDate: yup.string().required(),
+    endDate: yup.string()
+  })
+  .required();
 
 const PortfolioForm = ({
   onSubmit,
@@ -9,8 +24,14 @@ const PortfolioForm = ({
 }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const { handleSubmit, register, setValue } = useForm({
-    defaultValues: initialData
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors }
+  } = useForm({
+    defaultValues: initialData,
+    resolver: yupResolver(schema)
   });
 
   useEffect(() => {
@@ -48,6 +69,9 @@ const PortfolioForm = ({
           className="form-control"
           id="title"
         />
+        {errors.title?.message && (
+          <p className="errorMessage"> {errors.title.message}</p>
+        )}
       </div>
 
       <div className="form-group">
@@ -59,6 +83,9 @@ const PortfolioForm = ({
           className="form-control"
           id="company"
         />
+        {errors.company?.message && (
+          <p className="errorMessage">{errors.company.message}</p>
+        )}
       </div>
 
       <div className="form-group">
@@ -70,6 +97,9 @@ const PortfolioForm = ({
           className="form-control"
           id="companyWebsite"
         />
+        {errors.companyWebsite?.message && (
+          <p className="errorMessage">{errors.companyWebsite.message}</p>
+        )}
       </div>
 
       <div className="form-group">
@@ -81,6 +111,9 @@ const PortfolioForm = ({
           className="form-control"
           id="location"
         />
+        {errors.location?.message && (
+          <p className="errorMessage">{errors.location.message}</p>
+        )}
       </div>
 
       <div className="form-group">
@@ -92,6 +125,9 @@ const PortfolioForm = ({
           className="form-control"
           id="jobTitle"
         />
+        {errors.jobTitle?.message && (
+          <p className="errorMessage">{errors.jobTitle.message}</p>
+        )}
       </div>
 
       <div className="form-group">
@@ -104,6 +140,9 @@ const PortfolioForm = ({
           className="form-control"
           id="description"
         />
+        {errors.description?.message && (
+          <p className="errorMessage">{errors.description.message}</p>
+        )}
       </div>
 
       <div className="form-group">
@@ -114,6 +153,9 @@ const PortfolioForm = ({
           onChange={handleDateChange('startDate', setStartDate)}
           id="startDate"
         />
+        {errors.startDate?.message && (
+          <p className="errorMessage">{errors.startDate.message}</p>
+        )}
       </div>
 
       <div className="form-group">

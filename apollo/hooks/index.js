@@ -29,10 +29,14 @@ export const useGetUserPortfolios = () => useQuery(GET_USER_PORTFOLIOS);
 
 export const useCreatePortfolio = () =>
   useMutation(CREATE_PORTFOLIO, {
-    refetchQueries: [{ query: GET_PORTFOLIOS }]
+    refetchQueries: [{ query: GET_PORTFOLIOS }],
+    errorPolicy: 'all'
   });
 
-export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
+export const useUpdatePortfolio = () =>
+  useMutation(UPDATE_PORTFOLIO, {
+    errorPolicy: 'all'
+  });
 
 export const useDeletePortfolio = () =>
   useMutation(DELETE_PORTFOLIO, {
@@ -60,7 +64,8 @@ export const useSignIn = () =>
           user: signIn
         }
       });
-    }
+    },
+    errorPolicy: 'all'
   });
 
 export const useSignOut = () => useMutation(SIGN_OUT);

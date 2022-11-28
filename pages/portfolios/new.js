@@ -11,10 +11,13 @@ const PortfolioCreate = () => {
   const [createPortfolio, { error }] = useCreatePortfolio();
 
   const handleCreatePortfolio = async (data) => {
-    await createPortfolio({
+    const { data: response } = await createPortfolio({
       variables: data
     });
-    router.push('/portfolios');
+
+    if (response.createPortfolio) {
+      router.push('/portfolios');
+    }
   };
 
   return (
