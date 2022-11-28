@@ -230,6 +230,10 @@ a, a:hover {
 
 .portfolio-app {
   height: 100%;
+
+  .card-body {
+    height: 150px;
+  }
 }
 
 .page-wrapper {
@@ -238,9 +242,6 @@ a, a:hover {
 
 #sticky-footer {
   background-color: #141618;
-  // position: absolute;
-  // bottom: 0;
-  // left: 0;
 }
 
 .fj-hero {

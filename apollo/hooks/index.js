@@ -8,7 +8,8 @@ import {
   GET_FORUM_CATEGORIES,
   GET_TOPICS_BY_CATEGORY,
   GET_TOPIC_BY_SLUG,
-  GET_POSTS_BY_TOPIC
+  GET_POSTS_BY_TOPIC,
+  GET_HIGHLIGHTED
 } from 'apollo/queries';
 import {
   CREATE_PORTFOLIO,
@@ -105,3 +106,6 @@ export const useCreatePost = () =>
     },
     refetchQueries: ['GetPostsByTopic']
   });
+
+export const useGetHighlighted = (options) =>
+  useQuery(GET_HIGHLIGHTED, options);
