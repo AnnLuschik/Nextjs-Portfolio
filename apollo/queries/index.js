@@ -138,7 +138,15 @@ export const GET_HIGHLIGHTED = gql`
         endDate
       }
       topics {
-        ${topicResponse}
+        _id
+        title
+        content
+        slug
+        user {
+          username
+          avatar
+        }
+        createdAt
       }
     }
   }

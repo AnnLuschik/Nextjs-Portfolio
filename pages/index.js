@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import PortfolioCard from 'components/portfolios/PortfolioCard';
+import TopicLink from 'components/forum/TopicLink';
 import { useGetHighlighted } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
 
@@ -17,7 +18,6 @@ const Home = () => {
 
   return (
     <>
-      {/* HOME PAGE STARTS */}
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
@@ -27,7 +27,8 @@ const Home = () => {
       </section>
       <section className="pb-5">
         <div className="row">
-          {!!portfolios &&
+          {portfolios &&
+            portfolios.length > 0 &&
             portfolios.map((portfolio) => (
               <div className="col-md-4" key={portfolio.id}>
                 <Link
@@ -52,75 +53,14 @@ const Home = () => {
       </section>
       <section className="pb-5">
         <div className="list-group">
-          <a
-            href="#"
-            className="list-group-item list-group-item-action flex-column align-items-start py-3 subtle-shadow no-border"
-          >
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1 black">List group item heading</h5>
-              <small>3 days ago</small>
-            </div>
-            <p className="mb-1">
-              Donec id elit non mi porta gravida at eget metus. Maecenas sed
-              diam eget risus varius blandit.
-            </p>
-            <div className="avatar-container my-2">
-              <img
-                src="https://via.placeholder.com/150"
-                className="avatar-image mr-2"
-                alt=""
-              />
-              <span className="avatar-title">Filip Jerga</span>
-            </div>
-          </a>
-          <a
-            href="#"
-            className="list-group-item list-group-item-action flex-column align-items-start mt-3 py-3 subtle-shadow no-border"
-          >
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1 black">List group item heading</h5>
-              <small className="text-muted">3 days ago</small>
-            </div>
-            <p className="mb-1">
-              Donec id elit non mi porta gravida at eget metus. Maecenas sed
-              diam eget risus varius blandit.
-            </p>
-            <div className="avatar-container my-2">
-              <img
-                src="https://via.placeholder.com/150"
-                className="avatar-image mr-2"
-                alt=""
-              />
-              <span className="avatar-title">Filip Jerga</span>
-            </div>
-          </a>
-          <a
-            href="#"
-            className="list-group-item list-group-item-action flex-column align-items-start mt-3 py-3 subtle-shadow no-border"
-          >
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1 black">List group item heading</h5>
-              <small className="text-muted">3 days ago</small>
-            </div>
-            <p className="mb-1">
-              Donec id elit non mi porta gravida at eget metus. Maecenas sed
-              diam eget risus varius blandit.
-            </p>
-            <div className="avatar-container my-2">
-              <img
-                src="https://via.placeholder.com/150"
-                className="avatar-image mr-2"
-                alt=""
-              />
-              <span className="avatar-title">Filip Jerga</span>
-            </div>
-          </a>
+          {topics &&
+            topics.length > 0 &&
+            topics.map((topic) => <TopicLink key={topic.id} data={topic} />)}
         </div>
       </section>
-      <a href="" className="btn btn-main bg-blue ttu">
+      <Link href="/forum/categories" className="btn btn-main bg-blue ttu">
         See More Posts
-      </a>
-      {/* HOME PAGE ENDS */}
+      </Link>
     </>
   );
 };

@@ -10,13 +10,14 @@ import Hero from 'components/shared/Hero';
 import Footer from 'components/shared/Footer';
 
 const App = ({ Component, pageProps }) => {
-  const isHome = Component.displayName.includes('Home');
+  const isHome =
+    Component.displayName && Component.displayName.includes('Home');
 
   return (
     <div className="portfolio-app">
       <NavBar />
       {isHome && <Hero />}
-      <div className="container">
+      <div className="container mb-5">
         <Component {...pageProps} />
       </div>
       {isHome && <Footer />}
