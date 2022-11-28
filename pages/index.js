@@ -55,7 +55,7 @@ const Home = () => {
         <div className="list-group">
           {topics &&
             topics.length > 0 &&
-            topics.map((topic) => <TopicLink key={topic.id} data={topic} />)}
+            topics.map((topic) => <TopicLink key={topic.slug} data={topic} />)}
         </div>
       </section>
       <Link href="/forum/categories" className="btn btn-main bg-blue ttu">
