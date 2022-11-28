@@ -9,7 +9,9 @@ import { getErrorMessage } from 'helpers';
 
 const Register = () => {
   const router = useRouter();
-  const [signUpUser, { data, error, loading }] = useMutation(SIGN_UP);
+  const [signUpUser, { data, error, loading }] = useMutation(SIGN_UP, {
+    errorPolicy: 'all'
+  });
 
   const register = (registerData) => {
     signUpUser({ variables: registerData });

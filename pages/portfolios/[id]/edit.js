@@ -22,8 +22,9 @@ const PortfolioEdit = () => {
     await updatePortfolio({
       variables: { id: query.id, ...formData },
       update: (_, res) => {
-        if (res)
+        if (!res.errors) {
           toast.success('Portfolio has been updated', { autoClose: 2000 });
+        }
       },
       refetchQueries: [GET_PORTFOLIO]
     });
