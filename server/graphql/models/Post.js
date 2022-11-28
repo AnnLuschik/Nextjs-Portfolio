@@ -1,12 +1,8 @@
 const dayjs = require('dayjs');
 const uniqueSlug = require('unique-slug');
+const BaseModel = require('./BaseModel');
 
-class Post {
-  constructor(model, user) {
-    this.Model = model;
-    this.user = user;
-  }
-
+class Post extends BaseModel {
   async getAllByTopic({ topic, pageNum, pageSize }) {
     const totalElements = await this.Model.countDocuments({ topic });
 

@@ -5,6 +5,7 @@ const {
 } = require('apollo-server-core');
 
 const {
+  mixedQueries,
   portfolioQueries,
   portfolioMutations,
   userQueries,
@@ -38,6 +39,8 @@ exports.createApolloServer = () => {
       topicsByCategory(category: String): [Topic]
       topicBySlug(slug: String): Topic
       postsByTopic(slug: String, pageNum: Int, pageSize: Int): PaginatedPosts
+
+      highlight(limit: Int): HighlightRes
     }
 
     type Mutation {
@@ -56,6 +59,7 @@ exports.createApolloServer = () => {
 
   const resolvers = {
     Query: {
+      ...mixedQueries,
       ...portfolioQueries,
       ...userQueries,
       ...forumQueries
