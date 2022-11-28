@@ -125,3 +125,29 @@ export const GET_POSTS_BY_TOPIC = gql`
     }
   }
 `;
+
+export const GET_HIGHLIGHTED = gql`
+  query GetHighlighted($limit: Int) {
+    highlight(limit: $limit) {
+      portfolios {
+        id
+        title
+        jobTitle
+        description
+        startDate
+        endDate
+      }
+      topics {
+        _id
+        title
+        content
+        slug
+        user {
+          username
+          avatar
+        }
+        createdAt
+      }
+    }
+  }
+`;
