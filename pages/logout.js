@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import withApollo from 'hoc/withApollo';
 import { useSignOut } from 'apollo/hooks';
+import { PATH_LOGIN } from 'constants/paths';
 
 const Logout = () => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const Logout = () => {
 
   useEffect(() => {
     signOut().then(() => {
-      client.resetStore().then(() => router.replace('/login'));
+      client.resetStore().then(() => router.replace(PATH_LOGIN));
     });
   }, []);
 

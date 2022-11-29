@@ -2,10 +2,11 @@ import Link from 'next/link';
 
 import { useGetForumCategories } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
+import { PATH_CATEGORY } from 'constants/paths';
 
 const ForumCategories = () => {
   const { data } = useGetForumCategories();
-  const categories = (data && data.forumCategories) || [];
+  const categories = data?.forumCategories || [];
 
   return (
     <>
@@ -24,17 +25,12 @@ const ForumCategories = () => {
                 <div className="fj-category-container">
                   <Link
                     href={{
-                      pathname: '/forum/categories/[slug]',
+                      pathname: PATH_CATEGORY,
                       query: { slug: category.slug }
                     }}
                     legacyBehavior
                   >
                     <a className="fj-category subtle-shadow no-border">
-                      {
-                        // <div className="category-icon">
-                        //   <img src="images/pen.png" />
-                        // </div>
-                      }
                       <div className="category-information">
                         <div className="heading gray-90">{category.title}</div>
                         <div className="description">{category.subtitle}</div>

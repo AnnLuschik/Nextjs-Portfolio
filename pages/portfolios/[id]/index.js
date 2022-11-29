@@ -4,7 +4,7 @@ import { formatDate } from 'helpers';
 
 const PortfolioDetail = ({ query }) => {
   const { data } = useGetPortfolio({ variables: { id: query.id } });
-  const portfolio = (data && data.portfolio) || {};
+  const portfolio = data?.portfolio || {};
 
   return (
     <div className="portfolio-detail">

@@ -6,6 +6,7 @@ import SpinnerLoader from 'components/shared/Loader';
 
 // Misc
 import { GET_USER } from 'apollo/queries';
+import { PATH_LOGIN } from 'constants/paths';
 
 export default function withAuth(
   WrappedComponent,
@@ -22,12 +23,16 @@ export default function withAuth(
     });
 
     if (!loading && (!user || error) && typeof window !== 'undefined') {
-      return <Redirect to="/login" query={{ message: 'NOT_AUTHENTICATED' }} />;
+      return (
+        <Redirect to={PATH_LOGIN} query={{ message: 'NOT_AUTHENTICATED' }} />
+      );
     }
 
     if (user) {
       if (roles.length && !roles.includes(user.role)) {
-        return <Redirect to="/login" query={{ message: 'NOT_AUTHORIZED' }} />;
+        return (
+          <Redirect to={PATH_LOGIN} query={{ message: 'NOT_AUTHORIZED' }} />
+        );
       }
       const componentName =
         WrappedComponent.displayName || WrappedComponent.name || 'Component';
@@ -50,11 +55,11 @@ export default function withAuth(
           const { user } = req;
 
           if (!user) {
-            serverRedirect(res, '/login?message=NOT_AUTHENTICATED');
+            serverRedirect(res, `${PATH_LOGIN}?message=NOT_AUTHENTICATED`);
           }
 
           if (roles.length && !roles.includes(user.role)) {
-            serverRedirect(res, '/login?message=NOT_AUTHORIZED');
+            serverRedirect(res, `${PATH_LOGIN}?message=NOT_AUTHORIZED`);
           }
         }
 
