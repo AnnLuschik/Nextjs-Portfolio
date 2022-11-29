@@ -12,6 +12,7 @@ import { useSignIn } from 'apollo/hooks';
 // Misc
 import { getErrorMessage } from 'helpers';
 import { messages } from 'constants/messages';
+import { PATH_LOGIN } from 'constants/paths';
 
 const Login = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const Login = () => {
   const disposeId = useRef(null);
 
   const disposeMessage = () => {
-    router.replace('/login', '/login', { shallow: true });
+    router.replace(PATH_LOGIN, PATH_LOGIN, { shallow: true });
   };
 
   useEffect(() => {

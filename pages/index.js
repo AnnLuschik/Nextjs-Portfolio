@@ -4,6 +4,7 @@ import PortfolioCard from 'components/portfolios/PortfolioCard';
 import TopicLink from 'components/forum/TopicLink';
 import { useGetHighlighted } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
+import { PATH_CATEGORIES, PATH_PORTFOLIOS } from 'constants/paths';
 
 const useInitialData = () => {
   const { data } = useGetHighlighted({ variables: { limit: 3 } });
@@ -41,7 +42,7 @@ const Home = () => {
             ))}
         </div>
       </section>
-      <Link href="/portfolios" className="btn btn-main bg-blue ttu">
+      <Link href={PATH_PORTFOLIOS} className="btn btn-main bg-blue ttu">
         See More Portfolios
       </Link>
       <section className="section-title">
@@ -58,7 +59,7 @@ const Home = () => {
             topics.map((topic) => <TopicLink key={topic.slug} data={topic} />)}
         </div>
       </section>
-      <Link href="/forum/categories" className="btn btn-main bg-blue ttu">
+      <Link href={PATH_CATEGORIES} className="btn btn-main bg-blue ttu">
         See More Posts
       </Link>
     </>

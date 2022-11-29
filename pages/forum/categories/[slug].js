@@ -2,23 +2,29 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
-import withApollo from 'hoc/withApollo';
+// Components
 import Replier from 'components/shared/Replier';
 import Button from 'components/shared/Button';
-import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
+import withApollo from 'hoc/withApollo';
+
+// Hooks
 import { useCreateTopic } from 'apollo/hooks';
+
+// Misc
+import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
+import { PATH_TOPIC } from 'constants/paths';
 
 const useTopics = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data: dataT } = useQuery(GET_TOPICS_BY_CATEGORY, {
+  const { data: topicsData } = useQuery(GET_TOPICS_BY_CATEGORY, {
     variables: { category: slug }
   });
-  const { data: dataU } = useQuery(GET_USER);
+  const { data: userData } = useQuery(GET_USER);
 
-  const user = (dataU && dataU.user) || null;
-  const topics = (dataT && dataT.topicsByCategory) || [];
+  const user = userData?.user || null;
+  const topics = topicsData?.topicsByCategory || [];
 
   return { topics, user, slug, router };
 };
@@ -40,7 +46,7 @@ const Topics = () => {
   };
 
   const goToTopic = (slug) => {
-    router.push('/forum/topics/[slug]', `/forum/topics/${slug}`);
+    router.push(PATH_TOPIC, `/forum/topics/${slug}`);
   };
 
   return (

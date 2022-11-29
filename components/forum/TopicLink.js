@@ -1,11 +1,13 @@
-import { fromNow, shortify } from 'helpers';
 import Link from 'next/link';
+
+import { PATH_TOPIC } from 'constants/paths';
+import { fromNow, shortify } from 'helpers';
 
 const TopicLink = ({ data }) => {
   return (
     <Link
       href={{
-        pathname: '/forum/topics/[slug]',
+        pathname: PATH_TOPIC,
         query: { slug: data.slug }
       }}
       className="list-group-item list-group-item-action flex-column align-items-start mt-3 py-3 subtle-shadow no-border"

@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import styles from 'styles/Navbar.module.css';
+import { PATH_CREATE_PORTFOLIO, PATH_DASHBOARD } from 'constants/paths';
 
 const ActionsMenu = ({ user }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,12 +43,12 @@ const ActionsMenu = ({ user }) => {
         }}
       >
         {hasPermissions && [
-          <Link href="/portfolios/new" key="newPortfolio">
+          <Link href={PATH_CREATE_PORTFOLIO} key="newPortfolio">
             <MenuItem onClick={handleClose}>Create Portfolio</MenuItem>
           </Link>,
           <Link
             href={{
-              pathname: '/instructor/[id]/dashboard',
+              pathname: PATH_DASHBOARD,
               query: { id: userId }
             }}
             key="dashboard"

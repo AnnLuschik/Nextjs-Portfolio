@@ -6,7 +6,7 @@ import { useGetPortfolios } from 'apollo/hooks';
 
 const Portfolios = () => {
   const { data } = useGetPortfolios();
-  const portfolios = (data && data.portfolios) || [];
+  const portfolios = data?.portfolios || [];
 
   return (
     <>

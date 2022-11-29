@@ -21,6 +21,7 @@ import styles from 'styles/Dashboard.module.css';
 
 // Misc
 import { formatDate } from 'helpers';
+import { PATH_EDIT_PORTFOLIO } from 'constants/paths';
 
 const InstructorDashboard = () => {
   const [portfolios, setPortfolios] = useState(null);
@@ -30,7 +31,7 @@ const InstructorDashboard = () => {
   const { data } = useGetUserPortfolios();
 
   useEffect(() => {
-    if (data && data.userPortfolios) {
+    if (data?.userPortfolios) {
       setPortfolios(data.userPortfolios);
     }
   }, [data]);
@@ -40,8 +41,7 @@ const InstructorDashboard = () => {
       <div className="row">
         <div className="col-md-12">
           <h1 className="page-title">Instructor Portfolios</h1>
-          {portfolios &&
-            portfolios.length > 0 &&
+          {portfolios?.length > 0 &&
             portfolios.map((p) => (
               <Card key={p.id} className={styles.card}>
                 <CardHeader title={p.jobTitle} />
@@ -54,7 +54,7 @@ const InstructorDashboard = () => {
                 <CardActions>
                   <Link
                     href={{
-                      pathname: '/portfolios/[id]/edit',
+                      pathname: PATH_EDIT_PORTFOLIO,
                       query: { id: p.id }
                     }}
                     legacyBehavior
