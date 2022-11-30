@@ -1,15 +1,20 @@
 import Link from 'next/link';
 
+// Components
 import PortfolioCard from 'components/portfolios/PortfolioCard';
 import TopicLink from 'components/forum/TopicLink';
-import { useGetHighlighted } from 'apollo/hooks';
 import withApollo from 'hoc/withApollo';
+
+// Hooks
+import { useGetHighlighted } from 'apollo/hooks';
+
+// Misc
 import { PATH_CATEGORIES, PATH_PORTFOLIOS } from 'constants/paths';
 
 const useInitialData = () => {
   const { data } = useGetHighlighted({ variables: { limit: 3 } });
-  const portfolios = (data && data.highlight.portfolios) || [];
-  const topics = (data && data.highlight.topics) || [];
+  const portfolios = data?.highlight.portfolios || [];
+  const topics = data?.highlight.topics || [];
 
   return { portfolios, topics };
 };
@@ -28,8 +33,7 @@ const Home = () => {
       </section>
       <section className="pb-5">
         <div className="row">
-          {portfolios &&
-            portfolios.length > 0 &&
+          {portfolios?.length > 0 &&
             portfolios.map((portfolio) => (
               <div className="col-md-4" key={portfolio.id}>
                 <Link
@@ -54,8 +58,7 @@ const Home = () => {
       </section>
       <section className="pb-5">
         <div className="list-group">
-          {topics &&
-            topics.length > 0 &&
+          {topics?.length > 0 &&
             topics.map((topic) => <TopicLink key={topic.slug} data={topic} />)}
         </div>
       </section>

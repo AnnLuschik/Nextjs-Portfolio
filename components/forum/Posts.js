@@ -83,9 +83,11 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
                 </button>
               </div>
             ) : null}
-            <div className="pagination-container ms-auto">
-              <Pagination {...pagination} />
-            </div>
+            {posts.length > 0 && (
+              <div className="pagination-container ms-auto">
+                <Pagination {...pagination} />
+              </div>
+            )}
           </div>
         </div>
       </div>
