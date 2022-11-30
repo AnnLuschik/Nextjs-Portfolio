@@ -3,7 +3,7 @@ import withApollo from 'hoc/withApollo';
 import { formatDate } from 'helpers';
 
 const PortfolioDetail = ({ query }) => {
-  const { data } = useGetPortfolio({ variables: { id: query.id } });
+  const { data } = useGetPortfolio({ variables: { id: query?.id } });
   const portfolio = data?.portfolio || {};
 
   return (
