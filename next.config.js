@@ -4,6 +4,6 @@ module.exports = {
   env: {
     BASE_URL: dev
       ? 'http://localhost:3000/graphql'
-      : 'nextjs-portfolio-gold-beta.vercel.app/graphql'
+      : 'https://nextjs-portfolio-gold-beta.vercel.app/graphql'
   }
 };
