@@ -46,7 +46,7 @@ export function getApolloClient(initialState) {
   CLIENT = new ApolloClient({
     ssrMode: isServer,
     link: createHttpLink({
-      uri: 'http://localhost:3000/graphql',
+      uri: process.env.BASE_URL,
       credentials: 'same-origin'
     }),
     cache: cache.restore(windowApolloState || initialState),

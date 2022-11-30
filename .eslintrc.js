@@ -12,7 +12,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'prettier',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:@next/next/recommended'
   ],
   settings: {
     'import/extensions': ['.js', '.jsx'],
