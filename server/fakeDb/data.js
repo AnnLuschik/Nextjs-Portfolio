@@ -29,8 +29,8 @@ const data = {
       avatar:
         'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png',
       email: 'admin@test.com',
-      name: 'John Dow',
-      username: 'JohnDow',
+      name: 'John Doe',
+      username: 'JohnDoe',
       info: 'Hello I am John and I am a developer',
       password: 'adminadmin',
       role: 'admin'
@@ -50,7 +50,7 @@ const data = {
     {
       title: 'Job in Netcentric',
       company: 'Netcentric',
-      companyWebsite: 'www.google.com',
+      companyWebsite: 'https://www.google.com',
       location: 'Spain, Barcelona',
       jobTitle: 'Engineer',
       description: 'Doing something, programming....',
@@ -61,7 +61,7 @@ const data = {
     {
       title: 'Job in Siemens',
       company: 'Siemens',
-      companyWebsite: 'www.google.com',
+      companyWebsite: 'https://www.google.com',
       location: 'Slovakia, Kosice',
       jobTitle: 'Software Engineer',
       description: 'Responsible for parsing framework for JSON medical data.',
@@ -72,7 +72,7 @@ const data = {
     {
       title: 'Work in USA',
       company: 'WhoKnows',
-      companyWebsite: 'www.google.com',
+      companyWebsite: 'https://www.google.com',
       location: 'USA, Montana',
       jobTitle: 'Housekeeping',
       description: 'So much responsibility....Overloaaaaaad',

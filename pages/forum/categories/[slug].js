@@ -46,7 +46,7 @@ const Topics = () => {
   };
 
   const goToTopic = (slug) => {
-    router.push(PATH_TOPIC, `/forum/topics/${slug}`);
+    router.push({ pathname: PATH_TOPIC, query: { slug } });
   };
 
   return (
