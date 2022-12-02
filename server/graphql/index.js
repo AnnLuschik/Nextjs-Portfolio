@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { ApolloServer, gql } = require('apollo-server-express');
 const {
-  ApolloServerPluginLandingPageGraphQLPlayground
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginDrainHttpServer
 } = require('apollo-server-core');
 
 const {
@@ -22,7 +23,7 @@ const ForumCategory = require('./models/ForumCategory');
 const Topic = require('./models/Topic');
 const Post = require('./models/Post');
 
-exports.createApolloServer = () => {
+exports.createApolloServer = (httpServer) => {
   const typeDefs = gql`
     ${portfolioTypes}
     ${userTypes}
@@ -74,7 +75,10 @@ exports.createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+      httpServer ? ApolloServerPluginDrainHttpServer({ httpServer }) : null
+    ],
     context: ({ req }) => ({
       ...buildAuthContext(req),
       models: {
