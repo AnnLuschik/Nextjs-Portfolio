@@ -1,5 +1,4 @@
 import { useGetPortfolio } from 'apollo/hooks';
-import withApollo from 'hoc/withApollo';
 import { formatDate } from 'helpers';
 
 const PortfolioDetail = ({ query }) => {
@@ -54,4 +53,4 @@ PortfolioDetail.getInitialProps = async ({ query }) => {
   return { query };
 };
 
-export default withApollo(PortfolioDetail);
+export default PortfolioDetail;

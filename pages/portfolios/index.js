@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import PortfolioCard from 'components/portfolios/PortfolioCard';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import { useGetPortfolios } from 'apollo/hooks';
 
 const Portfolios = () => {
@@ -35,4 +35,5 @@ const Portfolios = () => {
   );
 };
 
-export default withApollo(Portfolios);
+// export default withApollo(Portfolios);
+export default Portfolios;

@@ -11,7 +11,7 @@ import { useLazyGetUser } from 'apollo/hooks';
 import styles from 'styles/Navbar.module.css';
 
 // Misc
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import {
   PATH_CATEGORIES,
   PATH_CV,
@@ -85,4 +85,5 @@ const RightNav = ({ open }) => {
   );
 };
 
-export default withApollo(RightNav);
+// export default withApollo(RightNav);
+export default RightNav;

@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 import PortfolioForm from 'components/forms/PortfolioForm';
 import { useGetPortfolio, useUpdatePortfolio } from 'apollo/hooks';
@@ -51,4 +50,4 @@ const PortfolioEdit = () => {
   );
 };
 
-export default withApollo(withAuth(PortfolioEdit, ['admin']));
+export default withAuth(PortfolioEdit, ['admin']);

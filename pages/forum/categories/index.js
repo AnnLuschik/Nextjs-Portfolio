@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { useGetForumCategories } from 'apollo/hooks';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import { PATH_CATEGORY } from 'constants/paths';
 
 const ForumCategories = () => {
@@ -46,4 +46,5 @@ const ForumCategories = () => {
   );
 };
 
-export default withApollo(ForumCategories);
+// export default withApollo(ForumCategories);
+export default ForumCategories;

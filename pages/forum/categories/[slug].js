@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 // Components
 import Replier from 'components/shared/Replier';
 import Button from 'components/shared/Button';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 
 // Hooks
 import { useCreateTopic } from 'apollo/hooks';
@@ -94,4 +94,5 @@ const Topics = () => {
   );
 };
 
-export default withApollo(Topics);
+// export default withApollo(Topics);
+export default Topics;
