@@ -1,14 +1,13 @@
 /* eslint-disable global-require */
 const session = require('express-session');
 const passport = require('passport');
-const config = require('../config');
 
 exports.init = (server, db) => {
   require('./passport').init(passport);
 
   const sess = {
     name: 'portfolio-session',
-    secret: config.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     cookie: { maxAge: 2 * 60 * 60 * 1000 },
     resave: false,
     saveUninitialized: false,

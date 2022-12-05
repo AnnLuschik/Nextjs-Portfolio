@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 const fakeDb = require('./FakeDb');
-const config = require('../config');
 
 const db = require('../db');
 
