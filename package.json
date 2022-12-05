@@ -1,6 +1,9 @@
 {
   "name": "nextjs-portfolio",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
   "main": "index.js",
   "dependencies": {
     "@apollo/client": "^3.7.1",
