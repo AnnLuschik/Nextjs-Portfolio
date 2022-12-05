@@ -2,8 +2,7 @@
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-
-const config = require('../config/dev');
+const config = require('../config');
 
 require('./models/portfolio');
 require('./models/user');
@@ -15,7 +14,10 @@ exports.connect = () => {
   mongoose
     .connect(config.DB_URI)
     .then(() => console.log('Connected to DB'))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log('Connection error');
+      console.error(err);
+    });
 };
 
 exports.initSessionStore = () => {
@@ -26,3 +28,6 @@ exports.initSessionStore = () => {
 
   return store;
 };
+
+// DB_URI='mongodb+srv://test:test@cluster0.ngptqty.mongodb.net/?retryWrites=true&w=majority'
+// SESSION_SECRET=dfebmp,q9874fy23h_34rwtert!

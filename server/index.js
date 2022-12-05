@@ -1,7 +1,15 @@
 /* eslint-disable global-require */
 /* eslint-disable no-console */
+const path = require('path');
 const express = require('express');
 const next = require('next');
+require('dotenv').config({
+  path: path.resolve(
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.development'
+  )
+});
 const { createApolloServer } = require('./graphql');
 
 const db = require('./db');
@@ -23,7 +31,16 @@ app.prepare().then(async () => {
 
   await apolloServer.start();
   apolloServer.applyMiddleware({
-    app: server
+    app: server,
+    cors: {
+      origin: [
+        'http://localhost:3000/',
+        'https://annluschik-portfolio-app.herokuapp.com/',
+        'https://studio.apollographql.com'
+      ],
+      credentials: true
+    },
+    path: '/graphql'
   });
 
   server.all('*', (req, res) => {

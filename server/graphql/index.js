@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { ApolloServer, gql } = require('apollo-server-express');
 const {
-  ApolloServerPluginLandingPageGraphQLPlayground
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginDrainHttpServer
 } = require('apollo-server-core');
 
 const {
@@ -75,6 +76,16 @@ exports.createApolloServer = () => {
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+    cache: 'bounded',
+    cors: {
+      origin: [
+        'http://localhost:3000/',
+        'https://annluschik-portfolio-app.herokuapp.com/',
+        'https://studio.apollographql.com'
+      ],
+      credentials: true
+    },
+    csrfPrevention: true,
     context: ({ req }) => ({
       ...buildAuthContext(req),
       models: {
