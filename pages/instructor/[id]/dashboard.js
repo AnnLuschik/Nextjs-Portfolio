@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 // Components
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 
 // Hooks
@@ -77,6 +77,10 @@ const InstructorDashboard = () => {
   );
 };
 
-export default withApollo(
-  withAuth(InstructorDashboard, ['admin', 'instructor'], { ssr: true })
-);
+// export default withApollo(
+//   withAuth(InstructorDashboard, ['admin', 'instructor'], { ssr: true })
+// );
+
+export default withAuth(InstructorDashboard, ['admin', 'instructor'], {
+  ssr: true
+});

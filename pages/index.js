@@ -3,7 +3,7 @@ import Link from 'next/link';
 // Components
 import PortfolioCard from 'components/portfolios/PortfolioCard';
 import TopicLink from 'components/forum/TopicLink';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 
 // Hooks
 import { useGetHighlighted } from 'apollo/hooks';
@@ -69,4 +69,5 @@ const Home = () => {
   );
 };
 
-export default withApollo(Home);
+// export default withApollo(Home);
+export default Home;

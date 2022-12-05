@@ -7,7 +7,7 @@ import RegisterForm from 'components/forms/RegisterForm';
 
 // Misc
 import { SIGN_UP } from 'apollo/mutations/index';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import { getErrorMessage } from 'helpers';
 import { PATH_LOGIN } from 'constants/paths';
 
@@ -42,4 +42,5 @@ const Register = () => {
   );
 };
 
-export default withApollo(Register);
+// export default withApollo(Register);
+export default Register;

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import { useSignOut } from 'apollo/hooks';
 import { PATH_LOGIN } from 'constants/paths';
 
@@ -27,4 +27,5 @@ const Logout = () => {
   );
 };
 
-export default withApollo(Logout);
+// export default withApollo(Logout);
+export default Logout;

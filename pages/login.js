@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 // Components
 import Redirect from 'components/shared/Redirect';
 import LoginForm from 'components/forms/LoginForm';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 
 // Hooks
 import { useSignIn } from 'apollo/hooks';
@@ -62,4 +62,5 @@ const Login = () => {
   );
 };
 
-export default withApollo(Login);
+// export default withApollo(Login);
+export default Login;

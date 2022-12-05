@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import PortfolioForm from 'components/forms/PortfolioForm';
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 import { useCreatePortfolio } from 'apollo/hooks';
 import { getErrorMessage } from 'helpers';
@@ -35,4 +35,5 @@ const PortfolioCreate = () => {
   );
 };
 
-export default withApollo(withAuth(PortfolioCreate, ['admin']));
+// export default withApollo(withAuth(PortfolioCreate, ['admin']));
+export default withAuth(PortfolioCreate, ['admin']);

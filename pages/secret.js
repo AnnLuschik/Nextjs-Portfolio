@@ -1,4 +1,4 @@
-import withApollo from 'hoc/withApollo';
+// import withApollo from 'hoc/withApollo';
 import withAuth from 'hoc/withAuth';
 
 const Secret = () => {
@@ -14,4 +14,5 @@ const Secret = () => {
   );
 };
 
-export default withApollo(withAuth(Secret, ['admin']));
+// export default withApollo(withAuth(Secret, ['admin']));
+export default withAuth(Secret, ['admin']);
