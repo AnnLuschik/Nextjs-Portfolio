@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
-const { ApolloServer, gql } = require('apollo-server-express');
+// const { ApolloServer, gql } = require('apollo-server-express');
+const gql = require('graphql-tag');
+const { ApolloServer } = require('@apollo/server');
 const {
-  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageGraphQLPlayground
+} = require('@apollo/server-plugin-landing-page-graphql-playground');
+const {
   ApolloServerPluginDrainHttpServer
-} = require('apollo-server-core');
+} = require('@apollo/server/plugin/drainHttpServer');
 
 const {
   mixedQueries,
@@ -23,7 +27,7 @@ const ForumCategory = require('./models/ForumCategory');
 const Topic = require('./models/Topic');
 const Post = require('./models/Post');
 
-exports.createApolloServer = () => {
+exports.createApolloServer = (httpServer) => {
   const typeDefs = gql`
     ${portfolioTypes}
     ${userTypes}
@@ -75,7 +79,10 @@ exports.createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+      ApolloServerPluginDrainHttpServer({ httpServer })
+    ],
     cache: 'bounded',
     cors: {
       origin: [
