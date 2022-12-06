@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-// const config = require('../config');
 
 require('./models/portfolio');
 require('./models/user');
@@ -12,7 +11,6 @@ require('./models/post');
 
 exports.connect = () => {
   mongoose
-    // .connect(config.DB_URI)
     .connect(process.env.DB_URI)
     .then(() => console.log('Connected to DB'))
     .catch((err) => {
@@ -23,7 +21,6 @@ exports.connect = () => {
 
 exports.initSessionStore = () => {
   const store = new MongoDBStore({
-    // uri: config.DB_URI,
     uri: process.env.DB_URI,
     collection: 'portfolioSessions'
   });
