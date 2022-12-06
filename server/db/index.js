@@ -27,6 +27,3 @@ exports.initSessionStore = () => {
 
   return store;
 };
-
-// DB_URI='mongodb+srv://test:test@cluster0.ngptqty.mongodb.net/?retryWrites=true&w=majority'
-// SESSION_SECRET=dfebmp,q9874fy23h_34rwtert!
