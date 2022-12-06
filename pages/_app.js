@@ -13,7 +13,7 @@ import { getApolloClient } from 'apollo/client';
 
 const App = ({ Component, pageProps }) => {
   const isHome =
-    Component.displayName && Component.displayName.includes('Home');
+    Component.displayName?.includes('Home') || Component.name?.includes('Home');
 
   const client = getApolloClient();
 
