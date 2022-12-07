@@ -43,7 +43,15 @@ app.prepare().then(async () => {
 
   await apolloServer.start();
 
-  server.use('/graphql', cors(), json(), expressMiddleware(apolloServer));
+  server.use(
+    '/graphql',
+    cors({
+      origin,
+      credentials: true
+    }),
+    json(),
+    expressMiddleware(apolloServer)
+  );
 
   // apolloServer.applyMiddleware({
   //   app: server,
@@ -55,6 +63,13 @@ app.prepare().then(async () => {
   // });
 
   server.all('*', (req, res) => {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization, Content-Length, X-Requested-With'
+    );
+    res.header('Access-Control-Allow-Methods', 'POST');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     return handle(req, res);
   });
 
