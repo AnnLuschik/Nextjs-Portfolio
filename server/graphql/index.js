@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-// const { ApolloServer, gql } = require('apollo-server-express');
-const gql = require('graphql-tag');
 const { ApolloServer } = require('@apollo/server');
+const gql = require('graphql-tag');
 const {
   ApolloServerPluginLandingPageGraphQLPlayground
 } = require('@apollo/server-plugin-landing-page-graphql-playground');
@@ -19,13 +17,6 @@ const {
   forumMutations
 } = require('./resolvers');
 const { portfolioTypes, userTypes, forumTypes } = require('./types');
-const { buildAuthContext } = require('./context');
-
-const Portfolio = require('./models/Portfolio');
-const User = require('./models/User');
-const ForumCategory = require('./models/ForumCategory');
-const Topic = require('./models/Topic');
-const Post = require('./models/Post');
 
 exports.createApolloServer = (httpServer) => {
   const typeDefs = gql`
@@ -92,17 +83,7 @@ exports.createApolloServer = (httpServer) => {
       ],
       credentials: true
     },
-    csrfPrevention: true,
-    context: ({ req }) => ({
-      ...buildAuthContext(req),
-      models: {
-        Portfolio: new Portfolio(mongoose.model('Portfolio'), req.user),
-        User: new User(mongoose.model('User')),
-        ForumCategory: new ForumCategory(mongoose.model('ForumCategory')),
-        Topic: new Topic(mongoose.model('Topic'), req.user),
-        Post: new Post(mongoose.model('Post'), req.user)
-      }
-    })
+    csrfPrevention: true
   });
 
   return apolloServer;

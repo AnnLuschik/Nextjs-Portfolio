@@ -8,9 +8,6 @@ import Pagination from 'components/shared/Pagination';
 // Hooks
 import { useCreatePost } from 'apollo/hooks';
 
-// Misc
-// import withApollo from 'hoc/withApollo';
-
 const Posts = ({ topic, posts, user, ...pagination }) => {
   const pageEnd = useRef(null);
   const [isReplierOpen, setReplierOpen] = useState(false);
@@ -103,5 +100,4 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
   );
 };
 
-// export default withApollo(Posts);
 export default Posts;
