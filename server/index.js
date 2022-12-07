@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 const path = require('path');
 const cors = require('cors');
-const json = require('body-parser');
+const bodyParser = require('body-parser');
 const { expressMiddleware } = require('@apollo/server/express4');
 
 const express = require('express');
@@ -49,7 +49,7 @@ app.prepare().then(async () => {
       origin,
       credentials: true
     }),
-    json(),
+    bodyParser.json(),
     expressMiddleware(apolloServer)
   );
 
