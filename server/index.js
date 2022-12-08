@@ -72,15 +72,6 @@ app.prepare().then(async () => {
     })
   );
 
-  // apolloServer.applyMiddleware({
-  //   app: server,
-  //   cors: {
-  //     origin,
-  //     credentials: true
-  //   },
-  //   path: '/graphql'
-  // });
-
   server.all('*', (req, res) => {
     res.header('Access-Control-Allow-Credentials', true);
     res.header(
@@ -88,14 +79,12 @@ app.prepare().then(async () => {
       'Content-Type, Authorization, Content-Length, X-Requested-With'
     );
     res.header('Access-Control-Allow-Methods', 'POST');
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header(
+      'Access-Control-Allow-Origin',
+      'https://annluschik-portfolio-app.herokuapp.com/'
+    );
     return handle(req, res);
   });
-
-  // server.listen(port, (err) => {
-  //   if (err) throw err;
-  //   console.log(`🚀 Ready on http://localhost:${port}`);
-  // });
 
   await new Promise(function executor(resolve) {
     httpServer.listen({ port }, resolve);
