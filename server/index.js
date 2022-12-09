@@ -82,6 +82,7 @@ app.prepare().then(async () => {
     res.header(
       'Access-Control-Allow-Origin',
       'https://annluschik-portfolio-app.herokuapp.com/'
+      // 'http://localhost:3000/'
     );
     return handle(req, res);
   });

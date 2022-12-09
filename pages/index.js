@@ -4,23 +4,12 @@ import Link from 'next/link';
 import PortfolioCard from 'components/portfolios/PortfolioCard';
 import TopicLink from 'components/forum/TopicLink';
 
-// Hooks
-import { useGetHighlighted } from 'apollo/hooks';
-
 // Misc
 import { PATH_CATEGORIES, PATH_PORTFOLIOS } from 'constants/paths';
+import { initializeApollo, addApolloState } from 'apollo/client';
+import { GET_HIGHLIGHTED } from 'apollo/queries';
 
-const useInitialData = () => {
-  const { data } = useGetHighlighted({ variables: { limit: 3 } });
-  const portfolios = data?.highlight.portfolios || [];
-  const topics = data?.highlight.topics || [];
-
-  return { portfolios, topics };
-};
-
-const Home = () => {
-  const { portfolios, topics } = useInitialData();
-
+const Home = ({ portfolios, topics }) => {
   return (
     <>
       <section className="section-title">
@@ -67,6 +56,22 @@ const Home = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const apolloClient = initializeApollo();
+
+  const { data } = await apolloClient.query({
+    query: GET_HIGHLIGHTED,
+    variables: { limit: 3 }
+  });
+
+  const portfolios = data?.highlight.portfolios || [];
+  const topics = data?.highlight.topics || [];
+
+  return addApolloState(apolloClient, {
+    props: { portfolios, topics }
+  });
+}
 
 Home.displayName = 'Home';
 export default Home;

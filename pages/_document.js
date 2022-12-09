@@ -1,7 +1,7 @@
 import Document from 'next/document';
 import { getDataFromTree } from '@apollo/client/react/ssr';
 
-import { getApolloClient } from 'apollo/client';
+import { initializeApollo } from 'apollo/client';
 
 class DocumentWithApollo extends Document {
   // Reference: https://gist.github.com/Tylerian/16d48e5850b407ba9e3654e17d334c1e
@@ -16,7 +16,7 @@ class DocumentWithApollo extends Document {
   }
 
   static async getInitialProps(ctx) {
-    const apolloClient = getApolloClient();
+    const apolloClient = initializeApollo();
 
     /**
      * Render the page through Apollo's `getDataFromTree` so the cache is populated.
