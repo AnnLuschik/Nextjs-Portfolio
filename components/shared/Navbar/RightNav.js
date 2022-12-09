@@ -26,6 +26,9 @@ const RightNav = ({ open }) => {
   const [hasResponse, setHasResponse] = useState(false);
   const [getUser, { data }] = useLazyGetUser();
 
+  const role = user?.role;
+  const hasPermissions = role === 'admin' || role === 'instructor';
+
   useEffect(() => {
     getUser();
   }, []);
@@ -62,9 +65,11 @@ const RightNav = ({ open }) => {
               <li>
                 <span className="nav-link mr-4">Welcome {user.username}</span>
               </li>
-              <li>
-                <Actions user={user} />
-              </li>
+              {hasPermissions && (
+                <li>
+                  <Actions user={user} />
+                </li>
+              )}
               <li className={`${styles.button} ${styles.alert}`}>
                 <Link href={PATH_LOGOUT}>Sign Out</Link>
               </li>
