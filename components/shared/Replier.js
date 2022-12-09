@@ -15,7 +15,12 @@ const Replier = ({ isOpen, hasTitle = true, onClose, onSubmit, replyTo }) => {
   };
 
   const handleSubmit = () => {
-    if (reply.title && reply.content) onSubmit(reply, resetReply);
+    if (
+      (hasTitle && reply.title && reply.content) ||
+      (!hasTitle && reply.content)
+    ) {
+      onSubmit(reply, resetReply);
+    }
   };
 
   return (

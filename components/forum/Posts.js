@@ -29,8 +29,6 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
     pageEnd.current.scrollIntoView({ behavior: 'smooth' });
 
   const handleSubmit = async (data, resetReplier) => {
-    if (!data.content) return null;
-
     const reply = {
       content: data.content,
       topic: topic._id
