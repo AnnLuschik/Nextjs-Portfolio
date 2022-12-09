@@ -22,7 +22,7 @@ const Portfolios = () => {
             <div key={portfolio.id} className="col-md-4">
               <Link
                 href={`/portfolios/${encodeURIComponent(portfolio.id)}`}
-                className="card-link"
+                className="card-link mb-2"
               >
                 <PortfolioCard data={portfolio} />
               </Link>

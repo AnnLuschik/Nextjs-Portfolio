@@ -17,8 +17,7 @@ const ActionsMenu = ({ user }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { _id: userId, role } = user;
-  const hasPermissions = role === 'admin' || role === 'instructor';
+  const { _id: userId } = user;
 
   return (
     <div>
@@ -42,7 +41,7 @@ const ActionsMenu = ({ user }) => {
           'aria-labelledby': 'basic-button'
         }}
       >
-        {hasPermissions && [
+        {[
           <Link href={PATH_CREATE_PORTFOLIO} key="newPortfolio">
             <MenuItem onClick={handleClose}>Create Portfolio</MenuItem>
           </Link>,
