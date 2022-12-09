@@ -9,13 +9,13 @@ import { ApolloProvider } from '@apollo/client';
 import NavBar from 'components/shared/Navbar';
 import Hero from 'components/shared/Hero';
 import Footer from 'components/shared/Footer';
-import { getApolloClient } from 'apollo/client';
+import { useApollo } from 'apollo/client';
 
 const App = ({ Component, pageProps }) => {
   const isHome =
     Component.displayName?.includes('Home') || Component.name?.includes('Home');
 
-  const client = getApolloClient();
+  const client = useApollo(pageProps);
 
   return (
     <ApolloProvider client={client}>

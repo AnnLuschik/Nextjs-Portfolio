@@ -111,6 +111,3 @@ export const useCreatePost = () =>
     },
     refetchQueries: ['GetPostsByTopic']
   });
-
-export const useGetHighlighted = (options) =>
-  useQuery(GET_HIGHLIGHTED, options);

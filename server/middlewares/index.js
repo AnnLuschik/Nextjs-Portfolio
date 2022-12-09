@@ -1,9 +1,6 @@
 /* eslint-disable global-require */
 const session = require('express-session');
 const passport = require('passport');
-const cors = require('cors');
-const json = require('body-parser');
-const { expressMiddleware } = require('@apollo/server/express4');
 
 exports.init = (server, db) => {
   require('./passport').init(passport);
@@ -28,12 +25,4 @@ exports.init = (server, db) => {
   server.use(session(sess));
   server.use(passport.initialize());
   server.use(passport.session());
-  server.use((_, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    next();
-  });
 };

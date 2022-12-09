@@ -17,7 +17,6 @@ const authenticateUser = (req, options) => {
       }
       return reject(new Error('Invalid passport or email'));
     };
-
     const authFn = passport.authenticate('graphql', options, done);
     authFn();
   });

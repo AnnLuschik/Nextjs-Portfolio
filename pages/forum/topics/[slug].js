@@ -11,9 +11,6 @@ import {
   useGetUser
 } from 'apollo/hooks';
 
-// Misc
-// import withApollo from 'hoc/withApollo';
-
 const useInitialData = (slug, pagination) => {
   const { data: dataT } = useGetTopicBySlug({
     variables: { slug }
@@ -101,5 +98,4 @@ const PostsPage = () => {
   );
 };
 
-// export default withApollo(PostsPage);
 export default PostsPage;

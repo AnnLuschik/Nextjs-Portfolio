@@ -8,9 +8,6 @@ import Pagination from 'components/shared/Pagination';
 // Hooks
 import { useCreatePost } from 'apollo/hooks';
 
-// Misc
-// import withApollo from 'hoc/withApollo';
-
 const Posts = ({ topic, posts, user, ...pagination }) => {
   const pageEnd = useRef(null);
   const [isReplierOpen, setReplierOpen] = useState(false);
@@ -32,8 +29,6 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
     pageEnd.current.scrollIntoView({ behavior: 'smooth' });
 
   const handleSubmit = async (data, resetReplier) => {
-    if (!data.content) return null;
-
     const reply = {
       content: data.content,
       topic: topic._id
@@ -103,5 +98,4 @@ const Posts = ({ topic, posts, user, ...pagination }) => {
   );
 };
 
-// export default withApollo(Posts);
 export default Posts;
