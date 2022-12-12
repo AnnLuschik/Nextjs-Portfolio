@@ -51,7 +51,7 @@ const Login = () => {
             onSubmit={(signInData) => signIn({ variables: signInData })}
             isLoading={loading}
           />
-          {data && data.signIn && <Redirect to="/" />}
+          {data?.signIn && <Redirect to="/" />}
           {error && (
             <div className="alert alert-danger">{getErrorMessage(error)}</div>
           )}
