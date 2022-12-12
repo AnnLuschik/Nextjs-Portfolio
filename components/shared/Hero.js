@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const Hero = () => (
   <section className="fj-hero">
     <div className="fj-hero-wrapper row">
@@ -18,9 +20,11 @@ const Hero = () => (
       <div className="hero-right col-md-6">
         <div className="hero-image-container">
           <a className="grow hero-link">
-            <img
+            <Image
               className="hero-image"
               src="https://i.udemycdn.com/course/750x422/1652608_662b_8.jpg"
+              width="350"
+              height="350"
               alt=""
             />
           </a>

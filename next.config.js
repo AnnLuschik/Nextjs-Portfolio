@@ -5,5 +5,15 @@ module.exports = {
     BASE_URL: dev
       ? 'http://localhost:3000/graphql'
       : 'https://annluschik-portfolio-app.herokuapp.com/graphql'
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.udemycdn.com',
+        port: '',
+        pathname: '/course/750x422/1652608_662b_8.jpg'
+      }
+    ]
   }
 };
