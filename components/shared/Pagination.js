@@ -6,7 +6,7 @@ const Pagination = ({
   pageNum,
   onPageChange
 }) => {
-  return (
+  return totalElements > pageSize ? (
     <ReactPagination
       itemClass="page-item"
       linkClass="page-link"
@@ -16,7 +16,7 @@ const Pagination = ({
       pageRangeDisplayed={5}
       onChange={(page) => onPageChange(page, pageSize)}
     />
-  );
+  ) : null;
 };
 
 export default Pagination;
