@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Head from 'next/head';
 
 import { useGetForumCategories } from 'apollo/hooks';
 import { PATH_CATEGORY } from 'constants/paths';
@@ -9,6 +10,9 @@ const ForumCategories = () => {
 
   return (
     <>
+      <Head>
+        <title>Forum - Categories</title>
+      </Head>
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">

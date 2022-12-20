@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Head from 'next/head';
 
 // Components
 import PortfolioCard from 'components/portfolios/PortfolioCard';
@@ -12,6 +13,9 @@ import { GET_HIGHLIGHTED } from 'apollo/queries';
 const Home = ({ portfolios, topics }) => {
   return (
     <>
+      <Head>
+        <title>Portfolio App</title>
+      </Head>
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">

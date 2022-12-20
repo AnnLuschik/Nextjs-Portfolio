@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
@@ -29,24 +30,31 @@ const PortfolioEdit = () => {
     });
   };
 
+  const title = `Portfolio - ${data?.portfolio?.title || ''} - Edit`;
+
   return (
-    <div className="bwm-form mt-5">
-      <div className="row">
-        <div className="col-md-5 mx-auto">
-          <h1 className="page-title">Edit Portfolio</h1>
-          {data ? (
-            <PortfolioForm
-              initialData={data.portfolio}
-              onSubmit={handleUpdatePortfolio}
-              buttonText="Update"
-            />
-          ) : null}
-          {error && (
-            <div className="alert alert-danger">{getErrorMessage(error)}</div>
-          )}
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <div className="bwm-form mt-5">
+        <div className="row">
+          <div className="col-md-5 mx-auto">
+            <h1 className="page-title">Edit Portfolio</h1>
+            {data ? (
+              <PortfolioForm
+                initialData={data.portfolio}
+                onSubmit={handleUpdatePortfolio}
+                buttonText="Update"
+              />
+            ) : null}
+            {error && (
+              <div className="alert alert-danger">{getErrorMessage(error)}</div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 // Components
 import Posts from 'components/forum/Posts';
@@ -76,25 +77,32 @@ const PostsPage = () => {
     });
   };
 
+  const title = `Forum - ${topic?.title}`;
+
   return (
-    topic && (
-      <>
-        <section className="section-title">
-          <div className="px-2">
-            <div className="pt-5 pb-4">
-              <h1>{topic.title}</h1>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      {topic && (
+        <>
+          <section className="section-title">
+            <div className="px-2">
+              <div className="pt-5 pb-4">
+                <h1>{topic.title}</h1>
+              </div>
             </div>
-          </div>
-        </section>
-        <Posts
-          topic={topic}
-          posts={content}
-          {...pagination}
-          {...rest}
-          onPageChange={handlePageChange}
-        />
-      </>
-    )
+          </section>
+          <Posts
+            topic={topic}
+            posts={content}
+            {...pagination}
+            {...rest}
+            onPageChange={handlePageChange}
+          />
+        </>
+      )}
+    </>
   );
 };
 

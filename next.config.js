@@ -11,7 +11,6 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'i.udemycdn.com',
-        port: '',
         pathname: '/course/750x422/1652608_662b_8.jpg'
       }
     ]

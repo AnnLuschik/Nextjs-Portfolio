@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +21,9 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <ApolloProvider client={client}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       <div className="portfolio-app">
         <NavBar />
         {isHome && <Hero />}
