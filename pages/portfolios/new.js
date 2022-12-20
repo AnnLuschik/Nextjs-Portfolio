@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import PortfolioForm from 'components/forms/PortfolioForm';
@@ -20,17 +21,22 @@ const PortfolioCreate = () => {
   };
 
   return (
-    <div className="bwm-form mt-5">
-      <div className="row">
-        <div className="col-md-5 mx-auto">
-          <h1 className="page-title">Create New Portfolio</h1>
-          <PortfolioForm onSubmit={handleCreatePortfolio} />
-          {error && (
-            <div className="alert alert-danger">{getErrorMessage(error)}</div>
-          )}
+    <>
+      <Head>
+        <title>Portfolios - Create New Portfolio</title>
+      </Head>
+      <div className="bwm-form mt-5">
+        <div className="row">
+          <div className="col-md-5 mx-auto">
+            <h1 className="page-title">Create New Portfolio</h1>
+            <PortfolioForm onSubmit={handleCreatePortfolio} />
+            {error && (
+              <div className="alert alert-danger">{getErrorMessage(error)}</div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

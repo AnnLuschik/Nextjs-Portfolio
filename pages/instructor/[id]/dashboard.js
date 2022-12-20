@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import {
   Card,
   CardHeader,
@@ -36,43 +37,50 @@ const InstructorDashboard = () => {
   }, [data]);
 
   return (
-    <div className="bwm-form mt-5">
-      <div className="row">
-        <div className="col-md-12">
-          <h1 className="page-title">Instructor Portfolios</h1>
-          {portfolios?.length > 0 &&
-            portfolios.map((p) => (
-              <Card key={p.id} className={styles.card}>
-                <CardHeader title={p.jobTitle} />
-                <CardContent>
-                  <Typography variant="h4">{p.title}</Typography>
-                  <Typography>
-                    {formatDate(p.startDate)} — {formatDate(p.endDate)}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Link
-                    href={{
-                      pathname: PATH_EDIT_PORTFOLIO,
-                      query: { id: p.id }
-                    }}
-                    legacyBehavior
-                  >
-                    <a className="btn btn-warning me-1">Update</a>
-                  </Link>
-                  <Button
-                    color="secondary"
-                    variant="contained"
-                    onClick={() => deletePortfolio({ variables: { id: p.id } })}
-                  >
-                    Delete
-                  </Button>
-                </CardActions>
-              </Card>
-            ))}
+    <>
+      <Head>
+        <title>Portfolios App - Dashboard</title>
+      </Head>
+      <div className="bwm-form mt-5">
+        <div className="row">
+          <div className="col-md-12">
+            <h1 className="page-title">Instructor Portfolios</h1>
+            {portfolios?.length > 0 &&
+              portfolios.map((p) => (
+                <Card key={p.id} className={styles.card}>
+                  <CardHeader title={p.jobTitle} />
+                  <CardContent>
+                    <Typography variant="h4">{p.title}</Typography>
+                    <Typography>
+                      {formatDate(p.startDate)} — {formatDate(p.endDate)}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Link
+                      href={{
+                        pathname: PATH_EDIT_PORTFOLIO,
+                        query: { id: p.id }
+                      }}
+                      legacyBehavior
+                    >
+                      <a className="btn btn-warning me-1">Update</a>
+                    </Link>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      onClick={() =>
+                        deletePortfolio({ variables: { id: p.id } })
+                      }
+                    >
+                      Delete
+                    </Button>
+                  </CardActions>
+                </Card>
+              ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

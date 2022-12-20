@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Head from 'next/head';
 
 import PortfolioCard from 'components/portfolios/PortfolioCard';
 import { useGetPortfolios } from 'apollo/hooks';
@@ -9,6 +10,9 @@ const Portfolios = () => {
 
   return (
     <>
+      <Head>
+        <title>Portfolios</title>
+      </Head>
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">

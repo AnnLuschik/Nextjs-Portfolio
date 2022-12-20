@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import Head from 'next/head';
 
 // Components
 import RegisterForm from 'components/forms/RegisterForm';
@@ -19,20 +20,25 @@ const Register = () => {
   };
 
   return (
-    <div className="bwm-form mt-5">
-      <div className="row">
-        <div className="col-md-5 mx-auto">
-          <h1 className="page-title">Register</h1>
-          <RegisterForm onSubmit={register} isLoading={loading} />
-          {data?.signUp && (
-            <Redirect to={PATH_LOGIN} query={{ message: 'LOGGED_IN' }} />
-          )}
-          {error && (
-            <div className="alert alert-danger">{getErrorMessage(error)}</div>
-          )}
+    <>
+      <Head>
+        <title>Portfolios App - Sign Up</title>
+      </Head>
+      <div className="bwm-form mt-5">
+        <div className="row">
+          <div className="col-md-5 mx-auto">
+            <h1 className="page-title">Register</h1>
+            <RegisterForm onSubmit={register} isLoading={loading} />
+            {data?.signUp && (
+              <Redirect to={PATH_LOGIN} query={{ message: 'LOGGED_IN' }} />
+            )}
+            {error && (
+              <div className="alert alert-danger">{getErrorMessage(error)}</div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
