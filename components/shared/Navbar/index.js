@@ -10,14 +10,18 @@ const NavBar = () => {
 
   return (
     <div className={styles.wrapper}>
-      <nav className="navbar navbar-expand-lg navbar-dark fj-mw9">
+      <nav
+        role="navigation"
+        aria-label="Main menu"
+        className="navbar navbar-expand-lg navbar-dark fj-mw9"
+      >
         <Link href="/" className="navbar-brand mr-3 font-weight-bold">
           JohnDoe
         </Link>
 
         <RightNav open={open} />
 
-        <Burger onClick={() => setOpen(!open)} />
+        <Burger onClick={() => setOpen(!open)} expanded={open} />
       </nav>
     </div>
   );
