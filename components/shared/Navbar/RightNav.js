@@ -45,7 +45,7 @@ const RightNav = ({ open }) => {
 
   return (
     <div className={`${styles.rightNav} ${open ? styles.open : ''}`}>
-      <ul>
+      <ul id="main-menu">
         <li>
           <Link href={PATH_PORTFOLIOS}>Portfolios</Link>
         </li>

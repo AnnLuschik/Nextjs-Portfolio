@@ -82,7 +82,10 @@ const topicResponse = `
 export const GET_TOPICS_BY_CATEGORY = gql`
   query TopicsByCategory($category: String) {
     topicsByCategory(category: $category) {
-     ${topicResponse}
+      category
+      data {
+        ${topicResponse}
+      }
     }
   }
 `;

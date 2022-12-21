@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import { useQuery } from '@apollo/client';
 
 // Components
@@ -12,25 +13,14 @@ import { useCreateTopic } from 'apollo/hooks';
 // Misc
 import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
 import { PATH_TOPIC } from 'constants/paths';
+import { initializeApollo, addApolloState } from 'apollo/client';
 
-const useTopics = () => {
+const Topics = ({ category, topics, slug }) => {
   const router = useRouter();
-  const { slug } = router.query;
-
-  const { data: topicsData } = useQuery(GET_TOPICS_BY_CATEGORY, {
-    variables: { category: slug }
-  });
-  const { data: userData } = useQuery(GET_USER);
-
-  const user = userData?.user || null;
-  const topics = topicsData?.topicsByCategory || [];
-
-  return { topics, user, slug, router };
-};
-
-const Topics = () => {
-  const { topics, user, slug, router } = useTopics();
   const [isReplierOpen, setReplierOpen] = useState(false);
+
+  const { data: userData } = useQuery(GET_USER);
+  const user = userData?.user || null;
 
   const [createTopic, { error }] = useCreateTopic();
 
@@ -48,8 +38,13 @@ const Topics = () => {
     router.push({ pathname: PATH_TOPIC, query: { slug } });
   };
 
+  const title = `Forum - ${category}`;
+
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
@@ -92,5 +87,23 @@ const Topics = () => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo();
+  const { slug } = ctx.params;
+
+  const { data } = await apolloClient.query({
+    query: GET_TOPICS_BY_CATEGORY,
+    variables: { category: slug }
+  });
+
+  return addApolloState(apolloClient, {
+    props: {
+      category: data?.topicsByCategory.category,
+      topics: data?.topicsByCategory.data || [],
+      slug
+    }
+  });
+}
 
 export default Topics;

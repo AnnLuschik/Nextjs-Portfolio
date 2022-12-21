@@ -32,7 +32,7 @@ exports.createApolloServer = (httpServer) => {
       user: User
 
       forumCategories: [ForumCategory]
-      topicsByCategory(category: String): [Topic]
+      topicsByCategory(category: String): TopicsByCategory
       topicBySlug(slug: String): Topic
       postsByTopic(slug: String, pageNum: Int, pageSize: Int): PaginatedPosts
 
