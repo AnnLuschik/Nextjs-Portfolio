@@ -68,6 +68,11 @@ exports.forumTypes = `
     createdAt: String
   }
 
+  type TopicsByCategory {
+    category: String
+    data: [Topic]
+  }
+
   input TopicInput {
     title: String!
     content: String!
