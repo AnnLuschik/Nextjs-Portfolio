@@ -15,6 +15,10 @@ const Home = ({ portfolios, topics }) => {
     <>
       <Head>
         <title>Portfolio App</title>
+        <meta
+          name="description"
+          content="Look and create portfolios, read posts and discuss on the forum"
+        />
       </Head>
       <section className="section-title">
         <div className="px-2">
