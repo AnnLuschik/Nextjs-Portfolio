@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import { formatDate } from 'helpers';
 import { initializeApollo, addApolloState } from 'apollo/client';
-import { GET_PORTFOLIO } from 'apollo/queries';
+import { GET_PORTFOLIO, GET_PORTFOLIOS } from 'apollo/queries';
 import { useGetPortfolio } from 'apollo/hooks';
 
 const PortfolioDetail = ({ id }) => {
@@ -13,9 +13,11 @@ const PortfolioDetail = ({ id }) => {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+      {Boolean(portfolio) && (
+        <Head>
+          <title>{title}</title>
+        </Head>
+      )}
       {!!portfolio && (
         <div className="portfolio-detail">
           <div className="container">
@@ -61,6 +63,40 @@ const PortfolioDetail = ({ id }) => {
     </>
   );
 };
+
+// export async function getStaticPaths() {
+//   const apolloClient = initializeApollo();
+
+//   const {
+//     data: { portfolios }
+//   } = await apolloClient.query({
+//     query: GET_PORTFOLIOS
+//   });
+
+//   const paths = portfolios.map((portfolio) => ({
+//     params: { id: portfolio.id }
+//   }));
+
+//   return {
+//     paths,
+//     fallback: 'blocking'
+//   };
+// }
+
+// export async function getStaticProps({ params }) {
+//   const apolloClient = initializeApollo();
+//   const { id } = params;
+
+//   await apolloClient.query({
+//     query: GET_PORTFOLIO,
+//     variables: { id }
+//   });
+
+//   return addApolloState(apolloClient, {
+//     props: { id },
+//     revalidate: 10
+//   });
+// }
 
 export async function getServerSideProps(ctx) {
   const apolloClient = initializeApollo();
