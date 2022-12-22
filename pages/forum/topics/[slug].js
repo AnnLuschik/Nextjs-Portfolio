@@ -81,9 +81,12 @@ const PostsPage = () => {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+      {Boolean(topic) && (
+        <Head>
+          <title>{title}</title>
+        </Head>
+      )}
+
       {topic && (
         <>
           <section className="section-title">
