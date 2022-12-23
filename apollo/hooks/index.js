@@ -50,7 +50,8 @@ export const useDeletePortfolio = () =>
           userPortfolios: userPortfolios.filter((p) => p.id !== id)
         }
       });
-    }
+    },
+    refetchQueries: [{ query: GET_PORTFOLIOS }]
   });
 
 // AUTH ACTIONS

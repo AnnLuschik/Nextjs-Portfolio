@@ -58,7 +58,7 @@ export default function withAuth(
             serverRedirect(res, `${PATH_LOGIN}?message=NOT_AUTHENTICATED`);
           }
 
-          if (roles.length && !roles.includes(user.role)) {
+          if (roles.length && !roles.includes(user?.role)) {
             serverRedirect(res, `${PATH_LOGIN}?message=NOT_AUTHORIZED`);
           }
         }
