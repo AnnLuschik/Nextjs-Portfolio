@@ -8,8 +8,7 @@ import {
   GET_FORUM_CATEGORIES,
   GET_TOPICS_BY_CATEGORY,
   GET_TOPIC_BY_SLUG,
-  GET_POSTS_BY_TOPIC,
-  GET_HIGHLIGHTED
+  GET_POSTS_BY_TOPIC
 } from 'apollo/queries';
 import {
   CREATE_PORTFOLIO,
@@ -87,10 +86,15 @@ export const useCreateTopic = () =>
           query: GET_TOPICS_BY_CATEGORY,
           variables: { category: response.forumCategory.slug }
         });
-        const topics = cached ? cached.topicsByCategory : [];
+        const topics = cached ? cached.topicsByCategory.data : [];
         cache.writeQuery({
           query: GET_TOPICS_BY_CATEGORY,
-          data: { topicsByCategory: [...topics, response] },
+          data: {
+            topicsByCategory: {
+              ...cached.topicsByCategory,
+              data: [...topics, response]
+            }
+          },
           variables: { category: response.forumCategory.slug }
         });
       } catch (e) {
