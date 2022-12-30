@@ -15,12 +15,19 @@ import { GET_TOPICS_BY_CATEGORY, GET_USER } from 'apollo/queries';
 import { PATH_TOPIC } from 'constants/paths';
 import { initializeApollo, addApolloState } from 'apollo/client';
 
-const Topics = ({ category, topics, slug }) => {
+const Topics = ({ slug }) => {
   const router = useRouter();
+
   const [isReplierOpen, setReplierOpen] = useState(false);
 
   const { data: userData } = useQuery(GET_USER);
   const user = userData?.user || null;
+
+  const { data: topicData } = useQuery(GET_TOPICS_BY_CATEGORY, {
+    variables: { category: slug }
+  });
+  const category = topicData?.topicsByCategory.category;
+  const topics = topicData?.topicsByCategory.data || [];
 
   const [createTopic, { error }] = useCreateTopic();
 
@@ -92,15 +99,13 @@ export async function getServerSideProps(ctx) {
   const apolloClient = initializeApollo();
   const { slug } = ctx.params;
 
-  const { data } = await apolloClient.query({
+  await apolloClient.query({
     query: GET_TOPICS_BY_CATEGORY,
     variables: { category: slug }
   });
 
   return addApolloState(apolloClient, {
     props: {
-      category: data?.topicsByCategory.category,
-      topics: data?.topicsByCategory.data || [],
       slug
     }
   });
