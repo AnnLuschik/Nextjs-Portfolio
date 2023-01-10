@@ -44,6 +44,21 @@ function createApolloClient(initialState = null) {
             }
           }
         }
+      },
+      Portfolio: {
+        fields: {
+          daysOfExperience: {
+            read(_, { readField }) {
+              const startDate = readField('startDate');
+              const endDate = readField('endDate');
+              if (!startDate) return 'Invalid date';
+
+              let now = dayjs().valueOf();
+              if (endDate) now = dayjs(+endDate);
+              return dayjs(now).diff(dayjs(+startDate), 'day');
+            }
+          }
+        }
       }
     }
   });
@@ -55,16 +70,7 @@ function createApolloClient(initialState = null) {
       credentials: 'same-origin'
     }),
     cache: cache.restore(windowApolloState || initialState),
-    ssrForceFetchDelay: 100,
-    resolvers: {
-      Portfolio: {
-        daysOfExperience({ startDate, endDate }) {
-          let now = dayjs().valueOf();
-          if (endDate) now = dayjs(+endDate);
-          return dayjs(now).diff(dayjs(+startDate), 'day');
-        }
-      }
-    }
+    ssrForceFetchDelay: 100
   });
 }
 
