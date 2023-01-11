@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
 import LoadingButton from '@mui/lab/LoadingButton';
+import AddImageIcon from '@mui/icons-material/AddAPhotoOutlined';
+
+import styles from 'components/forms/RegisterForm.module.css';
 
 const schema = yup
   .object({
@@ -22,16 +27,47 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
     resolver: yupResolver(schema)
   });
 
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const handleUpload = (event) => {
+    if (event?.target?.files?.[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
-        <label htmlFor="avatar">Avatar</label>
-        <input
-          type="text"
-          className="form-control"
-          id="avatar"
-          {...register('avatar')}
-        />
+        <div className={styles.avatarPreview}>
+          <label
+            htmlFor="avatar"
+            className={styles.avatarLabel}
+            aria-label="Upload avatar"
+          >
+            <AddImageIcon fontSize="large" titleAccess="Upload avatar" />
+          </label>
+          <input
+            id="avatar"
+            type="file"
+            accept="image/*"
+            {...register('avatar', {
+              validate: (fileList) => {
+                if (fileList.length === 1) return true;
+                return 'Please upload one file';
+              }
+            })}
+            onChange={handleUpload}
+          />
+          {previewImage && <img src={previewImage} alt="Uploaded avatar" />}
+        </div>
+        {errors.avatar && (
+          <p className="errorMessage"> {errors.avatar.message}</p>
+        )}
       </div>
       <div className="form-group">
         <label htmlFor="username">Username</label>
@@ -41,7 +77,7 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           id="username"
           {...register('username')}
         />
-        {errors.username?.message && (
+        {errors.username && (
           <p className="errorMessage"> {errors.username.message}</p>
         )}
       </div>
@@ -53,7 +89,7 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           id="email"
           {...register('email')}
         />
-        {errors.email?.message && (
+        {errors.email && (
           <p className="errorMessage"> {errors.email.message}</p>
         )}
       </div>
@@ -66,7 +102,7 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           autoComplete="new-password"
           {...register('password')}
         />
-        {errors.password?.message && (
+        {errors.password && (
           <p className="errorMessage"> {errors.password.message}</p>
         )}
       </div>
@@ -78,7 +114,7 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           id="passwordConfirmation"
           {...register('passwordConfirmation')}
         />
-        {errors.passwordConfirmation?.message && (
+        {errors.passwordConfirmation && (
           <p className="errorMessage"> {errors.passwordConfirmation.message}</p>
         )}
       </div>
