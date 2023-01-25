@@ -9,6 +9,7 @@ import AddImageIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 import { uploadImage } from 'helpers';
 import styles from 'components/forms/RegisterForm.module.css';
+import { DEFAULT_AVATAR } from 'constants/avatar';
 
 const SIGNATURE_MUTATION = gql`
   mutation createSignatureMutation {
@@ -21,7 +22,7 @@ const SIGNATURE_MUTATION = gql`
 
 const schema = yup
   .object({
-    avatar: yup.mixed(),
+    avatar: yup.mixed().nullable(),
     username: yup.string().required(),
     email: yup.string().required(),
     password: yup.string().required(),
@@ -56,17 +57,28 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
   };
 
   const handleCreate = async (data) => {
-    const { data: signatureData } = await createSignature();
+    let avatar;
+    if (data.avatar) {
+      const { data: signatureData } = await createSignature();
 
-    if (signatureData) {
-      const { timestamp, signature } = signatureData.createImageSignature;
-      const imageData = await uploadImage(data.avatar[0], signature, timestamp);
+      if (signatureData) {
+        const { timestamp, signature } = signatureData.createImageSignature;
+        const imageData = await uploadImage(
+          data.avatar[0],
+          signature,
+          timestamp
+        );
 
-      onSubmit({
-        ...data,
-        avatar: imageData.secure_url
-      });
+        avatar = imageData.secure_url;
+      }
+    } else {
+      avatar = DEFAULT_AVATAR;
     }
+
+    onSubmit({
+      ...data,
+      avatar
+    });
   };
 
   return (
