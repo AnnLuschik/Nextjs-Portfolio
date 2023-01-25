@@ -30,3 +30,11 @@
   object-fit: cover;
   opacity: 0.6;
 }
+
+.avatarPreview span {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  z-index: 10;
+}

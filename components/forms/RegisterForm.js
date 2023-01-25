@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import AddImageIcon from '@mui/icons-material/AddAPhotoOutlined';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import { uploadImage } from 'helpers';
 import styles from 'components/forms/RegisterForm.module.css';
@@ -56,8 +57,14 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
     }
   };
 
+  const clearAvatar = (field) => {
+    setPreviewImage(null);
+    field.onChange(null);
+  };
+
   const handleCreate = async (data) => {
     let avatar;
+
     if (data.avatar) {
       const { data: signatureData } = await createSignature();
 
@@ -90,13 +97,26 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           render={({ field, fieldState }) => {
             return (
               <div className={styles.avatarPreview}>
-                <label
-                  htmlFor="avatar"
-                  className={styles.avatarLabel}
-                  aria-label="Upload avatar"
-                >
-                  <AddImageIcon fontSize="large" titleAccess="Upload avatar" />
-                </label>
+                {!previewImage ? (
+                  <label
+                    htmlFor="avatar"
+                    className={styles.avatarLabel}
+                    aria-label="Upload avatar"
+                  >
+                    <AddImageIcon
+                      fontSize="large"
+                      titleAccess="Upload avatar"
+                    />
+                  </label>
+                ) : (
+                  <span>
+                    <ClearIcon
+                      fontSize="large"
+                      titleAccess="Clear avatar"
+                      onClick={() => clearAvatar(field)}
+                    />
+                  </span>
+                )}
                 <input
                   id="avatar"
                   name="avatar"
