@@ -1,8 +1,24 @@
+const cloudinary = require('cloudinary').v2;
+
 exports.mixedQueries = {
   highlight: async (root, { limit = 3 }, ctx) => {
     const portfolios = await ctx.models.Portfolio.getRandoms(limit);
     const topics = await ctx.models.Topic.getRandoms(limit);
     return { portfolios, topics };
+  }
+};
+
+exports.mixedMutations = {
+  createImageSignature: async () => {
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const signature = await cloudinary.utils.api_sign_request(
+      { timestamp },
+      process.env.CLOUDINARY_SECRET
+    );
+    return {
+      timestamp,
+      signature
+    };
   }
 };
 

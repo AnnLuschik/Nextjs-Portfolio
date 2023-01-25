@@ -9,6 +9,7 @@ const {
 
 const {
   mixedQueries,
+  mixedMutations,
   portfolioQueries,
   portfolioMutations,
   userQueries,
@@ -16,13 +17,19 @@ const {
   forumQueries,
   forumMutations
 } = require('./resolvers');
-const { portfolioTypes, userTypes, forumTypes } = require('./types');
+const {
+  portfolioTypes,
+  userTypes,
+  forumTypes,
+  imageTypes
+} = require('./types');
 
 exports.createApolloServer = (httpServer) => {
   const typeDefs = gql`
     ${portfolioTypes}
     ${userTypes}
     ${forumTypes}
+    ${imageTypes}
 
     type Query {
       portfolio(id: ID): Portfolio
@@ -50,6 +57,8 @@ exports.createApolloServer = (httpServer) => {
       signUp(input: SignUpInput): String
       signIn(input: SignInInput): User
       signOut: Boolean
+
+      createImageSignature: ImageSignature
     }
   `;
 
@@ -61,6 +70,7 @@ exports.createApolloServer = (httpServer) => {
       ...forumQueries
     },
     Mutation: {
+      ...mixedMutations,
       ...portfolioMutations,
       ...userMutations,
       ...forumMutations
