@@ -6,9 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import AddImageIcon from '@mui/icons-material/AddAPhotoOutlined';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import { uploadImage } from 'helpers';
 import styles from 'components/forms/RegisterForm.module.css';
+import { DEFAULT_AVATAR } from 'constants/avatar';
 
 const SIGNATURE_MUTATION = gql`
   mutation createSignatureMutation {
@@ -21,7 +23,7 @@ const SIGNATURE_MUTATION = gql`
 
 const schema = yup
   .object({
-    avatar: yup.mixed(),
+    avatar: yup.mixed().nullable(),
     username: yup.string().required(),
     email: yup.string().required(),
     password: yup.string().required(),
@@ -55,18 +57,35 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
     }
   };
 
+  const clearAvatar = (field) => {
+    setPreviewImage(null);
+    field.onChange(null);
+  };
+
   const handleCreate = async (data) => {
-    const { data: signatureData } = await createSignature();
+    let avatar;
 
-    if (signatureData) {
-      const { timestamp, signature } = signatureData.createImageSignature;
-      const imageData = await uploadImage(data.avatar[0], signature, timestamp);
+    if (data.avatar) {
+      const { data: signatureData } = await createSignature();
 
-      onSubmit({
-        ...data,
-        avatar: imageData.secure_url
-      });
+      if (signatureData) {
+        const { timestamp, signature } = signatureData.createImageSignature;
+        const imageData = await uploadImage(
+          data.avatar[0],
+          signature,
+          timestamp
+        );
+
+        avatar = imageData.secure_url;
+      }
+    } else {
+      avatar = DEFAULT_AVATAR;
     }
+
+    onSubmit({
+      ...data,
+      avatar
+    });
   };
 
   return (
@@ -78,13 +97,26 @@ const RegisterForm = ({ onSubmit, isLoading }) => {
           render={({ field, fieldState }) => {
             return (
               <div className={styles.avatarPreview}>
-                <label
-                  htmlFor="avatar"
-                  className={styles.avatarLabel}
-                  aria-label="Upload avatar"
-                >
-                  <AddImageIcon fontSize="large" titleAccess="Upload avatar" />
-                </label>
+                {!previewImage ? (
+                  <label
+                    htmlFor="avatar"
+                    className={styles.avatarLabel}
+                    aria-label="Upload avatar"
+                  >
+                    <AddImageIcon
+                      fontSize="large"
+                      titleAccess="Upload avatar"
+                    />
+                  </label>
+                ) : (
+                  <span>
+                    <ClearIcon
+                      fontSize="large"
+                      titleAccess="Clear avatar"
+                      onClick={() => clearAvatar(field)}
+                    />
+                  </span>
+                )}
                 <input
                   id="avatar"
                   name="avatar"
