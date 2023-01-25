@@ -106,3 +106,10 @@ exports.forumTypes = `
     topics: [Topic]
   }
 `;
+
+exports.imageTypes = `
+  type ImageSignature {
+    signature: String
+    timestamp: Int
+  }
+`;
