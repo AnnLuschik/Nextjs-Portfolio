@@ -174,6 +174,7 @@ a, a:hover {
   align-items: center;
 
   .avatar-image {
+    position: relative;
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -431,13 +432,14 @@ a, a:hover {
       z-index: 2;
 
       .main-avatar {
+        position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 76px;
+        height: 76px;
 
         .avatar {
-          width: 76px;
-          height: 76px;
           margin: 2px calc(2px + .55em) 2px 2px;
         }
       }
