@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { PATH_TOPIC } from 'constants/paths';
 import { fromNow, shortify } from 'helpers';
@@ -18,11 +19,9 @@ const TopicLink = ({ data }) => {
       </div>
       <p className="mb-1">{shortify(data.content)}</p>
       <div className="avatar-container my-2">
-        <img
-          src={data.user.avatar}
-          className="avatar-image me-2"
-          alt={data.user.username}
-        />
+        <div className="avatar-image me-2">
+          <Image src={data.user.avatar} alt={data.user.username} fill />
+        </div>
         <span className="avatar-title">{data.user.username}</span>
       </div>
     </Link>

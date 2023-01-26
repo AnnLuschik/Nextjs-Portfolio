@@ -27,7 +27,7 @@ const data = {
     {
       _id: user1Id,
       avatar:
-        'https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png',
+        'https://res.cloudinary.com/hannalushchyk/image/upload/v1674720803/portfolio-app/user1.png',
       email: 'admin@test.com',
       name: 'John Doe',
       username: 'JohnDoe',
@@ -38,7 +38,7 @@ const data = {
     {
       _id: user2Id,
       avatar:
-        'https://cdn.icon-icons.com/icons2/1736/PNG/512/4043260-avatar-male-man-portrait_113269.png',
+        'https://res.cloudinary.com/hannalushchyk/image/upload/v1674720803/portfolio-app/user2.png',
       email: 'user@test.com',
       name: 'Test User',
       username: 'Test111',
@@ -107,7 +107,7 @@ const data = {
       title: 'How to learn JS',
       slug: 'how-to-learn-js',
       content:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
       forumCategory: forum1Id,
       user: user1Id,
       createdAt: post1CreatedAt
@@ -116,7 +116,7 @@ const data = {
       title: 'How to learn JAVA',
       slug: 'how-to-learn-java',
       content:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
       forumCategory: forum1Id,
       user: user1Id
     },
@@ -124,7 +124,7 @@ const data = {
       title: 'How to learn C++',
       slug: 'how-to-learn-c++',
       content:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
       forumCategory: forum1Id,
       user: user1Id
     }

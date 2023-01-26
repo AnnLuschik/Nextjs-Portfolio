@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { fromNow } from 'helpers';
 
 const PostItem = ({ post, onReply, className = '', canCreate = false }) => {
@@ -11,11 +12,11 @@ const PostItem = ({ post, onReply, className = '', canCreate = false }) => {
         <div className="row">
           <div className="topic-avatar">
             <div className="main-avatar">
-              <img
-                style={{ objectFit: 'cover' }}
-                className="avatar subtle-shadow"
+              <Image
                 src={post.user.avatar}
-                alt=""
+                alt={post.user.username}
+                fill
+                className="avatar subtle-shadow"
               />
             </div>
           </div>
