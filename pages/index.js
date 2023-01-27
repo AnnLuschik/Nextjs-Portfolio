@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 // Components
 import PortfolioCard from 'components/portfolios/PortfolioCard';
@@ -9,8 +12,21 @@ import TopicLink from 'components/forum/TopicLink';
 import { PATH_CATEGORIES, PATH_PORTFOLIOS } from 'constants/paths';
 import { initializeApollo, addApolloState } from 'apollo/client';
 import { GET_HIGHLIGHTED } from 'apollo/queries';
+import { disposeQueryMessage } from 'helpers';
+import { messages } from 'constants/messages';
 
 const Home = ({ portfolios, topics }) => {
+  const router = useRouter();
+  const { message } = router.query;
+
+  disposeQueryMessage(message);
+
+  useEffect(() => {
+    if (message) {
+      toast.error(messages[message].value, { autoClose: 2000 });
+    }
+  }, [message]);
+
   return (
     <>
       <Head>
