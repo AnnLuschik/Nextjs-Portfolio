@@ -1,7 +1,10 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
+    amd: true,
+    node: true,
+    'jest/globals': true
   },
   parserOptions: {
     ecmaVersion: 2020
@@ -12,7 +15,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'prettier',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:testing-library/react',
+    'plugin:jest/all'
   ],
   settings: {
     'import/extensions': ['.js', '.jsx'],
@@ -22,8 +27,10 @@ module.exports = {
       }
     }
   },
-  plugins: ['react', 'prettier'],
+  plugins: ['react', 'prettier', 'testing-library', 'jest'],
   rules: {
+    'jest/no-hooks': 0,
+
     quotes: [2, 'single'],
     'prettier/prettier': [
       'warn',
