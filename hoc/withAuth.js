@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 
 // Components
 import Redirect from 'components/shared/Redirect';
@@ -22,6 +23,8 @@ export default function withAuth(
       fetchPolicy: 'network-only'
     });
 
+    const router = useRouter();
+
     if (!loading && (!user || error) && typeof window !== 'undefined') {
       return (
         <Redirect to={PATH_LOGIN} query={{ message: 'NOT_AUTHENTICATED' }} />
@@ -30,9 +33,7 @@ export default function withAuth(
 
     if (user) {
       if (roles.length && !roles.includes(user.role)) {
-        return (
-          <Redirect to={PATH_LOGIN} query={{ message: 'NOT_AUTHORIZED' }} />
-        );
+        return <Redirect to="/" query={{ message: 'NOT_AUTHORIZED' }} />;
       }
       const componentName =
         WrappedComponent.displayName || WrappedComponent.name || 'Component';

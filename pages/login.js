@@ -10,9 +10,8 @@ import LoginForm from 'components/forms/LoginForm';
 import { useSignIn } from 'apollo/hooks';
 
 // Misc
-import { getErrorMessage } from 'helpers';
+import { getErrorMessage, disposeQueryMessage } from 'helpers';
 import { messages } from 'constants/messages';
-import { PATH_LOGIN } from 'constants/paths';
 
 const Login = () => {
   const router = useRouter();
@@ -20,23 +19,7 @@ const Login = () => {
 
   const [signIn, { data, error, loading }] = useSignIn();
 
-  const disposeId = useRef(null);
-
-  const disposeMessage = () => {
-    router.replace(PATH_LOGIN, PATH_LOGIN, { shallow: true });
-  };
-
-  useEffect(() => {
-    if (message) {
-      disposeId.current = setTimeout(() => {
-        disposeMessage();
-      }, 3000);
-    }
-
-    return () => {
-      clearInterval(disposeId);
-    };
-  }, [message]);
+  disposeQueryMessage(message);
 
   return (
     <>
