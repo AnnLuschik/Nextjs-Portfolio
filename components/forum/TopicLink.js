@@ -20,7 +20,12 @@ const TopicLink = ({ data }) => {
       <p className="mb-1">{shortify(data.content)}</p>
       <div className="avatar-container my-2">
         <div className="avatar-image me-2">
-          <Image src={data.user.avatar} alt={data.user.username} fill />
+          <Image
+            src={data.user.avatar}
+            alt={data.user.username}
+            width={28}
+            height={28}
+          />
         </div>
         <span className="avatar-title">{data.user.username}</span>
       </div>
