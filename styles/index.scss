@@ -177,7 +177,6 @@ a, a:hover {
     position: relative;
     width: 28px;
     height: 28px;
-    border-radius: 50%;
   }
 
   .avatar-title {
@@ -294,6 +293,13 @@ a, a:hover {
       width: 350px;
       height: 350px;
       border-radius: 50%;
+    }
+
+    @media screen and (max-width: 960px) {
+      .hero-image-container {
+        width: 275px;
+        height: 275px;
+      }
     }
 
     @media screen and (max-width: 768px) {

@@ -15,7 +15,8 @@ const PostItem = ({ post, onReply, className = '', canCreate = false }) => {
               <Image
                 src={post.user.avatar}
                 alt={post.user.username}
-                fill
+                width={76}
+                height={76}
                 className="avatar subtle-shadow"
               />
             </div>

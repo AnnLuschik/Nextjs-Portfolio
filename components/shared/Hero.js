@@ -23,8 +23,8 @@ const Hero = () => {
             <Image
               className="hero-image grow"
               src="https://i.udemycdn.com/course/750x422/1652608_662b_8.jpg"
-              width="350"
-              height="350"
+              fill
+              sizes="33vw"
               alt=""
               priority
             />
