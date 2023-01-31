@@ -3,12 +3,13 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import * as dayjs from 'dayjs';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
+import fetch from 'cross-fetch';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 const isServer = typeof window === 'undefined';
 // eslint-disable-next-line
-const windowApolloState = !isServer && window.__NEXT_DATA__.apolloState;
+const windowApolloState = !isServer && window.__NEXT_DATA__?.apolloState;
 
 let apolloClient;
 
@@ -66,8 +67,10 @@ function createApolloClient(initialState = null) {
   return new ApolloClient({
     ssrMode: isServer,
     link: createHttpLink({
-      uri: process.env.BASE_URL,
-      credentials: 'same-origin'
+      // uri: process.env.BASE_URL,
+      uri: 'http://localhost:3000/graphql',
+      credentials: 'same-origin',
+      fetch
     }),
     cache: cache.restore(windowApolloState || initialState),
     ssrForceFetchDelay: 100
