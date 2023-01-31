@@ -14,6 +14,7 @@ import { initializeApollo, addApolloState } from 'apollo/client';
 import { GET_HIGHLIGHTED } from 'apollo/queries';
 import { disposeQueryMessage } from 'helpers';
 import { messages } from 'constants/messages';
+import { PORTFOLIO_TEST_ID, TOPIC_TEST_ID } from 'constants/test/testId';
 
 const Home = ({ portfolios, topics }) => {
   const router = useRouter();
@@ -52,7 +53,7 @@ const Home = ({ portfolios, topics }) => {
                   href={`/portfolios/${encodeURIComponent(portfolio.id)}`}
                   className="card-link"
                 >
-                  <PortfolioCard data={portfolio} />
+                  <PortfolioCard data={portfolio} testId={PORTFOLIO_TEST_ID} />
                 </Link>
               </div>
             ))}
@@ -71,7 +72,9 @@ const Home = ({ portfolios, topics }) => {
       <section className="pb-5">
         <div className="list-group">
           {topics?.length > 0 &&
-            topics.map((topic) => <TopicLink key={topic.slug} data={topic} />)}
+            topics.map((topic) => (
+              <TopicLink key={topic.slug} data={topic} testId={TOPIC_TEST_ID} />
+            ))}
         </div>
       </section>
       <Link href={PATH_CATEGORIES} className="btn btn-main bg-blue ttu">

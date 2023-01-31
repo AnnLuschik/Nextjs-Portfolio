@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { PATH_TOPIC } from 'constants/paths';
 import { fromNow, shortify } from 'helpers';
 
-const TopicLink = ({ data }) => {
+const TopicLink = ({ data, testId }) => {
   return (
     <Link
       href={{
@@ -12,6 +12,7 @@ const TopicLink = ({ data }) => {
         query: { slug: data.slug }
       }}
       className="list-group-item list-group-item-action flex-column align-items-start mt-3 py-3 subtle-shadow no-border"
+      data-testid={testId}
     >
       <div className="d-flex w-100 justify-content-between">
         <h5 className="mb-1 black">{data.title}</h5>
