@@ -6,6 +6,7 @@
     "node": "18.x",
     "npm": "9.x"
   },
+  "cacheDirectories": [".next/cache"],
   "main": "index.js",
   "dependencies": {
     "@apollo/client": "^3.7.1",
