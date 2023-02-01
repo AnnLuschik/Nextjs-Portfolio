@@ -15,9 +15,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'prettier',
-    'plugin:prettier/recommended',
-    'plugin:testing-library/react',
-    'plugin:jest/all'
+    'plugin:prettier/recommended'
   ],
   settings: {
     'import/extensions': ['.js', '.jsx'],
@@ -28,6 +26,20 @@ module.exports = {
     }
   },
   plugins: ['react', 'prettier', 'testing-library', 'jest'],
+  overrides: [
+    {
+      files: ['__tests__/**'],
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
+      rules: {
+        'jest/no-hooks': 'off',
+        'jest/prefer-expect-assertions': [
+          'warn',
+          { onlyFunctionsWithAsyncKeyword: true }
+        ]
+      }
+    }
+  ],
   rules: {
     // common
     quotes: [2, 'single'],
@@ -82,13 +94,6 @@ module.exports = {
         jsx: 'never',
         mjs: 'never'
       }
-    ],
-
-    // jest
-    'jest/no-hooks': 'off',
-    'jest/prefer-expect-assertions': [
-      'warn',
-      { onlyFunctionsWithAsyncKeyword: true }
     ],
 
     // prettier
