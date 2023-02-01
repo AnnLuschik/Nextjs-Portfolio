@@ -1,13 +1,12 @@
-/* eslint-disable */
 import { MockedProvider } from '@apollo/client/testing';
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import {render} from '../test-utils';
 import { GET_HIGHLIGHTED } from 'apollo/queries';
-import {portfolios, topics} from '../mocks/constants';
-import Home, {getServerSideProps} from '../pages/index';
 import { PORTFOLIO_TEST_ID, TOPIC_TEST_ID } from 'constants/test/testId';
+import { render } from '../test-utils';
+import { portfolios, topics } from '../mocks/constants';
+import Home, { getServerSideProps } from '../pages/index';
 
 const mocks = [
   {
@@ -20,15 +19,14 @@ const mocks = [
         highlight: {
           portfolios,
           topics
-        },
+        }
       }
     }
   }
-]
+];
 
-describe('Home page', () => {
-
-  beforeEach(async () => {
+describe('home page', () => {
+  const setup = async () => {
     const response = await getServerSideProps();
 
     render(
@@ -36,16 +34,19 @@ describe('Home page', () => {
         <Home {...response.props} />
       </MockedProvider>
     );
-  });
+  };
 
-  it('renders three topics', () => {
+  it('renders three topics', async () => {
+    expect.assertions(1);
+    await setup();
     const topics = screen.getAllByTestId(TOPIC_TEST_ID);
     expect(topics.length).toBeLessThanOrEqual(3);
   });
 
-  it('renders three portfolios', () => {
+  it('renders three portfolios', async () => {
+    expect.assertions(1);
+    await setup();
     const portfolios = screen.getAllByTestId(PORTFOLIO_TEST_ID);
     expect(portfolios.length).toBeLessThanOrEqual(3);
   });
-
 });

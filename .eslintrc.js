@@ -29,26 +29,24 @@ module.exports = {
   },
   plugins: ['react', 'prettier', 'testing-library', 'jest'],
   rules: {
-    'jest/no-hooks': 0,
-
+    // common
     quotes: [2, 'single'],
-    'prettier/prettier': [
-      'warn',
-      {
-        singleQuote: true,
-        semi: true,
-        trailingComma: 'none'
-      }
-    ],
+    'no-console': 'warn',
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-    'no-underscore-dangle': 0,
-    'no-debugger': 0,
-    'no-useless-escape': 0,
-    'func-names': 0,
-    'consistent-return': 0,
+    'no-underscore-dangle': 'off',
+    'no-debugger': 'off',
+    'no-useless-escape': 'off',
+    'func-names': 'off',
+    'consistent-return': 'off',
+    'class-methods-use-this': 'off',
+    'comma-dangle': 'off',
+    'dot-notation': 'off',
+    'no-shadow': 'off',
+    'no-unused-vars': 'off',
+    'arrow-body-style': 'off',
+    'prefer-arrow-callback': 'off',
 
-    'class-methods-use-this': 0,
-
+    // jsx-a11y
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
@@ -57,23 +55,9 @@ module.exports = {
         }
       }
     ],
+    'jsx-a11y/anchor-is-valid': 'off',
 
-    'jsx-a11y/anchor-is-valid': 0,
-
-    'comma-dangle': 0,
-    'dot-notation': 0,
-
-    'no-shadow': 'off',
-    'no-unused-vars': 'off',
-
-    'react/prop-types': 0,
-    'react/require-default-props': 'off',
-    'react/jsx-props-no-spreading': 'off',
-    'arrow-body-style': 'off',
-    'prefer-arrow-callback': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'import/prefer-default-export': 'off',
-    'import/no-unresolved': 0,
+    // react
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': [
       2,
@@ -82,6 +66,14 @@ module.exports = {
         unnamedComponents: 'arrow-function'
       }
     ],
+    'react/prop-types': 'off',
+    'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/react-in-jsx-scope': 'off',
+
+    // import
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -89,6 +81,23 @@ module.exports = {
         js: 'never',
         jsx: 'never',
         mjs: 'never'
+      }
+    ],
+
+    // jest
+    'jest/no-hooks': 'off',
+    'jest/prefer-expect-assertions': [
+      'warn',
+      { onlyFunctionsWithAsyncKeyword: true }
+    ],
+
+    // prettier
+    'prettier/prettier': [
+      'warn',
+      {
+        singleQuote: true,
+        semi: true,
+        trailingComma: 'none'
       }
     ]
   }
