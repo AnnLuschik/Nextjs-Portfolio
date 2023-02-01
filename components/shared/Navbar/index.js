@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+// Components
+import RightNav from 'components/shared/Navbar/RightNav';
+import Burger from 'components/shared/Navbar/Burger';
+
+// Styles
 import styles from 'styles/Navbar.module.css';
-import RightNav from './RightNav';
-import Burger from './Burger';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
