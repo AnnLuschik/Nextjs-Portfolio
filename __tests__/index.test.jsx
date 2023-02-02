@@ -1,12 +1,14 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { screen } from '@testing-library/react';
+import { ToastContainer } from 'react-toastify';
 import '@testing-library/jest-dom';
 
 import { GET_HIGHLIGHTED } from 'apollo/queries';
 import { PORTFOLIO_TEST_ID, TOPIC_TEST_ID } from 'constants/test/testId';
-import { render } from '../test-utils';
-import { portfolios, topics } from '../mocks/constants';
-import Home, { getServerSideProps } from '../pages/index';
+import { messages } from 'constants/messages';
+import { portfolios, topics } from 'mocks/constants';
+import Home, { getServerSideProps } from 'pages/index';
+import { render } from 'test-utils';
 
 const mocks = [
   {
@@ -26,13 +28,17 @@ const mocks = [
 ];
 
 describe('home page', () => {
-  const setup = async () => {
+  const setup = async (options) => {
     const response = await getServerSideProps();
 
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Home {...response.props} />
-      </MockedProvider>
+      <>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Home {...response.props} />
+        </MockedProvider>
+        <ToastContainer />
+      </>,
+      options
     );
   };
 
@@ -48,5 +54,19 @@ describe('home page', () => {
     await setup();
     const portfolios = screen.getAllByTestId(PORTFOLIO_TEST_ID);
     expect(portfolios.length).toBeLessThanOrEqual(3);
+  });
+
+  it('renders warning with query message', async () => {
+    expect.assertions(1);
+
+    const options = {
+      router: {
+        query: { message: 'NOT_AUTHENTICATED' }
+      }
+    };
+    await setup(options);
+
+    const toast = await screen.findByText(messages['NOT_AUTHENTICATED'].value);
+    expect(toast).toBeInTheDocument();
   });
 });
