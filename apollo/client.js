@@ -67,8 +67,9 @@ function createApolloClient(initialState = null) {
   return new ApolloClient({
     ssrMode: isServer,
     link: createHttpLink({
-      // uri: process.env.BASE_URL,
-      uri: 'http://localhost:3000/graphql',
+      // Warning: not working in test mode, for tests replace by 'http://localhost:3000'
+      // TODO: add config for Jest to download process.env before tests
+      uri: process.env.NEXT_PUBLIC_BASE_URL,
       credentials: 'same-origin',
       fetch
     }),
