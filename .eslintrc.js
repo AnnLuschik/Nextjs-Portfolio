@@ -95,6 +95,18 @@ module.exports = {
         mjs: 'never'
       }
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          '**/__tests__/**',
+          '**/test-*.{js,jsx}',
+          '**/jest.config.js',
+          '**/jest.setup.js',
+          '**/.eslintrc.js'
+        ]
+      }
+    ],
 
     // prettier
     'prettier/prettier': [
