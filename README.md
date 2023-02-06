@@ -1,6 +1,6 @@
 # Portfolio App
 
-Fullstack app created with Next.js, Apollo, Express and MongoDB.
+Fullstack app created with Next.js, Apollo, Express, MongoDB and Cloudinary.
 
 ## Demo
 
