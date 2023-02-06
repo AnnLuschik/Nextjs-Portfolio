@@ -8,7 +8,7 @@ import fetch from 'cross-fetch';
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 const isServer = typeof window === 'undefined';
-// eslint-disable-next-line
+
 const windowApolloState = !isServer && window.__NEXT_DATA__?.apolloState;
 
 let apolloClient;
@@ -67,8 +67,6 @@ function createApolloClient(initialState = null) {
   return new ApolloClient({
     ssrMode: isServer,
     link: createHttpLink({
-      // Warning: not working in test mode, for tests replace by 'http://localhost:3000'
-      // TODO: add config for Jest to download process.env before tests
       uri: process.env.NEXT_PUBLIC_BASE_URL,
       credentials: 'same-origin',
       fetch
