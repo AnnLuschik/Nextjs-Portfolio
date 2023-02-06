@@ -56,11 +56,11 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "dev": "nodemon --watch server server/index.js",
+    "dev": "nodemon --watch server src/server/index.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
+    "start": "cross-env NODE_ENV=production node src/server/index.js",
     "lint": "next lint",
-    "populate": "node server/fakeDb/populate.js",
+    "populate": "node src/server/fakeDb/populate.js",
     "test": "jest --watch"
   },
   "eslintConfig": {
